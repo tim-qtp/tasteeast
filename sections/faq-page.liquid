@@ -71,14 +71,15 @@
     <!-- FAQ Content Sections -->
     {%- for category in categories -%}
       {%- comment -%} Find questions that belong to this category {%- endcomment -%}
-      {%- assign category_questions_array = '' | split: ',' -%}
+      {%- assign category_title_normalized = category.settings.title | strip | downcase -%}
+      {%- assign question_count = 0 -%}
       
+      {%- comment -%} Count matching questions first {%- endcomment -%}
       {%- for question in questions -%}
         {%- if question.settings.category_title != blank -%}
           {%- assign question_category = question.settings.category_title | strip | downcase -%}
-          {%- assign category_title = category.settings.title | strip | downcase -%}
-          {%- if question_category == category_title -%}
-            {%- assign category_questions_array = category_questions_array | push: question -%}
+          {%- if question_category == category_title_normalized -%}
+            {%- assign question_count = question_count | plus: 1 -%}
           {%- endif -%}
         {%- endif -%}
       {%- endfor -%}
@@ -86,20 +87,25 @@
       <div id="category-{{ category.id }}" class="faq-category-section" {{ category.shopify_attributes }}>
         <h2 class="faq-category-section__title">{{ category.settings.title }}</h2>
         
-        {%- if category_questions_array.size > 0 -%}
+        {%- if question_count > 0 -%}
           <div class="faq-accordion">
-            {%- for question in category_questions_array -%}
-              <details class="faq-accordion__item" {{ question.shopify_attributes }}>
-                <summary class="faq-accordion__question">
-                  {{ question.settings.question }}
-                  <svg class="faq-accordion__icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                </summary>
-                <div class="faq-accordion__answer">
-                  {{ question.settings.answer }}
-                </div>
-              </details>
+            {%- for question in questions -%}
+              {%- if question.settings.category_title != blank -%}
+                {%- assign question_category = question.settings.category_title | strip | downcase -%}
+                {%- if question_category == category_title_normalized -%}
+                  <details class="faq-accordion__item" {{ question.shopify_attributes }}>
+                    <summary class="faq-accordion__question">
+                      {{ question.settings.question }}
+                      <svg class="faq-accordion__icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </summary>
+                    <div class="faq-accordion__answer">
+                      {{ question.settings.answer }}
+                    </div>
+                  </details>
+                {%- endif -%}
+              {%- endif -%}
             {%- endfor -%}
           </div>
         {%- else -%}
