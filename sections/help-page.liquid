@@ -1,106 +1,67 @@
 {{ 'section-help-page.css' | asset_url | stylesheet_tag }}
 
-<div class="help-page page-width section-{{ section.id }}-padding">
-  {%- if section.settings.heading != blank -%}
-    <h1 class="help-page__heading">{{ section.settings.heading }}</h1>
-  {%- endif -%}
+<div class="help-page-container">
+  <div class="help-page-inner">
+    {%- if section.settings.heading != blank -%}
+      <h1 class="help-title">{{ section.settings.heading }}</h1>
+    {%- endif -%}
 
-  {%- if section.settings.content != blank -%}
-    <div class="help-page__content rte">
-      {{ section.settings.content }}
-    </div>
-  {%- endif -%}
+    {%- if section.settings.content != blank -%}
+      <div class="help-content">
+        {{ section.settings.content }}
+      </div>
+    {%- endif -%}
 
-  {%- if section.settings.show_contact_form -%}
-    <div class="help-contact-form">
-      {%- if section.settings.form_heading != blank -%}
-        <h2 class="help-contact-form__heading">{{ section.settings.form_heading }}</h2>
-      {%- endif -%}
-
-      {% form 'contact' %}
-        {%- if form.posted_successfully? -%}
-          <div class="form-status form-status--success" tabindex="-1" autofocus>
-            {{ 'templates.contact.form.post_success' | t }}
-          </div>
-        {%- elsif form.errors -%}
-          <div class="form-status form-status--error">
-            <h2 class="form-status__title">{{ 'templates.contact.form.error_heading' | t }}</h2>
-          </div>
+    {%- if section.settings.show_contact_form -%}
+      <div class="contact-section">
+        {%- if section.settings.form_heading != blank -%}
+          <h2 class="contact-title">{{ section.settings.form_heading }}</h2>
         {%- endif -%}
 
-        <div class="help-contact-form__fields">
-          <div class="field-group">
-            <div class="field field--half">
-              <label class="field__label" for="ContactForm-name">Name</label>
-              <input
-                class="field__input"
-                autocomplete="off"
-                type="text"
-                id="ContactForm-name"
-                name="contact[Name]"
-                placeholder="Enter your name"
-                required
-              >
+        {% form 'contact' %}
+          {%- if form.posted_successfully? -%}
+            <div class="success-message">
+              {{ 'templates.contact.form.post_success' | t }}
             </div>
+          {%- elsif form.errors -%}
+            <div class="error-message">
+              {{ 'templates.contact.form.error_heading' | t }}
+            </div>
+          {%- endif -%}
 
-            <div class="field field--half">
-              <label class="field__label" for="ContactForm-email">Email</label>
-              <input
-                autocomplete="off"
-                type="email"
-                id="ContactForm-email"
-                class="field__input"
-                name="contact[email]"
-                spellcheck="false"
-                autocapitalize="off"
-                placeholder="your@email.com"
-                required
-              >
+          <div class="form-row">
+            <div class="form-field">
+              <label>Name</label>
+              <input type="text" name="contact[Name]" placeholder="Enter your name" required>
+            </div>
+            <div class="form-field">
+              <label>Email</label>
+              <input type="email" name="contact[email]" placeholder="your@email.com" required>
             </div>
           </div>
 
-          <div class="field">
-            <label class="field__label" for="ContactForm-phone">Phone Number</label>
-            <input
-              type="tel"
-              id="ContactForm-phone"
-              class="field__input"
-              autocomplete="off"
-              name="contact[Phone Number]"
-              placeholder="(123) 456-7890"
-            >
+          <div class="form-field">
+            <label>Phone Number</label>
+            <input type="tel" name="contact[Phone Number]" placeholder="(123) 456-7890">
           </div>
 
-          <div class="field">
-            <label class="field__label" for="ContactForm-body">Message</label>
-            <textarea
-              rows="5"
-              id="ContactForm-body"
-              class="text-area field__input"
-              name="contact[Message]"
-              placeholder="How can we help you?"
-              required
-            ></textarea>
+          <div class="form-field">
+            <label>Message</label>
+            <textarea name="contact[Message]" rows="6" placeholder="How can we help you?" required></textarea>
           </div>
-        </div>
 
-        <input type="hidden" name="contact[send_to]" value="{{ section.settings.recipient_email }}">
+          <input type="hidden" name="contact[recipient]" value="{{ section.settings.recipient_email }}">
 
-        <div class="help-contact-form__button">
-          <button type="submit" class="button button--primary">
-            {{ section.settings.button_text }}
-          </button>
-        </div>
-      {% endform %}
-    </div>
-  {%- endif -%}
+          <button type="submit" class="submit-btn">{{ section.settings.button_text }}</button>
+        {% endform %}
+      </div>
+    {%- endif -%}
+  </div>
 </div>
 
 {% schema %}
 {
   "name": "Help Page",
-  "tag": "section",
-  "class": "section-help-page",
   "settings": [
     {
       "type": "text",
@@ -113,10 +74,6 @@
       "id": "content",
       "label": "Page Content",
       "default": "<p>Welcome to our help center. If you have any questions, please fill out the form below.</p>"
-    },
-    {
-      "type": "header",
-      "content": "Contact Form Settings"
     },
     {
       "type": "checkbox",
@@ -134,80 +91,19 @@
       "type": "text",
       "id": "recipient_email",
       "label": "Recipient Email",
-      "info": "Email address to receive form submissions",
-      "default": "contact@example.com"
-    },
-    {
-      "type": "text",
-      "id": "name_placeholder",
-      "label": "Name Field Label",
-      "default": "Name"
-    },
-    {
-      "type": "text",
-      "id": "email_placeholder",
-      "label": "Email Field Label",
-      "default": "Email"
-    },
-    {
-      "type": "text",
-      "id": "phone_placeholder",
-      "label": "Phone Number Field Label",
-      "default": "Phone Number"
-    },
-    {
-      "type": "text",
-      "id": "message_placeholder",
-      "label": "Message Field Label",
-      "default": "Message"
+      "default": "support@tasteeast.com"
     },
     {
       "type": "text",
       "id": "button_text",
       "label": "Button Text",
       "default": "Send"
-    },
-    {
-      "type": "header",
-      "content": "Section Padding"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding Top",
-      "default": 60
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding Bottom",
-      "default": 60
     }
   ],
   "presets": [
     {
-      "name": "Help Page",
-      "settings": {
-        "heading": "Help",
-        "form_heading": "Contact Us"
-      }
+      "name": "Help Page"
     }
   ]
 }
 {% endschema %}
-
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
-  }
-{%- endstyle -%}
-

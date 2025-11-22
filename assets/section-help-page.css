@@ -1,64 +1,53 @@
-.help-page {
-  max-width: 800px;
+.help-page-container {
+  width: 100%;
+  padding: 60px 20px;
+}
+
+.help-page-inner {
+  max-width: 700px;
   margin: 0 auto;
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
-.help-page__heading {
-  text-align: center;
-  font-size: 36px;
-  font-weight: bold;
+.help-title {
+  font-size: 32px;
+  font-weight: 600;
   color: #1a1a1a;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
-.help-page__content {
+.help-content {
   margin-bottom: 50px;
   color: #333;
+  line-height: 1.6;
 }
 
-.help-page__content p {
+.help-content p {
   color: #333;
-  line-height: 1.7;
-  margin-bottom: 1rem;
 }
 
-/* Contact Form */
-.help-contact-form {
-  margin-top: 50px;
-  max-width: 700px;
+.contact-section {
+  margin-top: 40px;
 }
 
-.help-contact-form__heading {
+.contact-title {
   font-size: 24px;
   font-weight: 600;
   color: #1a1a1a;
   margin-bottom: 30px;
 }
 
-.help-contact-form__fields {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  margin-bottom: 30px;
-}
-
-.field-group {
+.form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+  margin-bottom: 20px;
 }
 
-.field {
-  width: 100%;
+.form-field {
+  margin-bottom: 20px;
 }
 
-.field--half {
-  width: 100%;
-}
-
-.field__label {
+.form-field label {
   display: block;
   font-size: 14px;
   font-weight: 500;
@@ -66,126 +55,86 @@
   margin-bottom: 8px;
 }
 
-.field__input,
-.text-area {
+.form-field input,
+.form-field textarea {
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 15px;
   color: #333;
-  background: #fff;
-  transition: border-color 0.2s ease;
   font-family: inherit;
   box-sizing: border-box;
 }
 
-.field__input:focus,
-.text-area:focus {
+.form-field input:focus,
+.form-field textarea:focus {
   outline: none;
   border-color: #0a7084;
 }
 
-.field__input::placeholder,
-.text-area::placeholder {
+.form-field input::placeholder,
+.form-field textarea::placeholder {
   color: #999;
 }
 
-.text-area {
+.form-field textarea {
   resize: vertical;
-  min-height: 120px;
   line-height: 1.5;
 }
 
-/* Button */
-.help-contact-form__button {
-  text-align: left;
-  margin-top: 10px;
-}
-
-.button {
+.submit-btn {
   display: inline-block;
   padding: 14px 40px;
+  background-color: #f04f36;
+  color: white;
+  border: none;
+  border-radius: 8px;
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
-  border: none;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
   font-family: inherit;
-  background-color: #f04f36;
-  color: #fff;
 }
 
-.button--primary {
-  background-color: #f04f36;
-  color: #fff;
-}
-
-.button:hover,
-.button--primary:hover {
+.submit-btn:hover {
   background-color: #d93d26;
 }
 
-/* Form Status Messages */
-.form-status {
-  padding: 16px 20px;
-  border-radius: 4px;
-  margin-bottom: 24px;
-  font-size: 15px;
-}
-
-.form-status--success {
+.success-message {
+  padding: 15px;
   background-color: #d4edda;
   color: #155724;
-  border: 1px solid #c3e6cb;
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
 
-.form-status--error {
+.error-message {
+  padding: 15px;
   background-color: #f8d7da;
   color: #721c24;
-  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
 
-.form-status__title {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0;
-}
-
-/* Responsive */
-@media screen and (max-width: 768px) {
-  .help-page {
-    padding-left: 16px;
-    padding-right: 16px;
+@media (max-width: 768px) {
+  .help-page-container {
+    padding: 40px 15px;
   }
 
-  .help-page__heading {
-    font-size: 28px;
-    margin-bottom: 30px;
+  .help-title {
+    font-size: 26px;
   }
 
-  .help-contact-form__heading {
+  .contact-title {
     font-size: 20px;
-    margin-bottom: 24px;
   }
 
-  .field-group {
+  .form-row {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 0;
   }
 
-  .help-contact-form__fields {
-    gap: 20px;
-  }
-  
-  .button {
+  .submit-btn {
     width: 100%;
-    text-align: center;
-  }
-  
-  .help-contact-form__button {
-    text-align: center;
   }
 }
-
