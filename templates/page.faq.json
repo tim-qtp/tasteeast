@@ -1,0 +1,78 @@
+{
+  "sections": {
+    "faq_page": {
+      "type": "faq-page",
+      "blocks": {
+        "category_orders": {
+          "type": "category",
+          "settings": {
+            "icon": "orders",
+            "title": "Orders",
+            "questions": "How do I track my order?\nCan I modify or cancel after it has been placed?\nWhat payment methods do you accept?",
+            "answers": "Tracking the status of your order is easy. Once your order has been processed and shipped, you will receive a confirmation email containing a unique tracking number. You can use this tracking number on our website or the carrier's website to monitor the real-time status and location of your package.\nPlease contact our customer service team immediately if you need to modify or cancel your order. We can only make changes before the order has been shipped. Once shipped, modifications are not possible.\nWe accept all major credit cards (Visa, MasterCard, American Express), PayPal, Apple Pay, and Google Pay for your convenience."
+          }
+        },
+        "category_shipping": {
+          "type": "category",
+          "settings": {
+            "icon": "shipping",
+            "title": "Shipping",
+            "questions": "How long does shipping take?\nDo you ship internationally?\nWhat are the shipping costs?",
+            "answers": "Standard shipping typically takes 5-7 business days within the continental US. Express shipping options are available at checkout for faster delivery (2-3 business days).\nYes, we ship to most countries worldwide. International shipping times vary by destination, typically 10-20 business days. Customs duties and taxes may apply.\nShipping costs are calculated at checkout based on your location and order weight. We offer free standard shipping on orders over $75 within the US."
+          }
+        },
+        "category_returns": {
+          "type": "category",
+          "settings": {
+            "icon": "returns",
+            "title": "Returns",
+            "questions": "What is your return policy?\nHow do I start a return?\nWhen will I receive my refund?",
+            "answers": "We offer a 30-day return policy for most items. Products must be unused, in original packaging, and in the same condition you received them. Some items like personalized products or perishables cannot be returned.\nTo start a return, please contact our customer service team with your order number. We'll provide you with a return shipping label and instructions. You can also initiate a return through your account dashboard.\nRefunds are processed within 5-7 business days after we receive your returned item. The refund will be issued to your original payment method. Please allow additional time for your bank to process the refund."
+          }
+        },
+        "category_warranty": {
+          "type": "category",
+          "settings": {
+            "icon": "warranty",
+            "title": "Warranty",
+            "questions": "Do your products come with a warranty?\nHow do I make a warranty claim?\nWhat does the warranty cover?",
+            "answers": "Yes, all our products come with a manufacturer's warranty. The warranty period varies by product, typically ranging from 1 to 3 years. Check your product documentation for specific warranty terms.\nTo make a warranty claim, please contact our support team with your order number, product details, and description of the issue. We may ask for photos or additional information. Approved claims will be processed within 3-5 business days.\nOur warranty covers manufacturing defects and workmanship issues under normal use. It does not cover damage from misuse, accidents, unauthorized repairs, or normal wear and tear. Full warranty terms are included with your product."
+          }
+        },
+        "category_wholesale": {
+          "type": "category",
+          "settings": {
+            "icon": "wholesale",
+            "title": "Wholesale",
+            "questions": "Do you offer wholesale pricing?\nWhat are the minimum order requirements?\nHow do I apply for a wholesale account?",
+            "answers": "Yes, we offer wholesale pricing for qualified businesses, retailers, and bulk purchasers. Wholesale discounts range from 20-40% depending on order volume and frequency.\nOur minimum wholesale order is typically $500 or 50 units, whichever comes first. Larger orders qualify for better pricing tiers. Contact us for a detailed pricing sheet.\nTo apply for a wholesale account, please fill out our wholesale application form on the Cooperation page. You'll need to provide your business license, tax ID, and business information. Applications are typically reviewed within 2-3 business days."
+          }
+        },
+        "category_giftcards": {
+          "type": "category",
+          "settings": {
+            "icon": "giftcard",
+            "title": "Gift Cards",
+            "questions": "How do gift cards work?\nDo gift cards expire?\nCan I use multiple gift cards on one order?",
+            "answers": "Our digital gift cards are delivered via email and can be redeemed at checkout. Simply enter the gift card code during checkout to apply the balance to your order. Physical gift cards are also available upon request.\nNo, our gift cards never expire. You can use them whenever you're ready to make a purchase. The full balance remains available until used.\nYes, you can use multiple gift cards on a single order. Simply enter each gift card code at checkout. You can also combine gift cards with other payment methods if the order total exceeds your gift card balance."
+          }
+        }
+      },
+      "block_order": [
+        "category_orders",
+        "category_shipping",
+        "category_returns",
+        "category_warranty",
+        "category_wholesale",
+        "category_giftcards"
+      ],
+      "settings": {
+        "heading": "FAQ"
+      }
+    }
+  },
+  "order": [
+    "faq_page"
+  ]
+}
+
