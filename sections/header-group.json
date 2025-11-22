@@ -47,7 +47,7 @@
       ],
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "custom_liquid": "<div class=\"custom-top-bar\">\n  <div class=\"top-links\">\n    <a href=\"/pages/faq\">FAQ</a>\n    <a href=\"/pages/cooperation\">Cooperation</a>\n    <a \nhref=\"/pages/help\">Help</a>\n    <a \nhref=\"/pages/shipping&return\">Shipping&Return</a>\n  </div>",
+        "custom_liquid": "<div class=\"custom-top-bar\">\n  <div class=\"top-links\">\n    <a href=\"/pages/faq\">FAQ</a>\n    <a href=\"/pages/cooperation\">Cooperation</a>\n    <a href=\"/pages/help\">Help</a>\n    <a href=\"/pages/shipping-return\">Shipping & Return</a>\n  </div>",
         "color_scheme": "scheme-2",
         "padding_top": 0,
         "padding_bottom": 8
