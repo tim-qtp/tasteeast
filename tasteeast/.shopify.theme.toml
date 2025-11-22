@@ -1,0 +1,14 @@
+# Shopify Theme Configuration
+# This file is used by the Shopify CLI and GitHub integration
+
+# Theme Information
+name = "Taste East Theme"
+role = "main"
+
+# Theme Settings
+[environments.production]
+store = "vkwzu0-s1.myshopify.com"
+
+[environments.development]
+store = "vkwzu0-s1.myshopify.com"
+
