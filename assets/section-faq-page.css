@@ -15,16 +15,19 @@
 /* FAQ Category Cards */
 .faq-categories {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
   margin-bottom: 80px;
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .faq-category-card {
   background: white;
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
-  padding: 40px 30px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 50px 30px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -147,6 +150,13 @@
 }
 
 /* Responsive */
+@media screen and (max-width: 990px) {
+  .faq-categories {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .faq-page {
     padding: 40px 16px;
@@ -158,13 +168,13 @@
   }
 
   .faq-categories {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     margin-bottom: 60px;
   }
 
   .faq-category-card {
-    padding: 24px 16px;
+    padding: 30px 20px;
   }
 
   .faq-category-title {
@@ -183,6 +193,12 @@
   .faq-accordion__answer {
     font-size: 14px;
     padding: 0 16px 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .faq-categories {
+    grid-template-columns: 1fr;
   }
 }
 
