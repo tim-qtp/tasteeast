@@ -39,7 +39,8 @@
       "type": "custom-liquid",
       "custom_css": [
         ".custom-top-bar {display: flex; justify-content: space-between; align-items: center; padding: 8px 20px; border-bottom: 1px solid #eee; background: white; font-size: 14px;}",
-        ".custom-top-bar a {margin-right: 20px; color: #333; text-decoration: none;}",
+        ".custom-top-bar a {margin-right: 20px; color: #333; text-decoration: none; transition: color 0.3s ease;}",
+        ".custom-top-bar a:hover {color: #0a7084;}",
         ".top-icons a i {font-size: 18px; margin-right: 12px;}"
       ],
       "name": "t:sections.custom-liquid.presets.name",
