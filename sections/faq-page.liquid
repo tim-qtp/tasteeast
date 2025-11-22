@@ -81,10 +81,10 @@
         {%- endif -%}
       {%- endfor -%}
       
-      {%- if category_questions_array.size > 0 -%}
-        <div id="category-{{ category.id }}" class="faq-category-section" {{ category.shopify_attributes }}>
-          <h2 class="faq-category-section__title">{{ category.settings.title }}</h2>
-          
+      <div id="category-{{ category.id }}" class="faq-category-section" {{ category.shopify_attributes }}>
+        <h2 class="faq-category-section__title">{{ category.settings.title }}</h2>
+        
+        {%- if category_questions_array.size > 0 -%}
           <div class="faq-accordion">
             {%- for question in category_questions_array -%}
               <details class="faq-accordion__item" {{ question.shopify_attributes }}>
@@ -100,8 +100,12 @@
               </details>
             {%- endfor -%}
           </div>
-        </div>
-      {%- endif -%}
+        {%- else -%}
+          <div class="faq-no-questions" style="padding: 20px; color: #999; font-style: italic;">
+            <p>No questions found for this category. Please check that the Category Title in your Question blocks matches "{{ category.settings.title }}".</p>
+          </div>
+        {%- endif -%}
+      </div>
     {%- endfor -%}
   {%- endif -%}
 </div>
