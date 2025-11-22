@@ -31,21 +31,20 @@
         <div class="help-contact-form__fields">
           <div class="field-group">
             <div class="field field--half">
-              <label class="field__label" for="ContactForm-name">{{ section.settings.name_placeholder }}</label>
+              <label class="field__label" for="ContactForm-name">Name</label>
               <input
                 class="field__input"
                 autocomplete="off"
                 type="text"
                 id="ContactForm-name"
-                name="contact[{{ 'templates.contact.form.name' | t }}]"
+                name="contact[Name]"
                 placeholder="Enter your name"
-                value=""
                 required
               >
             </div>
 
             <div class="field field--half">
-              <label class="field__label" for="ContactForm-email">{{ section.settings.email_placeholder }}</label>
+              <label class="field__label" for="ContactForm-email">Email</label>
               <input
                 autocomplete="off"
                 type="email"
@@ -55,41 +54,33 @@
                 spellcheck="false"
                 autocapitalize="off"
                 placeholder="your@email.com"
-                value=""
-                aria-required="true"
-                {% if form.errors contains 'email' %}
-                  aria-invalid="true"
-                  aria-describedby="ContactForm-email-error"
-                {% endif %}
                 required
               >
             </div>
           </div>
 
           <div class="field">
-            <label class="field__label" for="ContactForm-phone">{{ section.settings.phone_placeholder }}</label>
+            <label class="field__label" for="ContactForm-phone">Phone Number</label>
             <input
               type="tel"
               id="ContactForm-phone"
               class="field__input"
               autocomplete="off"
-              name="contact[{{ 'templates.contact.form.phone' | t }}]"
-              pattern="[0-9\-]*"
+              name="contact[Phone Number]"
               placeholder="(123) 456-7890"
-              value=""
             >
           </div>
 
           <div class="field">
-            <label class="field__label" for="ContactForm-body">{{ section.settings.message_placeholder }}</label>
+            <label class="field__label" for="ContactForm-body">Message</label>
             <textarea
               rows="5"
               id="ContactForm-body"
               class="text-area field__input"
-              name="contact[{{ 'templates.contact.form.comment' | t }}]"
+              name="contact[Message]"
               placeholder="How can we help you?"
               required
-            >{{- form.body -}}</textarea>
+            ></textarea>
           </div>
         </div>
 
