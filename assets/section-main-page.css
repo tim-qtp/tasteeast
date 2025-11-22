@@ -1,5 +1,4 @@
 .main-page-title {
-  margin-bottom: 3rem;
   color: #1a1a1a;
 }
 
@@ -13,8 +12,6 @@
 
 .rte p {
   color: #333;
-  margin-bottom: 1.5rem;
-  line-height: 1.7;
 }
 
 .rte h1,
@@ -24,47 +21,21 @@
 .rte h5,
 .rte h6 {
   color: #1a1a1a;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
-}
-
-.rte h2 {
-  font-size: 1.75rem;
-}
-
-.rte h3 {
-  font-size: 1.5rem;
 }
 
 .rte ul,
 .rte ol {
   color: #333;
-  margin-left: 1.5rem;
-  margin-bottom: 1.5rem;
 }
 
 .rte li {
   color: #333;
-  margin-bottom: 0.5rem;
 }
 
 .rte a {
   color: #0a7084;
-  text-decoration: underline;
 }
 
 .rte a:hover {
   color: #085d6f;
-}
-
-/* Ensure strong contrast */
-.section {
-  background-color: #fff;
-}
-
-.page-width--narrow {
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
 }
