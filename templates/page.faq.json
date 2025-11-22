@@ -12,14 +12,6 @@
     "faq_page": {
       "type": "faq-page",
       "blocks": {
-        "question_L9gV3C": {
-          "type": "question",
-          "settings": {
-            "category_title": "Orders",
-            "question": "How do I track my order?",
-            "answer": "<p>You will receive a tracking number via email once your order ships.</p>"
-          }
-        },
         "category_orders": {
           "type": "category",
           "settings": {
@@ -64,7 +56,6 @@
         }
       },
       "block_order": [
-        "question_L9gV3C",
         "category_orders",
         "category_shipping",
         "category_returns",
