@@ -34,11 +34,12 @@
               <label class="field__label" for="ContactForm-name">{{ section.settings.name_placeholder }}</label>
               <input
                 class="field__input"
-                autocomplete="name"
+                autocomplete="off"
                 type="text"
                 id="ContactForm-name"
                 name="contact[{{ 'templates.contact.form.name' | t }}]"
-                value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
+                placeholder="Enter your name"
+                value=""
                 required
               >
             </div>
@@ -46,14 +47,15 @@
             <div class="field field--half">
               <label class="field__label" for="ContactForm-email">{{ section.settings.email_placeholder }}</label>
               <input
-                autocomplete="email"
+                autocomplete="off"
                 type="email"
                 id="ContactForm-email"
                 class="field__input"
                 name="contact[email]"
                 spellcheck="false"
                 autocapitalize="off"
-                value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+                placeholder="your@email.com"
+                value=""
                 aria-required="true"
                 {% if form.errors contains 'email' %}
                   aria-invalid="true"
@@ -70,10 +72,11 @@
               type="tel"
               id="ContactForm-phone"
               class="field__input"
-              autocomplete="tel"
+              autocomplete="off"
               name="contact[{{ 'templates.contact.form.phone' | t }}]"
               pattern="[0-9\-]*"
-              value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
+              placeholder="(123) 456-7890"
+              value=""
             >
           </div>
 
@@ -84,6 +87,7 @@
               id="ContactForm-body"
               class="text-area field__input"
               name="contact[{{ 'templates.contact.form.comment' | t }}]"
+              placeholder="How can we help you?"
               required
             >{{- form.body -}}</textarea>
           </div>
