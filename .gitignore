@@ -6,8 +6,15 @@
 # Shopify CLI
 .shopify/
 
-# Development scripts (可选，如果想保留这些脚本，删除下面这行)
+# Cursor IDE
+.cursor/
+
+# Documentation (keep local only)
+README.md
 start-dev.sh
+
+# Shopify theme config (keep local only)
+.shopify.theme.toml
 
 # Node modules (如果有的话)
 node_modules/
