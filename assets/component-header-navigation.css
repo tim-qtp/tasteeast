@@ -1,68 +1,18 @@
-/* Header Navigation Menu Styles */
-.header__inline-menu .list-menu__item {
-  position: relative;
-  transition: all 0.3s ease;
-}
+/* Header Navigation Menu Hover Styles */
+/* Only change color to green on hover, keep existing underline */
 
-.header__inline-menu .list-menu__item:hover {
+.header__inline-menu .header__menu-item:hover {
   color: #0a7084;
 }
 
-.header__inline-menu .list-menu__item::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: #0a7084;
-  transition: width 0.3s ease;
-}
-
-.header__inline-menu .list-menu__item:hover::after {
-  width: 100%;
-}
-
-/* For links with spans inside */
-.header__inline-menu .list-menu__item span {
-  position: relative;
-  display: inline-block;
-}
-
-/* Active menu item styling */
-.header__inline-menu .list-menu__item--active {
-  color: #0a7084;
-  text-decoration: underline;
-  text-underline-offset: 0.3rem;
-  text-decoration-color: #0a7084;
-}
-
-.header__inline-menu .list-menu__item--active:hover {
-  text-decoration-thickness: 0.2rem;
-}
-
-/* Dropdown submenu items */
-.header__submenu .list-menu__item {
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.header__submenu .list-menu__item:hover {
+.header__inline-menu .header__menu-item:hover span {
   color: #0a7084;
 }
 
-.header__submenu .list-menu__item::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: #0a7084;
-  transition: width 0.3s ease;
+.header__inline-menu .header__active-menu-item {
+  color: #0a7084;
 }
 
-.header__submenu .list-menu__item:hover::after {
-  width: 100%;
+.header__submenu .header__menu-item:hover {
+  color: #0a7084;
 }
-
