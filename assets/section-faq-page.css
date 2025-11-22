@@ -128,10 +128,6 @@
   display: none;
 }
 
-.faq-accordion__question:hover {
-  color: #0a7084;
-}
-
 .faq-accordion__icon {
   flex-shrink: 0;
   transition: transform 0.3s ease;
@@ -143,11 +139,7 @@
 
 .faq-accordion__item[open] .faq-accordion__icon {
   transform: rotate(180deg);
-  color: #0a7084;
-}
-
-.faq-accordion__item[open] .faq-accordion__question {
-  color: #0a7084;
+  color: #333;
 }
 
 .faq-accordion__answer {
