@@ -71,11 +71,12 @@
     <!-- FAQ Content Sections -->
     {%- for category in categories -%}
       {%- comment -%} Find questions that belong to this category {%- endcomment -%}
-      {%- assign category_questions = blank -%}
       {%- assign category_questions_array = '' | split: ',' -%}
       
       {%- for question in questions -%}
-        {%- if question.settings.category_title == category.settings.title -%}
+        {%- assign question_category = question.settings.category_title | strip | downcase -%}
+        {%- assign category_title = category.settings.title | strip | downcase -%}
+        {%- if question_category == category_title -%}
           {%- assign category_questions_array = category_questions_array | push: question -%}
         {%- endif -%}
       {%- endfor -%}
@@ -132,73 +133,74 @@
 
 {% schema %}
 {
-  "name": "FAQ Page",
+  "name": "FAQ页面",
   "tag": "section",
   "class": "section-faq-page",
   "settings": [
     {
       "type": "text",
       "id": "heading",
-      "label": "Page Heading",
-      "default": "FAQ"
+      "label": "页面标题",
+      "default": "常见问题"
     }
   ],
   "blocks": [
     {
       "type": "category",
-      "name": "FAQ Category",
+      "name": "FAQ分类",
       "settings": [
         {
           "type": "text",
           "id": "title",
-          "label": "Category Title",
-          "default": "Orders",
-          "info": "This will appear on the category card and as the section heading"
+          "label": "分类标题",
+          "default": "订单问题",
+          "info": "这个标题会显示在分类卡片上，也会作为分类区域的标题。建议使用简洁明了的名称，例如：订单问题、配送问题、退货问题等。"
         },
         {
           "type": "select",
           "id": "icon",
-          "label": "Icon",
+          "label": "图标",
+          "info": "选择显示在分类卡片上的图标",
           "options": [
             {
               "value": "orders",
-              "label": "Orders"
+              "label": "订单"
             },
             {
               "value": "shipping",
-              "label": "Shipping"
+              "label": "配送"
             },
             {
               "value": "returns",
-              "label": "Returns"
+              "label": "退货"
             },
             {
               "value": "warranty",
-              "label": "Warranty"
+              "label": "保修"
             },
             {
               "value": "wholesale",
-              "label": "Wholesale"
+              "label": "批发"
             },
             {
               "value": "giftcard",
-              "label": "Gift Cards"
+              "label": "礼品卡"
             },
             {
               "value": "payment",
-              "label": "Payment"
+              "label": "支付"
             },
             {
               "value": "account",
-              "label": "Account"
+              "label": "账户"
             },
             {
               "value": "product",
-              "label": "Product"
+              "label": "产品"
             },
             {
               "value": "general",
-              "label": "General"
+              "label": "通用"
             }
           ],
           "default": "orders"
@@ -207,45 +209,46 @@
     },
     {
       "type": "question",
-      "name": "FAQ Question",
+      "name": "FAQ问题",
       "settings": [
         {
           "type": "text",
           "id": "category_title",
-          "label": "Category Title",
-          "info": "Enter the exact title of the category this question belongs to (e.g., 'Orders', 'Shipping'). This must match the Category Title exactly."
+          "label": "所属分类",
+          "info": "⚠️ 重要：请输入这个问题所属的分类标题。必须与上面创建的「分类标题」完全一致（不区分大小写，会自动去除空格）。例如：如果分类标题是「订单问题」，这里也输入「订单问题」。"
         },
         {
           "type": "text",
           "id": "question",
-          "label": "Question",
-          "default": "How do I track my order?"
+          "label": "问题",
+          "default": "如何查询订单状态？"
         },
         {
           "type": "richtext",
           "id": "answer",
-          "label": "Answer",
-          "default": "<p>You will receive a tracking number via email once your order ships.</p>"
+          "label": "答案",
+          "default": "<p>您可以在订单确认邮件中找到追踪号码，或登录账户查看订单详情。</p>",
+          "info": "支持富文本格式，可以添加链接、加粗等格式。"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "FAQ Page",
+      "name": "FAQ页面",
       "blocks": [
         {
           "type": "category",
           "settings": {
             "icon": "orders",
-            "title": "Orders"
+            "title": "订单问题"
           }
         },
         {
           "type": "category",
           "settings": {
             "icon": "shipping",
-            "title": "Shipping"
+            "title": "配送问题"
           }
         }
       ]
