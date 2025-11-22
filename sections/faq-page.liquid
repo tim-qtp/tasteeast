@@ -74,10 +74,12 @@
       {%- assign category_questions_array = '' | split: ',' -%}
       
       {%- for question in questions -%}
-        {%- assign question_category = question.settings.category_title | strip | downcase -%}
-        {%- assign category_title = category.settings.title | strip | downcase -%}
-        {%- if question_category == category_title -%}
-          {%- assign category_questions_array = category_questions_array | push: question -%}
+        {%- if question.settings.category_title != blank -%}
+          {%- assign question_category = question.settings.category_title | strip | downcase -%}
+          {%- assign category_title = category.settings.title | strip | downcase -%}
+          {%- if question_category == category_title -%}
+            {%- assign category_questions_array = category_questions_array | push: question -%}
+          {%- endif -%}
         {%- endif -%}
       {%- endfor -%}
       
@@ -103,6 +105,7 @@
         {%- else -%}
           <div class="faq-no-questions" style="padding: 20px; color: #999; font-style: italic;">
             <p>No questions found for this category. Please check that the Category Title in your Question blocks matches "{{ category.settings.title }}".</p>
+            <p style="font-size: 12px; margin-top: 10px; color: #666;">Debug: Total questions = {{ questions.size }}, Category = "{{ category.settings.title }}"</p>
           </div>
         {%- endif -%}
       </div>
