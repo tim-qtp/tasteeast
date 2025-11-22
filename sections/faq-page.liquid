@@ -81,10 +81,10 @@
         {%- endif -%}
       {%- endfor -%}
       
-      <div id="category-{{ category.id }}" class="faq-category-section" {{ category.shopify_attributes }}>
-        <h2 class="faq-category-section__title">{{ category.settings.title }}</h2>
-        
-        {%- if category_questions_array.size > 0 -%}
+      {%- if category_questions_array.size > 0 -%}
+        <div id="category-{{ category.id }}" class="faq-category-section" {{ category.shopify_attributes }}>
+          <h2 class="faq-category-section__title">{{ category.settings.title }}</h2>
+          
           <div class="faq-accordion">
             {%- for question in category_questions_array -%}
               <details class="faq-accordion__item" {{ question.shopify_attributes }}>
@@ -100,12 +100,8 @@
               </details>
             {%- endfor -%}
           </div>
-        {%- else -%}
-          <div class="faq-no-questions">
-            <p>No questions added yet for this category.</p>
-          </div>
-        {%- endif -%}
-      </div>
+        </div>
+      {%- endif -%}
     {%- endfor -%}
   {%- endif -%}
 </div>
