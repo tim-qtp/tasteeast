@@ -106,6 +106,19 @@
           <div class="faq-no-questions" style="padding: 20px; color: #999; font-style: italic;">
             <p>No questions found for this category. Please check that the Category Title in your Question blocks matches "{{ category.settings.title }}".</p>
             <p style="font-size: 12px; margin-top: 10px; color: #666;">Debug: Total questions = {{ questions.size }}, Category = "{{ category.settings.title }}"</p>
+            <div style="font-size: 11px; margin-top: 10px; color: #888; max-height: 200px; overflow-y: auto;">
+              <p>Question category titles found:</p>
+              <ul style="margin: 5px 0; padding-left: 20px;">
+                {%- for question in questions -%}
+                  {%- if question.settings.category_title != blank -%}
+                    <li>"{{ question.settings.category_title }}" (normalized: "{{ question.settings.category_title | strip | downcase }}")</li>
+                  {%- else -%}
+                    <li>[BLANK]</li>
+                  {%- endif -%}
+                {%- endfor -%}
+              </ul>
+              <p>Looking for: "{{ category.settings.title | strip | downcase }}"</p>
+            </div>
           </div>
         {%- endif -%}
       </div>
