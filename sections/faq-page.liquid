@@ -133,74 +133,74 @@
 
 {% schema %}
 {
-  "name": "FAQ页面",
+  "name": "FAQ Page",
   "tag": "section",
   "class": "section-faq-page",
   "settings": [
     {
       "type": "text",
       "id": "heading",
-      "label": "页面标题",
-      "default": "常见问题"
+      "label": "Page Heading",
+      "default": "FAQ"
     }
   ],
   "blocks": [
     {
       "type": "category",
-      "name": "FAQ分类",
+      "name": "FAQ Category",
       "settings": [
         {
           "type": "text",
           "id": "title",
-          "label": "分类标题",
-          "default": "订单问题",
-          "info": "这个标题会显示在分类卡片上，也会作为分类区域的标题。建议使用简洁明了的名称，例如：订单问题、配送问题、退货问题等。"
+          "label": "Category Title",
+          "default": "Orders",
+          "info": "This will appear on the category card and as the section heading. Use a clear, concise name like: Orders, Shipping, Returns, etc."
         },
         {
           "type": "select",
           "id": "icon",
-          "label": "图标",
-          "info": "选择显示在分类卡片上的图标",
+          "label": "Icon",
+          "info": "Select an icon to display on the category card",
           "options": [
             {
               "value": "orders",
-              "label": "订单"
+              "label": "Orders"
             },
             {
               "value": "shipping",
-              "label": "配送"
+              "label": "Shipping"
             },
             {
               "value": "returns",
-              "label": "退货"
+              "label": "Returns"
             },
             {
               "value": "warranty",
-              "label": "保修"
+              "label": "Warranty"
             },
             {
               "value": "wholesale",
-              "label": "批发"
+              "label": "Wholesale"
             },
             {
               "value": "giftcard",
-              "label": "礼品卡"
+              "label": "Gift Cards"
             },
             {
               "value": "payment",
-              "label": "支付"
+              "label": "Payment"
             },
             {
               "value": "account",
-              "label": "账户"
+              "label": "Account"
             },
             {
               "value": "product",
-              "label": "产品"
+              "label": "Product"
             },
             {
               "value": "general",
-              "label": "通用"
+              "label": "General"
             }
           ],
           "default": "orders"
@@ -209,46 +209,46 @@
     },
     {
       "type": "question",
-      "name": "FAQ问题",
+      "name": "FAQ Question",
       "settings": [
         {
           "type": "text",
           "id": "category_title",
-          "label": "所属分类",
-          "info": "⚠️ 重要：请输入这个问题所属的分类标题。必须与上面创建的「分类标题」完全一致（不区分大小写，会自动去除空格）。例如：如果分类标题是「订单问题」，这里也输入「订单问题」。"
+          "label": "Category Title",
+          "info": "⚠️ Important: Enter the category title this question belongs to. Must match the Category Title exactly (case-insensitive, spaces are auto-trimmed). Example: If category title is 'Orders', enter 'Orders' here."
         },
         {
           "type": "text",
           "id": "question",
-          "label": "问题",
-          "default": "如何查询订单状态？"
+          "label": "Question",
+          "default": "How do I track my order?"
         },
         {
           "type": "richtext",
           "id": "answer",
-          "label": "答案",
-          "default": "<p>您可以在订单确认邮件中找到追踪号码，或登录账户查看订单详情。</p>",
-          "info": "支持富文本格式，可以添加链接、加粗等格式。"
+          "label": "Answer",
+          "default": "<p>You will receive a tracking number via email once your order ships.</p>",
+          "info": "Supports rich text formatting. You can add links, bold text, etc."
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "FAQ页面",
+      "name": "FAQ Page",
       "blocks": [
         {
           "type": "category",
           "settings": {
             "icon": "orders",
-            "title": "订单问题"
+            "title": "Orders"
           }
         },
         {
           "type": "category",
           "settings": {
             "icon": "shipping",
-            "title": "配送问题"
+            "title": "Shipping"
           }
         }
       ]
