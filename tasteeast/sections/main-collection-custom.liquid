@@ -1,0 +1,9 @@
+{% for product in collection.products %}
+  <div class="custom-card">
+    <a href="{{ product.url }}">
+      <img src="{{ product.featured_image | image_url: width:400 }}" alt="{{ product.title }}">
+      <h3>{{ product.title }}</h3>
+      <p>{{ product.price | money }}</p>
+    </a>
+  </div>
+{% endfor %}

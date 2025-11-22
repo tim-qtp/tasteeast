@@ -9,12 +9,420 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "collection",
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "disabled": true,
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "hero_product_banner_iDBNxE": {
+      "type": "hero-product-banner",
+      "name": "Hero Copy (Right)",
+      "settings": {
+        "bg_image": "shopify://shop_images/101_941d8cf8-cc89-4210-a7e5-b30653f23cf8.png",
+        "overlay_color": "#000000",
+        "overlay_opacity": 0,
+        "left_image": "shopify://shop_images/101.png",
+        "left_alt": "Product image",
+        "left_link": "shopify://products/macau-limited-flavor-beer",
+        "kicker": "TASTE THE BEST FROM EAST",
+        "headline": "LIMITED-TIME OFFER:",
+        "bigline": "20% OFF",
+        "subhead": "ORDER BEFORE TO ENJOY",
+        "primary_label": "SHOP NOW",
+        "primary_url": "shopify://collections/all",
+        "secondary_label": "LEARN MORE",
+        "secondary_url": "shopify://pages/about",
+        "kicker_color": "#8f8574",
+        "heading_color": "#3a2b1f",
+        "bigline_color": "#3a2b1f",
+        "subhead_color": "#3a2b1f",
+        "primary_bg": "#0d1c2c",
+        "primary_text": "#f3ddbc",
+        "ghost_color": "#3a2b1f",
+        "content_w": 560,
+        "media_w": 440,
+        "media_max_h": 520,
+        "min_h": 560,
+        "pt": 72,
+        "pb": 72
+      }
+    },
+    "usp_tabbed_grid_HLWiB4": {
+      "type": "usp-tabbed-grid",
+      "blocks": {
+        "tab_NBg4rP": {
+          "type": "tab",
+          "settings": {
+            "key": "Wheat-Beer",
+            "label": "WHEAT BEER",
+            "subline": "CRISP, FRESH, WITH A TWIST OF EAST."
+          }
+        },
+        "item_nUBnKi": {
+          "type": "item",
+          "settings": {
+            "tab_key": "wheat-beer",
+            "product": "macau-limited-flavor-beer",
+            "image": "shopify://shop_images/101_941d8cf8-cc89-4210-a7e5-b30653f23cf8.png",
+            "title": "",
+            "subtitle": "Coconut Milk",
+            "btn_label": "SHOP NOW",
+            "btn_url": "shopify://products/macau-limited-flavor-beer",
+            "btn_style": "outline"
+          }
+        },
+        "item_Cypz86": {
+          "type": "item",
+          "settings": {
+            "tab_key": "wheat-beer",
+            "product": "101-portuguese-tarts-imperial-ale",
+            "image": "shopify://shop_images/101_c540ba8d-14b1-4cfd-975d-345ae2a76344.png",
+            "title": "",
+            "subtitle": "Portuguese",
+            "btn_label": "SHOP NOW",
+            "btn_url": "shopify://products/101-portuguese-tarts-imperial-ale",
+            "btn_style": "outline"
+          }
+        },
+        "item_zWMhNm": {
+          "type": "item",
+          "settings": {
+            "tab_key": "wheat-beer",
+            "product": "macus-style-iced-milk-tea-pilener",
+            "image": "shopify://shop_images/59b5ab35e2ffbe31ee70f04df457c805.png",
+            "title": "",
+            "subtitle": "Iced Milk Tea",
+            "btn_label": "SHOP NOW",
+            "btn_url": "shopify://products/macus-style-iced-milk-tea-pilener",
+            "btn_style": "outline"
+          }
+        },
+        "item_ARkn4B": {
+          "type": "item",
+          "settings": {
+            "tab_key": "wheat-beer",
+            "product": "baby-molly-grapefruit-jasmine-sour-ale",
+            "image": "shopify://shop_images/f2a5f4accfc87d7e561406f7a00d02fa.png",
+            "title": "",
+            "subtitle": "GRAPEFRUIT JASMINE",
+            "btn_label": "SHOP NOW",
+            "btn_url": "shopify://products/baby-molly-grapefruit-jasmine-sour-ale",
+            "btn_style": "outline"
+          }
+        },
+        "item_CJni6Q": {
+          "type": "item",
+          "settings": {
+            "tab_key": "wheat-beer",
+            "product": "hac-sa-black-lager",
+            "image": "shopify://shop_images/8c10745717990887523dddde0e4f2a46.png",
+            "title": "",
+            "subtitle": "BLACK LAGER",
+            "btn_label": "SHOP NOW",
+            "btn_url": "shopify://products/hac-sa-black-lager",
+            "btn_style": "outline"
+          }
+        },
+        "item_nY6dGe": {
+          "type": "item",
+          "settings": {
+            "tab_key": "wheat-beer",
+            "product": "portuguese-egg-tart-hazy-nz-ipa",
+            "image": "shopify://shop_images/212bbefd56ba63784b48efbe132701c8.png",
+            "title": "",
+            "subtitle": "TART HAZY NZ IPA",
+            "btn_label": "SHOP NOW",
+            "btn_url": "shopify://products/portuguese-egg-tart-hazy-nz-ipa",
+            "btn_style": "outline"
+          }
+        }
+      },
+      "block_order": [
+        "tab_NBg4rP",
+        "item_nUBnKi",
+        "item_Cypz86",
+        "item_zWMhNm",
+        "item_ARkn4B",
+        "item_CJni6Q",
+        "item_nY6dGe"
+      ],
+      "name": "USP · Tabbed Products",
+      "settings": {
+        "only_on_all": true,
+        "title": "UNIQUE SELLING PROPOSITION",
+        "columns": 6,
+        "max_w": 1200,
+        "pt": 88,
+        "pb": 48,
+        "bg_color": "#fffdfa",
+        "title_color": "#3a2b1f",
+        "tab_color": "#8f8574",
+        "tab_active_color": "#b78a4a",
+        "muted_color": "#9b958a",
+        "circle_bg": "#f3efe8",
+        "btn_fill_bg": "#e4c399",
+        "btn_fill_text": "#1a1a1a",
+        "btn_outline": "#3a2b1f"
+      }
+    },
+    "split_hero_left_image_JbwP9G": {
+      "type": "split-hero-left-image",
+      "name": "Split Hero · Left Image",
+      "settings": {
+        "image": "shopify://shop_images/left.jpg",
+        "image_alt": "",
+        "top_rich": "<p>A creamy tropical fusion brewed to refresh your senses.</p>",
+        "h1": "The Art of Mango",
+        "h2": "& Coconut.",
+        "statline": "",
+        "ratingline": "",
+        "btn_label": "DISCOVER MORE",
+        "btn_url": "shopify://pages/about",
+        "note": "FREE SHIPPING OVER $99",
+        "watermark": "",
+        "image_width": 46,
+        "min_h": 640,
+        "pad_y": 40,
+        "bg_color": "#0d1c2c",
+        "text_color": "#e8e6e2",
+        "muted_color": "#8ba0af",
+        "heading_color": "#e4c399",
+        "accent_color": "#e4c399",
+        "btn_bg": "#e4c399",
+        "btn_text": "#1a1a1a"
+      }
+    },
+    "best_spirits_grid_QwprWV": {
+      "type": "best-spirits-grid",
+      "blocks": {
+        "item_tY8zam": {
+          "type": "item",
+          "settings": {
+            "product": "macau-limited-flavor-beer",
+            "image": "shopify://shop_images/101_941d8cf8-cc89-4210-a7e5-b30653f23cf8.png",
+            "title": "101 Mangmang",
+            "subtitle": "Coconut Milk Imperial Ale",
+            "btn_label": "ADD TO CART"
+          }
+        },
+        "item_hbpVVt": {
+          "type": "item",
+          "settings": {
+            "product": "101-portuguese-tarts-imperial-ale",
+            "image": "shopify://shop_images/101_c540ba8d-14b1-4cfd-975d-345ae2a76344.png",
+            "title": "101 Portuguese Tarts Imperial Ale",
+            "subtitle": "Tarts Imperial Ale",
+            "btn_label": "ADD TO CART"
+          }
+        },
+        "item_mmrzJi": {
+          "type": "item",
+          "settings": {
+            "product": "yuenyeung-coffee-with-tea-stout",
+            "image": "shopify://shop_images/6e9dca01abc17573bba9c7cd538ed08d.png",
+            "title": "YUENYEUNG COFFEE WITH TEA STOUT",
+            "subtitle": "YUENYEUNG COFFEE WITH TEA STOUT",
+            "btn_label": "ADD TO CART"
+          }
+        },
+        "item_kUph9M": {
+          "type": "item",
+          "settings": {
+            "product": "baby-molly-grapefruit-jasmine-sour-ale",
+            "image": "shopify://shop_images/360c9470467871d0d97f39eb19d974c4.png",
+            "title": "BABY MOLLY GRAPEFRUIT JASMINE SOUR ALE",
+            "subtitle": "GRAPEFRUIT JASMINE SOUR ALE",
+            "btn_label": "ADD TO CART"
+          }
+        }
+      },
+      "block_order": [
+        "item_tY8zam",
+        "item_hbpVVt",
+        "item_mmrzJi",
+        "item_kUph9M"
+      ],
+      "name": "Our Best Spirits Grid",
+      "settings": {
+        "title": "OUR BEST SPIRITS",
+        "columns": 4,
+        "bg_color": "#f8f6f1",
+        "title_color": "#3a2b1f",
+        "accent_color": "#b6914e",
+        "muted_color": "#9b958a",
+        "circle_bg": "#efe8d6",
+        "card_bg": "#ffffff",
+        "card_border": "#e3dfd7",
+        "btn_text": "#2a2a2a",
+        "btn_border": "#2a2a2a",
+        "show_compare": true,
+        "pt": 40,
+        "pb": 40
+      }
+    },
+    "limited_stock_banners_4NVdrW": {
+      "type": "limited-stock-banners",
+      "blocks": {
+        "item_CUzKcc": {
+          "type": "item",
+          "settings": {
+            "product": "yuenyeung-coffee-with-tea-stout",
+            "image": "shopify://shop_images/6e9dca01abc17573bba9c7cd538ed08d.png",
+            "title": "YueYeng",
+            "subtitle": "MISS VEGETABLE",
+            "show_badge": true,
+            "auto_badge": true,
+            "badge_qty": 0,
+            "badge_text": "",
+            "btn_label": "ADD TO CART",
+            "btn_url": "shopify://products/black-lager",
+            "card_bg": ""
+          }
+        },
+        "item_ejTqxM": {
+          "type": "item",
+          "settings": {
+            "product": "macau-limited-flavor-beer",
+            "image": "shopify://shop_images/c073e4ba0b7e3a3464fda22d4767a8fa.png",
+            "title": "",
+            "subtitle": "MISS VEGETABLE",
+            "show_badge": true,
+            "auto_badge": true,
+            "badge_qty": 5,
+            "badge_text": "",
+            "btn_label": "ADD TO CART",
+            "btn_url": "",
+            "card_bg": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_CUzKcc",
+        "item_ejTqxM"
+      ],
+      "disabled": true,
+      "name": "Best Sellers · Limited",
+      "settings": {
+        "title": "BEST SELLERS - LIMITED STOCK",
+        "columns": 2,
+        "max_w": 1200,
+        "title_color": "#3a2b1f",
+        "card_bg": "#efd6b6",
+        "btn_text": "#1a1a1a",
+        "btn_border": "#1a1a1a",
+        "pt": 40,
+        "pb": 40
+      }
+    },
+    "logistics_icons_row_LtXNMU": {
+      "type": "logistics-icons-row",
+      "blocks": {
+        "item_4DTMD3": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/a.svg",
+            "icon_alt": "",
+            "text": "FREE SHIPPING OVER $99",
+            "link_url": ""
+          }
+        },
+        "item_j6B7KW": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/b.svg",
+            "icon_alt": "",
+            "text": "Fast Dispatch, Fresh Arrival",
+            "link_url": ""
+          }
+        },
+        "item_YCgw6j": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/c.svg",
+            "icon_alt": "",
+            "text": "Secure Packaging Guarantee",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "item_4DTMD3",
+        "item_j6B7KW",
+        "item_YCgw6j"
+      ],
+      "name": "Logistics Icons Row",
+      "settings": {
+        "title": "LOGISTICS COMMITMENT AREA",
+        "max_w": 1200,
+        "pt": 40,
+        "pb": 40,
+        "bg_color": "#f8f6f1",
+        "title_color": "#3a2b1f",
+        "text_color": "#111111",
+        "circle_bg": "#0d1c2c",
+        "line_color": "#eadfc9",
+        "circle_size": 96,
+        "line_thickness": 6,
+        "gap": 28
+      }
+    },
+    "taste_subscribe_3kmfrx": {
+      "type": "taste-subscribe",
+      "name": "Taste Subscribe Block",
+      "settings": {
+        "heading": "TASTE THE EAST.",
+        "subheading": "EXPERIENCE THE ESSENCE, FROM THE HEART.",
+        "button_label": "JOIN"
+      }
+    },
+    "main_list_collections_gpgyDz": {
+      "type": "main-list-collections",
+      "disabled": true,
+      "name": "Customer Reviews",
+      "settings": {}
+    },
+    "footer_QB6rBP": {
+      "type": "footer",
+      "name": "Footer",
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "banner",
+    "product-grid",
+    "hero_product_banner_iDBNxE",
+    "usp_tabbed_grid_HLWiB4",
+    "split_hero_left_image_JbwP9G",
+    "best_spirits_grid_QwprWV",
+    "limited_stock_banners_4NVdrW",
+    "logistics_icons_row_LtXNMU",
+    "taste_subscribe_3kmfrx",
+    "main_list_collections_gpgyDz",
+    "footer_QB6rBP"
   ]
 }

@@ -1,0 +1,108 @@
+<section id="touch" style="background-color: #0f2840; color: #fff; padding: 80px 20px; text-align: center;">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <h2 data-aos="fade-up" style="
+      font-size: 64px;
+      margin: 0;
+      font-family: 'Limelight', serif;
+      background: linear-gradient(to right, #d9b989, #e2c59a);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;">
+      {{ section.settings.heading }}
+    </h2>
+
+    <p data-aos="fade-up" data-aos-delay="150" style="font-size: 18px; font-weight: 600; color: #f5d5a2; margin-bottom: 40px;">
+      {{ section.settings.subheading }}
+    </p>
+
+    <!-- 表单：AJAX 提交到 /contact，不跳转页面 -->
+    <form id="ts-form"
+          data-aos="fade-up"
+          data-aos-delay="300"
+          method="post"
+          action="/contact#contact_form"
+          accept-charset="UTF-8"
+          class="contact-form"
+          novalidate
+          style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+      <input type="hidden" name="form_type" value="contact" />
+      <input type="hidden" name="utf8" value="✓" />
+      <!-- 防机器人蜜罐（可选） -->
+      <input type="text" name="contact[tags]" style="position:absolute;left:-9999px;opacity:0" tabindex="-1" aria-hidden="true">
+
+      <input type="text" name="contact[brand]" placeholder="BRAND NAME"
+             style="flex: 1 1 200px; min-width: 200px; padding: 12px 16px; border: none; background-color: #fff; color: #000; font-weight: bold;"
+             required>
+
+      <input type="email" name="contact[email]" placeholder="YOUR EMAIL ADDRESS"
+             style="flex: 1 1 200px; min-width: 200px; padding: 12px 16px; border: none; background-color: #fff; color: #000; font-weight: bold;"
+             required>
+
+      <button id="ts-submit" type="submit"
+              style="padding: 12px 24px; border: none; background: linear-gradient(to right, #f5d5a2, #d4a773); color: #000; font-weight: bold; border-radius: 10px;">
+        {{ section.settings.button_label }}
+      </button>
+    </form>
+
+    <!-- 提示信息 -->
+    <p id="ts-msg" style="margin-top:12px; min-height:20px; font-weight:700;"></p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var form = document.getElementById('ts-form');
+      var btn  = document.getElementById('ts-submit');
+      var msg  = document.getElementById('ts-msg');
+
+      function setMsg(text, ok){
+        msg.textContent = text || '';
+        msg.style.color = ok ? '#f5d5a2' : '#ffdede';
+      }
+      function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+
+        var brand = form.querySelector('[name="contact[brand]"]').value.trim();
+        var email = form.querySelector('[name="contact[email]"]').value.trim();
+        if(!brand){ setMsg('Please enter your brand name.', false); return; }
+        if(!isEmail(email)){ setMsg('Please enter a valid email.', false); return; }
+
+        var original = btn.textContent;
+        btn.disabled = true;
+        btn.textContent = 'SENDING...';
+
+        var fd = new FormData(form);
+        fd.set('form_type','contact');
+        fd.set('utf8','✓');
+
+        fetch('/contact', { method:'POST', body: fd, headers:{ 'Accept':'text/html' } })
+          .then(function(){ // /contact 成功通常返回 200/302，视为成功
+            form.reset();
+            setMsg('Thank you! Your info has been submitted.', true);
+          })
+          .catch(function(){
+            setMsg('Submission failed. Please try again.', false);
+          })
+          .finally(function(){
+            btn.disabled = false;
+            btn.textContent = original;
+          });
+      });
+    });
+  </script>
+</section>
+
+{% schema %}
+{
+  "name": "Taste Subscribe Block",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Main Heading", "default": "TASTE THE EAST." },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "EXPERIENCE THE ESSENCE, FROM THE HEART." },
+    { "type": "text", "id": "button_label", "label": "Button Label", "default": "JOIN" }
+  ],
+  "presets": [
+    { "name": "Taste Subscribe Block", "category": "Custom" }
+  ]
+}
+{% endschema %}

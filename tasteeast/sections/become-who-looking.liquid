@@ -1,0 +1,174 @@
+{% schema %}
+{
+  "name": "What We're Looking For",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "WHAT WE’RE LOOKING FOR"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "We collaborate with wine producers, tea makers, artisan food brands, and cultural creators who share our values: authenticity, excellence, and aesthetics."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Wine & Spirits"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description",
+          "default": "Boutique wineries, Asian-style spirits"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "What We're Looking For",
+      "blocks": [
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+<style>
+@font-face {
+  font-family: 'Rozha One';
+  src: url('{{ "rozha-one.woff2" | asset_url }}') format("woff2"),
+       url('{{ "rozha-one.woff" | asset_url }}') format("woff");
+  font-display: swap;
+}
+
+.become-looking {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #F2EDE4;
+}
+
+.become-looking h2 {
+  font-family: 'Rozha One', serif;
+  font-size: 36px;
+  margin-bottom: 16px;
+  color: #50210b; /* 金棕色标题 */
+  letter-spacing: 1px;
+}
+
+.become-looking p.subheading {
+  font-family: 'Rozha One', serif;
+  max-width: 800px;
+  margin: 0 auto 40px;
+  font-size: 16px;
+  color: #231815;
+  line-height: 1.6;
+}
+
+.looking-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.looking-item {
+  flex: 1 1 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-size: cover;
+  background-position: center;
+  min-height: 380px;
+  position: relative;
+}
+
+.looking-content {
+  background-color: #0e1b2c;
+  color: #EBD7B6;
+  padding: 20px;
+  text-align: center;
+}
+
+.looking-content h4 {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #EBD7B6;
+}
+
+.looking-content p {
+  font-size: 14px;
+  margin: 0;
+  color: #EBD7B6;
+}
+
+/* ✅ 自适应样式（手机端） */
+@media screen and (max-width: 749px) {
+  .looking-grid {
+    flex-direction: column;
+  }
+
+  .looking-item {
+    flex: 1 1 100%;
+    width: 100%;
+    min-height: 280px;
+  }
+
+  .become-looking h2 {
+    font-size: 28px;
+  }
+
+  .become-looking p.subheading {
+    font-size: 15px;
+    padding: 0 10px;
+  }
+
+  .looking-content h4 {
+    font-size: 15px;
+  }
+
+  .looking-content p {
+    font-size: 13px;
+  }
+}
+</style>
+{% endstylesheet %}
+
+<section class="become-looking">
+  <h2>{{ section.settings.heading }}</h2>
+  <p class="subheading">{{ section.settings.subheading }}</p>
+  <div class="looking-grid">
+    {% for block in section.blocks %}
+      {% if block.type == 'category' %}
+        <div class="looking-item" style="background-image: url({{ block.settings.image | img_url: '800x' }});">
+          <div class="looking-content">
+            <h4>{{ block.settings.title }}</h4>
+            <p>{{ block.settings.description }}</p>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>

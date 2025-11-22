@@ -1,0 +1,227 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "become_partner_hero": {
+      "type": "become-partner-hero",
+      "settings": {
+        "subheading": "LET’S BUILD SOMETHING BEAUTIFUL TOGETHER  BECOME A BRAND PARTNER AT TASTEEAST",
+        "heading": "WELCOME",
+        "subline": "ELEVATE TASTE, CULTURE, AND CRAFT",
+        "button_label": "GET IN TOUCH WITH US",
+        "button_link": "/pages/contact"
+      }
+    },
+    "become_partner_columns": {
+      "type": "become-partner-columns",
+      "blocks": {
+        "column_XaCMbj": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/left.svg",
+            "heading": "WHY PARTNER WITH US",
+            "text": "Rooted in Silicon Valley, Connected to the World. \nFrom the heart of America’s innovation and culture hub, we help bring refined Eastern craftsmanship to homes across North America, one meaningful product at a time."
+          }
+        },
+        "column_MbX8DG": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/center.svg",
+            "heading": "HOW IT WORKS",
+            "text": "A letter, a meeting, a shared journey. \nSubmit your product proposal. Our curation team will reach out for further discussion. Once selected, you’ll receive tailored creative support to help your brand truly shine."
+          }
+        },
+        "column_CgxHPM": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/right.svg",
+            "heading": "WHO WE ARE LOOKING FOR",
+            "text": "Quality is the foundation; compassion is the soul.\nWe seek brands that uphold originality and meticulous craftsmanship—yet what touches us most is the warmth behind the work: a human-centered spirit, and a heart that cares."
+          }
+        }
+      },
+      "block_order": [
+        "column_XaCMbj",
+        "column_MbX8DG",
+        "column_CgxHPM"
+      ],
+      "settings": {}
+    },
+    "become_who_looking": {
+      "type": "become-who-looking",
+      "blocks": {
+        "category_Xcy96B": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/wine.jpg",
+            "title": "WINE & SPIRITS",
+            "description": "Boutique wineries, Asian-style spirits"
+          }
+        },
+        "category_LLxX3B": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/tea.jpg",
+            "title": "BEVERAGE",
+            "description": "Premium Wines, Teas, and Vinegars from China"
+          }
+        },
+        "category_bcYbyL": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/food.jpg",
+            "title": "FOOD & GIFTING",
+            "description": "Oriental snacks, gift boxes, edible art"
+          }
+        },
+        "category_hMGV96": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/culture.jpg",
+            "title": "CULTURE & OBJECTS",
+            "description": "Craft keepsakes, fragrance, handcraft"
+          }
+        }
+      },
+      "block_order": [
+        "category_Xcy96B",
+        "category_LLxX3B",
+        "category_bcYbyL",
+        "category_hMGV96"
+      ],
+      "settings": {
+        "heading": "WHAT WE’RE LOOKING FOR",
+        "subheading": "We partner with winemakers, tea makers, artisanal food brands, and cultural creators who share our values of authenticity, excellence, and aesthetics. We're also on the lookout for distinctive regional beverages to expand our map of Eastern flavors."
+      }
+    },
+    "testimonials_section": {
+      "type": "testimonials-section",
+      "blocks": {
+        "testimonial_V3W8t6": {
+          "type": "testimonial",
+          "settings": {
+            "stars": 5,
+            "title": "Focusing on Efficiency and Professionalism",
+            "text": "Collaborating with your company has been an efficient and pleasant experience. Your team consistently demonstrates exceptional professionalism and problem-solving skills, ensuring projects are always completed on time and to a high standard. We truly value this reliability!",
+            "author": "- Chloe. A"
+          }
+        },
+        "testimonial_hrjLxW": {
+          "type": "testimonial",
+          "settings": {
+            "stars": 5,
+            "title": "Emphasizing Communication and Partnership",
+            "text": "We highly appreciate your company's open and transparent communication, as well as your consistent collaborative approach. You are more than just a supplier; you are an indispensable partner in our business development. We look forward to deepening our cooperation in the future!",
+            "author": "- Wynne"
+          }
+        },
+        "testimonial_dk9w6T": {
+          "type": "testimonial",
+          "settings": {
+            "stars": 5,
+            "title": "Highlighting Product/Service Quality and Support",
+            "text": "The products/services your company provides consistently meet the highest standards, which offers strong assurance for our supply chain. What's even more impressive is your customer support team, which is always responsive and thorough. We trust your quality!",
+            "author": "- Chloe.e"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_V3W8t6",
+        "testimonial_hrjLxW",
+        "testimonial_dk9w6T"
+      ],
+      "settings": {
+        "heading": " OUR SUPPLIER SAY"
+      }
+    },
+    "become_partner_workprocess": {
+      "type": "become-partner-workprocess",
+      "blocks": {
+        "step_XUJF9b": {
+          "type": "step",
+          "settings": {
+            "step_number": "1 SUBMIT",
+            "description": "Share your partnership intent and product information"
+          }
+        },
+        "step_63xDm3": {
+          "type": "step",
+          "settings": {
+            "step_number": "2 SELECTION",
+            "description": "Initial product review by our team"
+          }
+        },
+        "step_NL8tRy": {
+          "type": "step",
+          "settings": {
+            "step_number": "3 APPROVAL",
+            "description": "In-depth discussion & product sample testing"
+          }
+        },
+        "step_UdYXRy": {
+          "type": "step",
+          "settings": {
+            "step_number": "4 ALIGN DETAILS",
+            "description": "Define shared goals and partnership scope"
+          }
+        },
+        "step_7EnXKe": {
+          "type": "step",
+          "settings": {
+            "step_number": "5 SIGN AGREEMENT",
+            "description": "Finalize marketing and sales strategy"
+          }
+        },
+        "step_fmqmHD": {
+          "type": "step",
+          "settings": {
+            "step_number": "6 LAUNCH PRODUCTS",
+            "description": "Go live on our platform / Begin distribution"
+          }
+        }
+      },
+      "block_order": [
+        "step_XUJF9b",
+        "step_63xDm3",
+        "step_NL8tRy",
+        "step_UdYXRy",
+        "step_7EnXKe",
+        "step_fmqmHD"
+      ],
+      "settings": {
+        "background_image": "shopify://shop_images/back.jpg",
+        "heading": "HOW DOES IT WORK"
+      }
+    },
+    "taste_subscribe_i3amRP": {
+      "type": "taste-subscribe",
+      "name": "Taste Subscribe Block",
+      "settings": {
+        "heading": "TASTE THE EAST.",
+        "subheading": "EXPERIENCE THE ESSENCE, FROM THE HEART.",
+        "button_label": "JOIN"
+      }
+    },
+    "footer_gYETrg": {
+      "type": "footer",
+      "name": "Footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "become_partner_hero",
+    "become_partner_columns",
+    "become_who_looking",
+    "testimonials_section",
+    "become_partner_workprocess",
+    "taste_subscribe_i3amRP",
+    "footer_gYETrg"
+  ]
+}

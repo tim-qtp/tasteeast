@@ -1,0 +1,176 @@
+<section class="split-hero"
+  style="
+    --bg: {{ section.settings.bg_color }};
+    --fg: {{ section.settings.text_color }};
+    --muted: {{ section.settings.muted_color }};
+    --heading: {{ section.settings.heading_color }};
+    --accent: {{ section.settings.accent_color }};
+    --btn-bg: {{ section.settings.btn_bg }};
+    --btn-text: {{ section.settings.btn_text }};
+    --minh: {{ section.settings.min_h }}px;
+    --imgw: {{ section.settings.image_width }}%;
+    --pad-y: {{ section.settings.pad_y }}px;">
+  <div class="split-hero__wrap">
+    <!-- 左侧图片 -->
+    <div class="split-hero__media">
+      {% if section.settings.image != blank %}
+        <img src="{{ section.settings.image | image_url: width: 2000 }}" alt="{{ section.settings.image_alt | escape }}">
+      {% endif %}
+    </div>
+
+    <!-- 右侧文案 -->
+    <div class="split-hero__content">
+      {% if section.settings.top_rich != blank %}
+        <div class="eyebrow rte">{{ section.settings.top_rich }}</div>
+      {% endif %}
+
+      {% if section.settings.h1 != blank %}
+        <h2 class="display-hero">
+          {{ section.settings.h1 }}
+          {% if section.settings.h2 != blank %}<br>{{ section.settings.h2 }}{% endif %}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.statline != blank %}
+        <p class="statline">{{ section.settings.statline }}</p>
+      {% endif %}
+
+      {% if section.settings.ratingline != blank %}
+        <p class="rating">{{ section.settings.ratingline }}</p>
+      {% endif %}
+
+      {% if section.settings.btn_label != blank and section.settings.btn_url != blank %}
+        <div class="cta-row">
+          <a href="{{ section.settings.btn_url }}" class="btn-pill">{{ section.settings.btn_label }}</a>
+        </div>
+      {% endif %}
+
+      {% if section.settings.note != blank %}
+        <p class="fineprint">{{ section.settings.note }}</p>
+      {% endif %}
+    </div>
+
+    {% if section.settings.watermark != blank %}
+      <div class="split-hero__watermark">{{ section.settings.watermark }}</div>
+    {% endif %}
+  </div>
+
+  <!-- 字体：标题 Cinzel（大写衬线），正文字体 Montserrat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    .split-hero{background:var(--bg); color:var(--fg);}
+    .split-hero__wrap{
+      display:grid; grid-template-columns:minmax(0, var(--imgw)) 1fr; align-items:stretch;
+      min-height:var(--minh); position:relative;
+    }
+    .split-hero__media{
+      position:relative; overflow:hidden;
+      min-height:var(--minh);
+    }
+    .split-hero__media img{
+      width:100%; height:100%; object-fit:cover; object-position:center;
+      display:block;
+    }
+
+    .split-hero__content{
+      display:flex; flex-direction:column; justify-content:center;
+      padding: var(--pad-y) clamp(20px, 5vw, 72px);
+      gap:14px;
+    }
+
+    /* 文案样式 */
+    .eyebrow{ color:var(--fg); opacity:.9; font:500 14px/1.6 "Montserrat", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; letter-spacing:.06em; text-transform:uppercase; }
+    .rte p{ margin:0 0 8px; }
+
+    .display-hero{
+      margin:6px 0 6px;
+      color:var(--heading);
+      font-family:"Cinzel", Georgia, serif;
+      font-weight:800; line-height:1.06;
+      font-size: clamp(36px, 5vw, 68px);
+      letter-spacing:.02em;
+      text-transform:uppercase;
+    }
+
+    .statline{
+      margin:4px 0 0; color:var(--fg);
+      font:600 16px/1.6 "Montserrat", system-ui; letter-spacing:.04em; text-transform:uppercase;
+    }
+    .statline em, .statline strong{ font-weight:800; font-style:italic; color:var(--accent); }
+
+    .rating{
+      margin:0; color:var(--fg); opacity:.9;
+      font:600 14px/1.6 "Montserrat", system-ui; letter-spacing:.04em; text-transform:uppercase;
+    }
+
+    .cta-row{ margin-top:10px; }
+    .btn-pill{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:14px 26px; border-radius:999px; text-decoration:none;
+      background:var(--btn-bg); color:var(--btn-text); border:0;
+      font:700 14px/1 "Montserrat", system-ui; letter-spacing:.06em; text-transform:uppercase;
+      box-shadow:0 8px 24px rgba(0,0,0,.18);
+      transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+    }
+    .btn-pill:hover{ transform:translateY(-1px); box-shadow:0 10px 28px rgba(0,0,0,.22); opacity:.95; }
+
+    .fineprint{ margin:8px 0 0; color:var(--muted); font:600 12px/1.4 "Montserrat", system-ui; letter-spacing:.08em; text-transform:uppercase; }
+
+    .split-hero__watermark{
+      position:absolute; right: clamp(20px, 4vw, 60px); bottom: clamp(14px, 3vw, 28px);
+      color:var(--muted); opacity:.5; font:600 20px/1 "Montserrat", system-ui; letter-spacing:.12em; text-transform:uppercase;
+      pointer-events:none;
+    }
+
+    /* 响应式：移动端改为上下布局，图片在上 */
+    @media (max-width: 980px){
+      .split-hero__wrap{ grid-template-columns:1fr; }
+      .split-hero__media{ min-height: 48vw; }
+      .split-hero__content{ padding-top: 28px; padding-bottom: 32px; }
+      .split-hero__watermark{ position:static; margin:10px 0 0 0; text-align:center; }
+    }
+  </style>
+
+  {% schema %}
+  {
+    "name": "Split Hero · Left Image",
+    "settings": [
+      { "type": "image_picker", "id": "image", "label": "左侧图片" },
+      { "type": "text", "id": "image_alt", "label": "图片替代文本(ALT)" },
+
+      { "type": "richtext", "id": "top_rich", "label": "顶部小文案（支持粗体/斜体/链接）",
+        "default": "<p>FROM THE HEART OF CHINA TO THE COASTS OF CALIFORNIA, EACH BOTTLE</p><p>CARRIES THE QUIET FRAGRANCE OF A LAND LONG OVERLOOKED — NOW</p><p>READY TO BE CELEBRATED.</p>" },
+
+      { "type": "text", "id": "h1", "label": "主标题第1行", "default": "FROM CHINA TO" },
+      { "type": "text", "id": "h2", "label": "主标题第2行", "default": "CALIFORNIA" },
+
+      { "type": "text", "id": "statline", "label": "统计文案（可用 <em>/<strong> 强调）", "default": "LOVED BY OVER <em>10,000 CUSTOMERS</em> ACROSS THE US." },
+      { "type": "text", "id": "ratingline", "label": "评分文案", "default": "RATED ★★★★★ ON [平台名]." },
+
+      { "type": "text", "id": "btn_label", "label": "按钮文案", "default": "DISCOVER MORE" },
+      { "type": "url", "id": "btn_url", "label": "按钮链接" },
+      { "type": "text", "id": "note", "label": "按钮下小提示", "default": "FREE SHIPPING OVER \\$XX" },
+
+      { "type": "text", "id": "watermark", "label": "右下角水印（可空）", "default": "PREMIUM BREWING SINCE 20XX" },
+
+      { "type": "range", "id": "image_width", "label": "左侧图片所占宽度(%)", "min": 30, "max": 60, "step": 1, "default": 46 },
+      { "type": "range", "id": "min_h", "label": "区块最小高度(px)", "min": 420, "max": 900, "step": 20, "default": 640 },
+      { "type": "range", "id": "pad_y", "label": "上下内边距(px)", "min": 0, "max": 120, "step": 4, "default": 40 },
+
+      { "type": "color", "id": "bg_color", "label": "背景色", "default": "#0d1c2c" },
+      { "type": "color", "id": "text_color", "label": "正文文字色", "default": "#E8E6E2" },
+      { "type": "color", "id": "muted_color", "label": "次要/水印颜色", "default": "#8BA0AF" },
+      { "type": "color", "id": "heading_color", "label": "主标题颜色", "default": "#E4C399" },
+      { "type": "color", "id": "accent_color", "label": "强调色（数字/粗体）", "default": "#E4C399" },
+      { "type": "color", "id": "btn_bg", "label": "按钮背景色", "default": "#E4C399" },
+      { "type": "color", "id": "btn_text", "label": "按钮文字色", "default": "#1a1a1a" }
+    ],
+    "presets": [
+      { "name": "Split Hero · Left Image" }
+    ]
+  }
+  {% endschema %}
+</section>

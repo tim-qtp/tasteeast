@@ -1,0 +1,277 @@
+<section class="best-spirits"
+  style="
+    --bg: {{ section.settings.bg_color }};
+    --title: {{ section.settings.title_color }};
+    --accent: {{ section.settings.accent_color }};
+    --muted: {{ section.settings.muted_color }};
+    --circle: {{ section.settings.circle_bg }};
+    --card-bg: {{ section.settings.card_bg }};
+    --card-border: {{ section.settings.card_border }};
+    --btn-text: {{ section.settings.btn_text }};
+    --btn-border: {{ section.settings.btn_border }};
+    --cols: {{ section.settings.columns }};
+    --pt: {{ section.settings.pt }}px; --pb: {{ section.settings.pb }}px;">
+  <div class="bs-wrap">
+    {% if section.settings.title != blank %}
+      <h2 class="bs-title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <div class="bs-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'item' %}
+          {% assign product  = all_products[block.settings.product] %}
+          {% assign img      = block.settings.image | default: product.featured_image %}
+          {% assign title    = block.settings.title  | default: product.title %}
+          {% assign subtitle = block.settings.subtitle %}
+
+          <article class="bs-card">
+            <div class="thumb">
+              <span class="circle"></span>
+              {% if img %}
+                <img src="{{ img | image_url: width: 700 }}" alt="{{ title | escape }}">
+              {% endif %}
+            </div>
+
+            <div class="card-body">
+              {% if title %}<h3 class="p-title">{{ title | upcase }}</h3>{% endif %}
+              {% if subtitle %}<p class="p-sub">{{ subtitle | upcase }}</p>{% endif %}
+              <span class="divider"></span>
+
+              {% if product %}
+                <div class="price-wrap">
+                  <span class="current">{{ product.price | money }}</span>
+                  {% if section.settings.show_compare and product.compare_at_price_max > product.price %}
+                    <span class="compare">{{ product.compare_at_price_max | money }}</span>
+                  {% endif %}
+                </div>
+
+                <!-- ✅ AJAX 加购表单 -->
+                <form class="add-form" novalidate>
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <div class="qty">
+                    <button class="qty-btn" type="button" aria-label="Decrease quantity">−</button>
+                    <input class="qty-input" type="number" name="quantity" value="1" min="1" inputmode="numeric" pattern="[0-9]*" aria-label="Quantity">
+                    <button class="qty-btn" type="button" aria-label="Increase quantity">+</button>
+                  </div>
+
+                  {% if product.available %}
+                    <button class="btn-outline add-btn" type="submit">
+                      {{ block.settings.btn_label | default: 'ADD TO CART' }}
+                    </button>
+                  {% else %}
+                    <button class="btn-outline" type="button" disabled>Sold out</button>
+                  {% endif %}
+                </form>
+              {% endif %}
+            </div>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 字体 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Yeseva+One:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    .best-spirits{ background:var(--bg); }
+    .bs-wrap{ max-width:1200px; margin:0 auto; padding:var(--pt) 20px var(--pb); }
+
+    .bs-title{
+      text-align:center; margin:0 0 40px;
+      color:var(--title); letter-spacing:.02em;
+      font:800 42px/1.1 "Yeseva One", Georgia, serif;
+    }
+
+    .bs-grid{
+      display:grid; gap:32px;
+      grid-template-columns: repeat(var(--cols), minmax(0,1fr));
+    }
+
+    .bs-card{
+      background:var(--card-bg);
+      border:1px solid var(--card-border);
+      padding:30px 20px;
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      min-height:480px;
+      transition:all .25s ease;
+    }
+    .bs-card:hover{ box-shadow:0 14px 28px rgba(0,0,0,.08); transform:translateY(-2px); }
+
+    .thumb{ position:relative; height:220px; display:flex; justify-content:center; align-items:center; margin-bottom:20px; }
+    .thumb .circle{ position:absolute; width:180px; height:180px; border-radius:50%; background:var(--circle); z-index:0; }
+    .thumb img{ position:relative; z-index:1; max-height:200px; width:auto; filter:drop-shadow(0 12px 28px rgba(0,0,0,.12)); }
+
+    .card-body{ flex:1; display:flex; flex-direction:column; justify-content:flex-end; }
+    .p-title{ margin:8px 0 2px; font:700 13px/1.1 "Montserrat", system-ui; letter-spacing:.08em; text-transform:uppercase; }
+    .p-sub{ margin:0 0 12px; color:var(--muted); font:600 11px/1.1 "Montserrat", system-ui; letter-spacing:.08em; text-transform:uppercase; }
+    .divider{ display:block; width:44px; height:4px; border-radius:2px; background:#d6c6a7; opacity:.8; margin:8px auto 16px; }
+
+    .price-wrap{ margin-bottom:12px; }
+    .current{ color:var(--accent); font:800 24px/1 "Montserrat", system-ui; letter-spacing:.02em; }
+    .compare{ color:var(--muted); text-decoration:line-through; font:600 12px/1 "Montserrat", system-ui; margin-left:6px; }
+
+    .add-form{ margin-top:auto; display:flex; flex-direction:column; gap:10px; align-items:center; }
+
+    /* 数量加减器 */
+    .qty{ display:inline-flex; align-items:center; gap:6px; border:1px solid var(--card-border); border-radius:8px; padding:6px; }
+    .qty-btn{ width:28px; height:28px; border:0; background:#f6f4ef; border-radius:6px; cursor:pointer; font:700 18px/1 "Montserrat", system-ui; }
+    .qty-input{ width:56px; text-align:center; border:0; background:transparent; font:600 14px/1 "Montserrat", system-ui; -moz-appearance: textfield; }
+    .qty-input::-webkit-outer-spin-button, .qty-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+    .btn-outline{
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width:160px; padding:12px 20px; border-radius:6px; background:transparent;
+      color:var(--btn-text); border:1.5px solid var(--btn-border);
+      font:700 13px/1 "Montserrat", system-ui; letter-spacing:.06em; text-transform:uppercase;
+      transition:all .25s ease;
+    }
+    .btn-outline:hover{ background:var(--btn-border); color:#fff; }
+    .btn-outline[disabled]{ opacity:.4; cursor:not-allowed; }
+
+    /* Toast */
+    .bs-toast{
+      position:fixed; right:18px; bottom:18px; z-index:50;
+      background:#0e1a2a; color:#f3ddbc; padding:12px 16px; border-radius:10px;
+      box-shadow:0 10px 28px rgba(0,0,0,.2); font:600 13px/1.2 "Montserrat", system-ui;
+      opacity:0; transform:translateY(10px); pointer-events:none; transition:all .25s ease;
+    }
+    .bs-toast.show{ opacity:1; transform:translateY(0); }
+
+    /* 响应式 */
+    @media (max-width: 1100px){ .bs-grid{ --cols:3; } }
+    @media (max-width: 780px){
+      .bs-title{ font-size:32px; margin-bottom:28px; }
+      .bs-grid{ --cols:2; gap:20px; }
+      .thumb{ height:200px; } .thumb .circle{ width:140px; height:140px; } .thumb img{ max-height:180px; }
+    }
+    @media (max-width: 500px){ .bs-grid{ --cols:1; } .bs-card{ min-height:auto; } }
+  </style>
+
+  <!-- ✅ AJAX 加购脚本 -->
+  <script>
+    (function(){
+      const $ = (sel, root=document) => root.querySelector(sel);
+      const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
+
+      function showToast(msg){
+        let t = $('.bs-toast');
+        if(!t){
+          t = document.createElement('div');
+          t.className = 'bs-toast';
+          document.body.appendChild(t);
+        }
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(t._hide);
+        t._hide = setTimeout(()=> t.classList.remove('show'), 1800);
+      }
+
+      async function updateCartCount(){
+        try{
+          const res = await fetch('/cart.js', { headers: { 'Accept': 'application/json' } });
+          const cart = await res.json();
+          $$( '[data-cart-count]' ).forEach(el => el.textContent = cart.item_count);
+        }catch(e){ /* 静默失败即可 */ }
+      }
+
+      // 绑定数量加减
+      $$('.add-form').forEach(form=>{
+        const minus = $('.qty-btn:first-of-type', form);
+        const plus  = $('.qty-btn:last-of-type', form);
+        const input = $('.qty-input', form);
+
+        if(minus && plus && input){
+          minus.addEventListener('click', ()=> {
+            const v = Math.max(1, parseInt(input.value || '1', 10) - 1);
+            input.value = v;
+          });
+          plus.addEventListener('click', ()=> {
+            const v = Math.max(1, parseInt(input.value || '1', 10) + 1);
+            input.value = v;
+          });
+        }
+
+        form.addEventListener('submit', async (e)=>{
+          e.preventDefault();
+          const btn   = $('.add-btn', form) || $('.btn-outline', form);
+          const idEl  = form.querySelector('input[name="id"]');
+          const qtyEl = form.querySelector('input[name="quantity"]');
+          const id    = idEl && idEl.value;
+          const qty   = Math.max(1, parseInt(qtyEl && qtyEl.value || '1', 10));
+
+          if(!id){ showToast('Variant not found'); return; }
+
+          btn && (btn.disabled = true, btn.dataset._txt = btn.textContent, btn.textContent = 'ADDING...');
+
+          try{
+            const res = await fetch('/cart/add.js', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+              body: JSON.stringify({ id, quantity: qty })
+            });
+
+            if(!res.ok){
+              const err = await res.json().catch(()=>({}));
+              const msg = (err && err.description) || 'Failed to add';
+              throw new Error(msg);
+            }
+
+            // 更新购物车数量 & 提示
+            await updateCartCount();
+            showToast('Added to cart ✓');
+            btn && (btn.textContent = 'ADDED ✓');
+            setTimeout(()=> { if(btn){ btn.textContent = btn.dataset._txt || 'ADD TO CART'; btn.disabled = false; } }, 900);
+          }catch(err){
+            showToast(err.message || 'Failed to add');
+            btn && (btn.textContent = btn.dataset._txt || 'ADD TO CART', btn.disabled = false);
+          }
+        });
+      });
+    })();
+  </script>
+
+  {% schema %}
+  {
+    "name": "Best Spirits Grid",
+    "settings": [
+      { "type": "text", "id": "title", "label": "标题", "default": "OUR BEST SPIRITS" },
+      { "type": "range", "id": "columns", "label": "每行列数", "min": 2, "max": 4, "step": 1, "default": 4 },
+      { "type": "color", "id": "bg_color", "label": "区块背景色", "default": "#f8f6f1" },
+      { "type": "color", "id": "title_color", "label": "标题颜色", "default": "#3a2b1f" },
+      { "type": "color", "id": "accent_color", "label": "价格主色", "default": "#b6914e" },
+      { "type": "color", "id": "muted_color", "label": "副标题/对比价颜色", "default": "#9b958a" },
+      { "type": "color", "id": "circle_bg", "label": "圆形底色", "default": "#efe8d6" },
+      { "type": "color", "id": "card_bg", "label": "卡片背景色", "default": "#ffffff" },
+      { "type": "color", "id": "card_border", "label": "卡片描边色", "default": "#e3dfd7" },
+      { "type": "color", "id": "btn_text", "label": "按钮文字色", "default": "#2a2a2a" },
+      { "type": "color", "id": "btn_border", "label": "按钮描边色", "default": "#2a2a2a" },
+      { "type": "checkbox", "id": "show_compare", "label": "显示划线价（对比价）", "default": true },
+      { "type": "range", "id": "pt", "label": "上内边距(px)", "min": 0, "max": 160, "step": 8, "default": 40 },
+      { "type": "range", "id": "pb", "label": "下内边距(px)", "min": 0, "max": 160, "step": 8, "default": 40 }
+    ],
+    "blocks": [
+      {
+        "type": "item",
+        "name": "Product Card",
+        "settings": [
+          { "type": "product", "id": "product", "label": "选择产品" },
+          { "type": "image_picker", "id": "image", "label": "自定义图片（可选）" },
+          { "type": "text", "id": "title", "label": "标题（默认用产品名）" },
+          { "type": "text", "id": "subtitle", "label": "副标题（小字）", "default": "CRAFTED BREW" },
+          { "type": "text", "id": "btn_label", "label": "按钮文案", "default": "ADD TO CART" }
+        ]
+      }
+    ],
+    "max_blocks": 12,
+    "presets": [
+      { "name": "Best Spirits Grid", "category": "Products" }
+    ]
+  }
+  {% endschema %}
+</section>

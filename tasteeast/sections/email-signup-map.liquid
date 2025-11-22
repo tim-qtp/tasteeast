@@ -1,0 +1,186 @@
+<!-- 引入 Limelight 字体 -->
+<link href="https://fonts.googleapis.com/css2?family=Limelight&display=swap" rel="stylesheet">
+
+<style>
+  .signup-map-section {
+    padding: 80px 0;
+    background-color: #1e2631;
+    color: #fff;
+    font-family: 'Limelight', serif;
+    overflow: hidden;
+  }
+
+  .signup-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 0 20px;
+  }
+
+  .signup-left {
+    flex: 1 1 500px;
+    padding: 0 20px;
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .signup-left h2 {
+    font-size: 56px;
+    font-family: 'Limelight', serif;
+    line-height: 1.2;
+    color: #f5d1a3;
+    margin-bottom: 24px;
+  }
+
+  .signup-left p {
+    font-size: 14px;
+    color: #ccc;
+    margin-bottom: 36px;
+  }
+
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 400px;
+    gap: 12px;
+  }
+
+  /* 覆盖 Shopify Forms 默认表单样式 */
+  .signup-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .signup-form input {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    font-size: 14px;
+    color: #000;
+    outline: none;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .signup-form input:focus {
+    box-shadow: 0 0 0 2px #f5d1a3;
+  }
+
+  .signup-form button {
+    width: 100%;
+    background: linear-gradient(to right, #f5d1a3, #d29e6e);
+    color: #000;
+    padding: 12px 0;
+    border: none;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .signup-form button:hover {
+    transform: scale(1.02);
+  }
+
+  .signup-right {
+    flex: 1 1 500px;
+    text-align: center;
+    animation: fadeUp 0.8s ease forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .signup-right img {
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.5s ease;
+  }
+
+  .signup-right img:hover {
+    transform: scale(1.03);
+  }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .signup-container {
+      flex-direction: column;
+    }
+    .signup-left, .signup-right {
+      flex: 1 1 100%;
+    }
+  }
+</style>
+
+<section id="contact" class="signup-map-section">
+  <div class="signup-container">
+    <!-- 左侧内容 -->
+    <div class="signup-left">
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.subheading }}</p>
+
+      <!-- 渲染 Shopify Forms App Block -->
+      <div class="signup-form">
+        {%- for block in section.blocks -%}
+          {%- render block -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <!-- 右侧地图 -->
+    <div class="signup-right">
+      <img src="{{ section.settings.map_image | image_url }}" alt="map">
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer Signup Map Block",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "CREATE AN ACCOUNT & SIP IN STYLE"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Register to receive tasting updates, exclusive drops, and more."
+    },
+    {
+      "type": "image_picker",
+      "id": "map_image",
+      "label": "Map Background Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Signup Map",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

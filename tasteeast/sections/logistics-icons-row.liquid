@@ -1,0 +1,126 @@
+<section class="logistics-icons"
+  style="
+    --bg: {{ section.settings.bg_color }};
+    --title: {{ section.settings.title_color }};
+    --text: {{ section.settings.text_color }};
+    --circle-bg: {{ section.settings.circle_bg }};
+    --line: {{ section.settings.line_color }};
+    --circle: {{ section.settings.circle_size }}px;
+    --line-h: {{ section.settings.line_thickness }}px;
+    --gap: {{ section.settings.gap }}px;
+    --maxw: {{ section.settings.max_w }}px;
+    --pt: {{ section.settings.pt }}px;
+    --pb: {{ section.settings.pb }}px;">
+  <div class="li-wrap">
+    {% if section.settings.title != blank %}
+      <h2 class="li-title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <div class="li-row">
+      <span class="li-track" aria-hidden="true"></span>
+
+      {% for block in section.blocks %}
+        {% if block.type == 'item' %}
+          {% assign href = block.settings.link_url %}
+          <div class="li-item" {{ block.shopify_attributes }}>
+            {% if href != blank %}<a class="li-dot" href="{{ href }}">{% else %}<span class="li-dot">{% endif %}
+              {% if block.settings.icon != blank %}
+                <img src="{{ block.settings.icon | image_url: width: 220 }}" alt="{{ block.settings.icon_alt | escape }}">
+              {% endif %}
+            {% if href != blank %}</a>{% else %}</span>{% endif %}
+
+            {% if block.settings.text != blank %}
+              <div class="li-text">{{ block.settings.text }}</div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- 可替换为品牌字库 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Yeseva+One:wght@700;800;900&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    .logistics-icons{ background:var(--bg); color:var(--text); }
+    .li-wrap{ max-width:var(--maxw); margin:0 auto; padding:var(--pt) 20px var(--pb); }
+    .li-title{
+      margin:0 0 26px; text-align:center; color:var(--title);
+      font:800 36px/1.15 "Yeseva One", Georgia, serif; letter-spacing:.02em; text-transform:uppercase;
+    }
+
+    .li-row{
+      position:relative;
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap:var(--gap); flex-wrap:nowrap;
+    }
+    /* 中间连线 */
+    .li-track{
+      position:absolute; left:calc(var(--circle)/2); right:calc(var(--circle)/2);
+      top:calc(var(--circle)/2); height:var(--line-h); transform:translateY(-50%);
+      background:var(--line); border-radius:999px; pointer-events:none;
+    }
+
+    .li-item{ flex:1 1 0; text-align:center; position:relative; display:flex; flex-direction:column; align-items:center; }
+    .li-dot{
+      width:var(--circle); height:var(--circle); border-radius:50%;
+      background:var(--circle-bg); display:grid; place-items:center; text-decoration:none;
+      box-shadow:0 2px 0 rgba(0,0,0,.02);
+    }
+    .li-dot img{ width:58%; height:auto; display:block; }
+
+    .li-text{
+      margin-top:14px; color:var(--text);
+      font:700 16px/1.4 "Montserrat", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      letter-spacing:.06em; text-transform:uppercase;
+    }
+
+    /* 响应式：窄屏改为竖排，并隐藏横线 */
+    @media (max-width: 820px){
+      .li-row{ flex-direction:column; align-items:center; gap:18px; }
+      .li-track{ display:none; }
+      .li-item{ max-width: 420px; }
+      .li-text{ font-size:14px; }
+    }
+  </style>
+
+  {% schema %}
+  {
+    "name": "Logistics Icons Row",
+    "settings": [
+      { "type": "text", "id": "title", "label": "标题", "default": "LOGISTICS COMMITMENT AREA" },
+      { "type": "range", "id": "max_w", "label": "内容最大宽度(px)", "min": 800, "max": 1400, "step": 20, "default": 1200 },
+      { "type": "range", "id": "pt", "label": "上内边距(px)", "min": 0, "max": 160, "step": 8, "default": 40 },
+      { "type": "range", "id": "pb", "label": "下内边距(px)", "min": 0, "max": 160, "step": 8, "default": 40 },
+
+      { "type": "color", "id": "bg_color", "label": "区块背景色", "default": "#f8f6f1" },
+      { "type": "color", "id": "title_color", "label": "标题颜色", "default": "#3a2b1f" },
+      { "type": "color", "id": "text_color", "label": "说明文字颜色", "default": "#111111" },
+      { "type": "color", "id": "circle_bg", "label": "圆形背景色", "default": "#0d1c2c" },
+      { "type": "color", "id": "line_color", "label": "连线颜色", "default": "#eadfc9" },
+
+      { "type": "range", "id": "circle_size", "label": "圆形直径(px)", "min": 60, "max": 140, "step": 2, "default": 96 },
+      { "type": "range", "id": "line_thickness", "label": "连线粗细(px)", "min": 2, "max": 16, "step": 1, "default": 6 },
+      { "type": "range", "id": "gap", "label": "图标间距(px)", "min": 12, "max": 80, "step": 4, "default": 28 }
+    ],
+    "blocks": [
+      {
+        "type": "item",
+        "name": "Icon + Text",
+        "settings": [
+          { "type": "image_picker", "id": "icon", "label": "图标(建议透明PNG/SVG)" },
+          { "type": "text", "id": "icon_alt", "label": "图标ALT" },
+          { "type": "text", "id": "text", "label": "文字", "default": "FREE SHIPPING OVER \\$XX" },
+          { "type": "url", "id": "link_url", "label": "可选：链接" }
+        ]
+      }
+    ],
+    "max_blocks": 6,
+    "presets": [
+      { "name": "Logistics Icons Row" }
+    ]
+  }
+  {% endschema %}
+</section>

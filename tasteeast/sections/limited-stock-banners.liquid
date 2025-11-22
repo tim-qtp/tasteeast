@@ -1,0 +1,175 @@
+<section class="limited-tiles"
+  style="
+    --maxw: {{ section.settings.max_w }}px;
+    --cols: {{ section.settings.columns }};
+    --pt: {{ section.settings.pt }}px; --pb: {{ section.settings.pb }}px;
+    --title: {{ section.settings.title_color }};
+    --btn-text: {{ section.settings.btn_text }};
+    --btn-border: {{ section.settings.btn_border }};
+    --card-bg: {{ section.settings.card_bg }};
+  ">
+  <div class="lt-wrap">
+    {% if section.settings.title != blank %}
+      <h2 class="lt-title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    <div class="lt-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'item' %}
+          {% assign product = all_products[block.settings.product] %}
+          {% if product %}
+            {% assign variant = product.selected_or_first_available_variant %}
+          {% endif %}
+          {% assign img = block.settings.image | default: product.featured_image %}
+          {% assign title = block.settings.title | default: product.title %}
+          {% assign subtitle = block.settings.subtitle %}
+          {% assign tile_bg = block.settings.card_bg | default: section.settings.card_bg %}
+
+          {% assign badge_text = block.settings.badge_text %}
+          {% if block.settings.show_badge %}
+            {% if block.settings.auto_badge and product and variant %}
+              {% if variant.inventory_management and variant.inventory_quantity > 0 %}
+                {% assign badge_text = '*ONLY ' | append: variant.inventory_quantity | append: ' LEFT' %}
+              {% elsif product.available == false %}
+                {% assign badge_text = '*SOLD OUT' %}
+              {% else %}
+                {% assign badge_text = '*LIMITED STOCK' %}
+              {% endif %}
+            {% elsif badge_text == blank and block.settings.badge_qty > 0 %}
+              {% assign badge_text = '*ONLY ' | append: block.settings.badge_qty | append: ' LEFT' %}
+            {% endif %}
+          {% endif %}
+
+          <article class="lt-card" style="--tile-bg: {{ tile_bg }};">
+            <div class="lt-inner">
+              <div class="lt-media">
+                {% if img %}<img src="{{ img | image_url: width: 1000 }}" alt="{{ title | escape }}">{% endif %}
+              </div>
+
+              <div class="lt-info">
+                {% if block.settings.show_badge and badge_text != blank %}
+                  <div class="lt-badge">{{ badge_text }}</div>
+                {% endif %}
+                {% if title %}<h3 class="lt-name">{{ title | upcase }}</h3>{% endif %}
+                {% if subtitle %}<p class="lt-sub">{{ subtitle | upcase }}</p>{% endif %}
+              </div>
+
+              <div class="lt-cta">
+                {% if product %}
+                  <form method="post" action="/cart/add" class="lt-form">
+                    <input type="hidden" name="id" value="{{ variant.id }}">
+                    {% if product.available %}
+                      <button type="submit" class="btn-outline">
+                        {{ block.settings.btn_label | default: 'ADD TO CART' }}
+                      </button>
+                    {% else %}
+                      <a class="btn-outline" href="{{ product.url }}">View product</a>
+                    {% endif %}
+                  </form>
+                {% elsif block.settings.btn_url != blank %}
+                  <a class="btn-outline" href="{{ block.settings.btn_url }}">{{ block.settings.btn_label | default: 'LEARN MORE' }}</a>
+                {% endif %}
+              </div>
+            </div>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Yeseva+One:wght@700;800;900&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    .lt-wrap{ max-width:var(--maxw); margin:0 auto; padding:var(--pt) 20px var(--pb); }
+    .lt-title{
+      margin:0 0 24px; text-align:center; color:var(--title);
+      font:800 42px/1.1 "Yeseva One", Georgia, serif; letter-spacing:.02em;
+    }
+    .lt-grid{ display:grid; gap:28px; grid-template-columns:repeat(var(--cols), minmax(0,1fr)); }
+
+    .lt-card{ background:var(--tile-bg, var(--card-bg)); }
+    .lt-inner{
+      display:grid; grid-template-columns:240px 1fr 220px; align-items:center;
+      gap:32px; padding:36px 32px;
+    }
+    .lt-media img{ width:100%; height:auto; display:block; object-fit:contain; }
+
+    .lt-info{ display:flex; flex-direction:column; gap:6px; }
+    .lt-badge{ font:700 12px/1 "Montserrat", system-ui; letter-spacing:.08em; text-transform:uppercase; }
+    .lt-name{ margin:0; font:800 32px/1.1 "Montserrat", system-ui; letter-spacing:.02em; }
+    .lt-sub{ margin:0; font:600 18px/1.1 "Montserrat", system-ui; opacity:.8; letter-spacing:.06em; }
+
+    .lt-cta{ display:flex; justify-content:flex-end; }
+    .btn-outline{
+      display:inline-flex; align-items:center; justify-content:center; min-width:200px;
+      padding:14px 24px; border-radius:4px; background:transparent;
+      color:var(--btn-text); border:1.5px solid var(--btn-border);
+      font:800 16px/1 "Montserrat", system-ui; text-transform:uppercase; letter-spacing:.04em;
+    }
+
+    @media (max-width:1100px){
+      .lt-inner{ grid-template-columns:200px 1fr 200px; }
+    }
+    @media (max-width:860px){
+      .lt-grid{ grid-template-columns:1fr; }
+      .lt-inner{
+        grid-template-columns:140px 1fr;
+        grid-template-areas:
+          "img info"
+          "cta cta";
+        gap:18px; padding:24px 20px;
+      }
+      .lt-media{ grid-area:img; }
+      .lt-info{ grid-area:info; }
+      .lt-cta{ grid-area:cta; justify-content:flex-start; }
+      .lt-name{ font-size:24px; }
+      .lt-sub{ font-size:14px; }
+      .btn-outline{ min-width:160px; padding:12px 18px; font-size:14px; }
+    }
+  </style>
+
+  {% schema %}
+  {
+    "name": "Best Sellers · Limited",
+    "settings": [
+      { "type": "text", "id": "title", "label": "标题", "default": "BEST SELLERS - LIMITED STOCK" },
+      { "type": "range", "id": "columns", "label": "每行横幅数量", "min": 1, "max": 3, "step": 1, "default": 2 },
+      { "type": "range", "id": "max_w", "label": "内容最大宽度(px)", "min": 900, "max": 1400, "step": 20, "default": 1200 },
+      { "type": "color", "id": "title_color", "label": "标题颜色", "default": "#3a2b1f" },
+      { "type": "color", "id": "card_bg", "label": "默认横幅背景色", "default": "#efd6b6" },
+      { "type": "color", "id": "btn_text", "label": "按钮文字颜色", "default": "#1a1a1a" },
+      { "type": "color", "id": "btn_border", "label": "按钮描边颜色", "default": "#1a1a1a" },
+      { "type": "range", "id": "pt", "label": "上内边距(px)", "min": 0, "max": 160, "step": 8, "default": 40 },
+      { "type": "range", "id": "pb", "label": "下内边距(px)", "min": 0, "max": 160, "step": 8, "default": 40 }
+    ],
+    "blocks": [
+      {
+        "type": "item",
+        "name": "横幅项",
+        "settings": [
+          { "type": "product", "id": "product", "label": "选择产品" },
+          { "type": "image_picker", "id": "image", "label": "自定义图片（可选）" },
+          { "type": "text", "id": "title", "label": "标题（默认用产品名）" },
+          { "type": "text", "id": "subtitle", "label": "副标题", "default": "MISS VEGETABLE" },
+
+          { "type": "checkbox", "id": "show_badge", "label": "显示库存徽标", "default": true },
+          { "type": "checkbox", "id": "auto_badge", "label": "自动使用库存数量", "default": true },
+          { "type": "range", "id": "badge_qty", "label": "手动数量（不自动时）", "min": 0, "max": 500, "step": 5, "default": 5 },
+          { "type": "text", "id": "badge_text", "label": "自定义徽标文案" },
+
+          { "type": "text", "id": "btn_label", "label": "按钮文案", "default": "ADD TO CART" },
+          { "type": "url", "id": "btn_url", "label": "按钮链接（无产品时使用）" },
+
+          { "type": "color", "id": "card_bg", "label": "该横幅背景色（覆盖默认）" }
+        ]
+      }
+    ],
+    "max_blocks": 6,
+    "presets": [
+      { "name": "Best Sellers · Limited" }
+    ]
+  }
+  {% endschema %}
+</section>

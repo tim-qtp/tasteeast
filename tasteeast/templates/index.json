@@ -9,12 +9,212 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "hello-world",
+    "hero_taste_east_a3wmh7": {
+      "type": "hero-taste-east",
+      "name": "Taste East Hero",
+      "settings": {
+        "background_image": "shopify://shop_images/banner.jpg",
+        "headline": "TASTE THE BEST FROM EAST",
+        "subheadline": "Boutique and Eastern flavors from China"
+      }
+    },
+    "features_icons_DxJBc7": {
+      "type": "features-icons",
+      "blocks": {
+        "feature_xtqN6E": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/lefta.svg",
+            "title": "BOUTIQUE WINES",
+            "text": "EACH BOTTLE TELLS A STORY — OF LAND, LABOR, AND LEGACY."
+          }
+        },
+        "feature_FHfzpH": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/centerb.svg",
+            "title": "EASTERN DELIGHTS",
+            "text": "FROM DELICATE PASTRIES TO SEASONAL TREASURES — CRAFTED TO HONOR FLAVOR AND FORM."
+          }
+        },
+        "feature_MF7bem": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/rightc.svg",
+            "title": "GIFT COLLECTIONS",
+            "text": "INSPIRED BY EASTERN RITUALS OF GIVING — REFINED, PERSONAL, UNFORGETTABLE."
+          }
+        }
+      },
+      "block_order": [
+        "feature_xtqN6E",
+        "feature_FHfzpH",
+        "feature_MF7bem"
+      ],
+      "name": "Feature Icons",
       "settings": {}
+    },
+    "china_to_california_RW4LT4": {
+      "type": "china-to-california",
+      "name": "China to California",
+      "settings": {}
+    },
+    "services_grid_ACAmpx": {
+      "type": "services-grid",
+      "name": "Services Grid",
+      "settings": {}
+    },
+    "section_recent_news_a4ULdT": {
+      "type": "section-recent-news",
+      "blocks": {
+        "news_card_g6dnFt": {
+          "type": "news_card",
+          "settings": {
+            "date": "14/07/2025",
+            "image": "shopify://shop_images/newa.jpg",
+            "title": "After-Wine Support",
+            "excerpt": "end-to- end solutions..."
+          }
+        },
+        "news_card_VpMwzw": {
+          "type": "news_card",
+          "settings": {
+            "date": "14/07/2025",
+            "image": "shopify://shop_images/newc.jpg",
+            "title": "Gifts more important",
+            "excerpt": "Ariana try to solve the prob..."
+          }
+        },
+        "news_card_We8EMk": {
+          "type": "news_card",
+          "settings": {
+            "date": "14/07/2025",
+            "image": "shopify://shop_images/newb.jpg",
+            "title": "Tea functions",
+            "excerpt": "WHen drink tea after two ..."
+          }
+        }
+      },
+      "block_order": [
+        "news_card_g6dnFt",
+        "news_card_VpMwzw",
+        "news_card_We8EMk"
+      ],
+      "name": "Recent News Overlay",
+      "settings": {}
+    },
+    "main_list_collections_PwjnMk": {
+      "type": "main-list-collections",
+      "name": "Customer Reviews",
+      "settings": {
+        "background_image": "shopify://shop_images/background.png",
+        "review_img1": "shopify://shop_images/customera.jpg",
+        "review_img2": "shopify://shop_images/customerc.jpg",
+        "review_img3": "shopify://shop_images/customerb.jpg"
+      }
+    },
+    "email_signup_map_yEEXbg": {
+      "type": "email-signup-map",
+      "blocks": {
+        "forms_inline_tYTLrP": {
+          "type": "shopify://apps/forms/blocks/inline/8744a304-fcb1-4347-b211-bb6b4759a76a",
+          "settings": {
+            "form_id": "584878",
+            "text_color": "#202020",
+            "button_background_color": "#cda574",
+            "button_label_color": "#FFFFFF",
+            "links_color": "#1878B9",
+            "errors_color": "#E02229",
+            "text_alignment": "center",
+            "form_alignment": "flex-start",
+            "padding_top": 0,
+            "padding_bottom": 24,
+            "padding_right": 0,
+            "padding_left": 0
+          }
+        }
+      },
+      "block_order": [
+        "forms_inline_tYTLrP"
+      ],
+      "name": "Email Signup Map",
+      "settings": {
+        "heading": "STAY IN THE KNOW, SIP WITH STYLE",
+        "subheading": "Be the first to explore our limited releases, tasting notes, and elegant gift ideas.",
+        "map_image": "shopify://shop_images/map.jpg"
+      }
+    },
+    "footer_dbEyRi": {
+      "type": "footer",
+      "name": "Footer",
+      "settings": {
+        "footer_bg": "shopify://shop_images/background.png"
+      }
+    },
+    "multicolumn": {
+      "type": "multicolumn",
+      "blocks": {
+        "column1": {
+          "type": "column",
+          "settings": {
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column2": {
+          "type": "column",
+          "settings": {
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column3": {
+          "type": "column",
+          "settings": {
+            "title": "Column",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column1",
+        "column2",
+        "column3"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "none",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main"
+    "hero_taste_east_a3wmh7",
+    "features_icons_DxJBc7",
+    "china_to_california_RW4LT4",
+    "services_grid_ACAmpx",
+    "section_recent_news_a4ULdT",
+    "main_list_collections_PwjnMk",
+    "email_signup_map_yEEXbg",
+    "footer_dbEyRi",
+    "multicolumn"
   ]
 }

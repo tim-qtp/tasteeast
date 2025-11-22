@@ -1,0 +1,117 @@
+{% schema %}
+{
+  "name": "Taste East Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Main headline",
+      "default": "TASTE THE BEST FROM EAST"
+    },
+    {
+      "type": "text",
+      "id": "subheadline",
+      "label": "Sub headline",
+      "default": "Boutique and Eastern flavors from China"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Taste East Hero",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section
+  class="hero-taste-east"
+  style="
+    position: relative;
+    background-image: url({{ section.settings.background_image | image_url: width: 1920 }});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    aspect-ratio: 16/6.5;
+    min-height: 520px;
+    overflow:hidden;
+  "
+>
+  <!-- 主文案 -->
+  <div class="page-width" style="padding: 60px 20px 80px; text-align: center; color: #111;">
+    <p
+      class="hero-subheadline"
+      style="
+        margin: 8% 0 -4% 0;
+        font-size: 20px;
+        font-family: 'Gurmukhi MN', sans-serif;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+        color: white;
+      "
+    >
+      {{ section.settings.subheadline }}
+    </p>
+
+    <h1
+      class="hero-headline"
+      style="
+        font-size: 120px;
+        font-family: 'Limelight', serif;
+        font-weight: 700;
+        background: linear-gradient(to right, #FFDEBB, #CAA16F);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 80px auto 80px;
+        line-height: 1.1;
+        letter-spacing: 1px;
+      "
+    >
+      {{ section.settings.headline }}
+    </h1>
+  </div>
+</section>
+
+<style>
+@media screen and (max-width: 768px) {
+  .hero-taste-east {
+    aspect-ratio: auto !important;
+    min-height: auto !important;
+    padding: 40px 20px !important;
+  }
+
+  .hero-taste-east .hero-subheadline {
+    font-size: 16px !important;
+    margin: 60px 0 20px 0 !important;
+  }
+
+  .hero-taste-east .hero-headline {
+    font-size: 48px !important;
+    margin: 20px auto 40px !important;
+    line-height: 1.2 !important;
+  }
+}
+
+/* ===== 动画效果（仅标题和副标题） ===== */
+.hero-taste-east .hero-subheadline,
+.hero-taste-east .hero-headline {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.8s ease-out forwards;
+}
+
+.hero-taste-east .hero-subheadline { animation-delay: 0.2s; }
+.hero-taste-east .hero-headline { animation-delay: 0.4s; }
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

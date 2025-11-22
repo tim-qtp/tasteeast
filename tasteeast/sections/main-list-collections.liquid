@@ -1,0 +1,187 @@
+<section id="reviews" class="reviews-section" style="background-image: url({{ section.settings.background_image | image_url }}); background-size: cover; background-position: center;">
+  <style>
+    .reviews-section {
+      padding: 80px 20px;
+      font-family: 'Rozha One', serif;
+      text-align: center;
+    }
+
+    .reviews-section h2 {
+      font-size: 54px;
+      color: #5b3218;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      opacity: 0;
+      font-family: 'Limelight', serif;
+      transform: translateY(30px);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .reviews-section p.section-subtitle {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s ease forwards;
+      animation-delay: 0.2s;
+    }
+
+    .review-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .review-card {
+      width: 300px;
+      text-align: center;
+      padding: 20px;
+      border-radius: 12px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .review-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .review-card img {
+      border-radius: 50%;
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      margin-bottom: 20px;
+      transition: transform 0.4s ease;
+    }
+
+    .review-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .review-stars {
+      font-size: 24px;
+      color: #5b3218;
+    }
+
+    .review-platform {
+      font-weight: bold;
+      color: #5b3218;
+      margin: 12px 0 4px;
+    }
+
+    .review-author {
+      font-size: 14px;
+      font-weight: 500;
+      color: #444;
+      margin-bottom: 12px;
+    }
+
+    .review-text {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .review-container {
+        flex-direction: column;
+        gap: 40px;
+        align-items: center; 
+      }
+    }
+  </style>
+
+  <h2>OUR REVIEWS</h2>
+  <p class="section-subtitle">LAST WEEK</p>
+
+  <div class="review-container">
+    <!-- Review Card 1 -->
+    <div class="review-card" style="animation-delay: 0.3s;">
+      <img src="{{ section.settings.review_img1 | image_url }}" alt="Sophia">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-platform">TIKTOK</div>
+      <div class="review-author">SOPHIA L., LOS ANGELES</div>
+      <p class="review-text">
+        THIS WINE SURPRISED ME — ELEGANT, SMOOTH, AND WITH A DEPTH I DIDN'T EXPECT FROM A CHINESE VINEYARD. IT'S NOW MY
+        GO-TO GIFT FOR CLIENTS AND CLOSE FRIENDS.
+      </p>
+    </div>
+
+    <!-- Review Card 2 -->
+    <div class="review-card" style="animation-delay: 0.5s;">
+      <img src="{{ section.settings.review_img2 | image_url }}" alt="Michael">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-platform">INSTAGRAM</div>
+      <div class="review-author">MICHAEL R., SAN FRANCISCO</div>
+      <p class="review-text">
+        I BROUGHT A TASTEEAST BOTTLE TO A DINNER PARTY AND EVERYONE ASKED WHERE IT WAS FROM. WHEN I SAID CHINA, THEY
+        WERE STUNNED — IN THE BEST WAY.
+      </p>
+    </div>
+
+    <!-- Review Card 3 -->
+    <div class="review-card" style="animation-delay: 0.7s;">
+      <img src="{{ section.settings.review_img3 | image_url }}" alt="Elena">
+      <div class="review-stars">★★★★★</div>
+      <div class="review-platform">FACEBOOK</div>
+      <div class="review-author">ELENA T., SINGAPORE</div>
+      <p class="review-text">
+        THERE'S A QUIET CONFIDENCE IN THESE WINES. YOU CAN TASTE THE CARE, THE CRAFT, AND SOMETHING DEEPER — ALMOST LIKE
+        THE LAND ITSELF SPEAKS THROUGH IT.
+      </p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customer Reviews",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "review_img1",
+      "label": "Reviewer Image 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "review_img2",
+      "label": "Reviewer Image 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "review_img3",
+      "label": "Reviewer Image 3"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Reviews",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

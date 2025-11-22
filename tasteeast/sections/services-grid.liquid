@@ -1,0 +1,152 @@
+{% schema %}
+{
+  "name": "Services Grid",
+  "tag": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Services Grid",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .services-grid {
+    background-image: url('https://cdn.shopify.com/s/files/1/0714/2408/2105/files/background.png?v=1753431441');
+    background-repeat: repeat;
+    background-size: 1920px 1080px;
+    padding: 120px 40px;
+    text-align: center;
+  }
+
+  .services-grid h2 {
+    font-family: 'Limelight', serif;
+    font-size: 48px;
+    color: #522c0c;
+    margin-bottom: 48px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 1s ease-out 0.1s forwards;
+  }
+
+  .services-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .service-card {
+    width: 220px;
+    height: 140px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Limelight', serif;
+    font-size: 28px;
+    color: #f8d4a1;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .service-card:nth-child(1) { animation-delay: 0.2s; }
+  .service-card:nth-child(2) { animation-delay: 0.35s; }
+  .service-card:nth-child(3) { animation-delay: 0.5s; }
+  .service-card:nth-child(4) { animation-delay: 0.65s; }
+
+  .service-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15);
+    transition: background 0.4s ease;
+    z-index: 1;
+  }
+
+  .service-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  }
+
+  .service-card:hover::before {
+    background: rgba(0, 0, 0, 0.35);
+  }
+
+  .service-card span {
+    position: relative;
+    z-index: 2;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+  }
+
+  .service-card:hover span {
+    opacity: 1;
+  }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .services-items {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .service-card {
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .service-card span {
+      font-size: 20px;
+    }
+  }
+</style>
+
+<div id="PRODUCTS" class="services-grid">
+  <h2>PRODUCTS</h2>
+  <div class="services-items">
+    <a href="https://www.taste-east.com/collections/all"
+      class="service-card"
+      style="background-image: url('https://cdn.shopify.com/s/files/1/0714/2408/2105/files/a.jpg?v=1753428045');"
+      href="/collections/wine"
+    >
+      <span></span>
+    </a>
+    <a href="https://www.taste-east.com/collections/all"
+      class="service-card"
+      style="background-image: url('https://cdn.shopify.com/s/files/1/0714/2408/2105/files/food.jpg?v=1753428045');"
+      href="/collections/food"
+    >
+      <span></span>
+    </a>
+    <a href="https://www.taste-east.com/collections/all"
+      class="service-card"
+      style="background-image: url('https://cdn.shopify.com/s/files/1/0714/2408/2105/files/tea_488cc9b8-e90a-4246-ac10-0bae2c08dcb1.jpg?v=1753702759');"
+      href="/collections/tea"
+    >
+      <span></span>
+    </a>
+    <a href="https://www.taste-east.com/collections/all"
+      class="service-card"
+      style="background-image: url('https://cdn.shopify.com/s/files/1/0714/2408/2105/files/keepsakes_77e5e531-6d30-4fdb-899c-934989d923ad.jpg?v=1753708303');"
+      href="/collections/keepsakes"
+    >
+      <span></span>
+    </a>
+  </div>
+</div>

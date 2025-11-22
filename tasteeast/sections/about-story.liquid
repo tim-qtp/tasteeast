@@ -1,0 +1,111 @@
+<section style="
+  background-image: url({{ section.settings.bg_image | image_url }});
+  background-repeat: repeat;
+  background-size: auto;
+  padding: 100px 40px;
+" data-aos="fade-up">
+  <div class="our-story-container" style="
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px;
+    align-items: center;
+  ">
+
+    <!-- 左侧文字内容 -->
+    <div style="flex: 1 1 300px;" data-aos="fade-right" data-aos-delay="100">
+      <h2 style="
+        font-size: 48px;
+        background: linear-gradient(to right, #d9b989, #e2c59a);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-family: 'Limelight', serif;
+        margin-bottom: 24px;
+      ">
+        OUR STORY
+      </h2>
+
+      <p style="font-size: 12px; line-height: 1.8; color: #000; margin-bottom: 24px;">
+        Our founder was born and raised on the storied Loess Plateau of Northern China —<br>
+        a land carved by centuries of resilience, trade, and tradition.<br>
+        Hailing from Shanxi, once the home of the legendary Jin Merchants, <br>
+        he grew up among flavors that spoke of time, craftsmanship, and belonging: <br>
+        aged vinegar as dark as ink, robust grain spirits, and the early whispers of mountain-grown wine.
+      </p>
+
+      <p style="font-size: 12px; line-height: 1.8; color: #000; margin-bottom: 24px;">
+        Years later, under the Californian sun in the heart of Silicon Valley, <br>
+        he found himself longing not just for the tastes of home, <br>
+        but for the values they embodied — integrity, patience, and cultural richness. <br>
+        Out of that longing, TasteEast was born.
+      </p>
+
+      <p style="font-size: 12px; line-height: 1.8; color: #000;">
+        More than a brand, TasteEast is a bridge —<br>
+        linking the soul of Chinese terroir with American curiosity.<br>
+        We hand-select products that reflect the very essence of China’s diverse landscapes and culinary heritage.<br>
+        Through wine, tea, vinegar, and more, <br>
+        we invite our customers to discover a quiet yet powerful narrative —<br>
+        one of elegance, authenticity, and enduring cultural pride.
+      </p>
+    </div>
+
+    <!-- 右侧图片 -->
+    <div style="flex: 1 1 300px; text-align: center;" data-aos="fade-left" data-aos-delay="200">
+      <img src="https://cdn.shopify.com/s/files/1/0714/2408/2105/files/c_969fec1b-1dbf-4a67-86e9-3416357184f7.jpg?v=1753701474" style="max-width: 100%; height: auto;" />
+    </div>
+  </div>
+</section>
+
+<!-- 📱 自适应样式 -->
+<style>
+@media screen and (max-width: 768px) {
+  section[data-aos="fade-up"] {
+    padding: 60px 20px !important;
+  }
+
+  .our-story-container {
+    flex-direction: column !important;
+    gap: 40px !important;
+  }
+
+  .our-story-container h2 {
+    font-size: 32px !important;
+    margin-bottom: 16px !important;
+    text-align: center !important;
+  }
+
+  .our-story-container p {
+    font-size: 13px !important;
+    line-height: 1.7 !important;
+    text-align: left !important;
+  }
+
+  .our-story-container img {
+    width: 100% !important;
+    max-width: 90vw !important;
+    height: auto !important;
+    border-radius: 12px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Our Story Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background Texture"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Story",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

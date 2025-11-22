@@ -1,0 +1,164 @@
+{% schema %}
+{
+  "name": "Recent News Overlay",
+  "tag": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "news_card",
+      "name": "News Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date",
+          "default": "14/07/2025"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Main Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "News Title"
+        },
+        {
+          "type": "text",
+          "id": "excerpt",
+          "label": "Excerpt",
+          "default": "Short description here..."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Recent News Overlay",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .recent-news-wrapper {
+    position: relative;
+    background-image: url('https://cdn.shopify.com/s/files/1/0714/2408/2105/files/news_background.jpg?v=1753428357');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 20px 160px;
+    text-align: center;
+  }
+
+  .recent-news-wrapper h2 {
+    font-family: 'Limelight', serif;
+    font-size: 48px;
+    color: #f5d1a3;
+    margin: 0;
+  }
+
+  .recent-news-cards {
+    position: relative;
+    max-width: 1200px;
+    margin: -120px auto 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    z-index: 2;
+  }
+
+  .news-card {
+    background: white;
+    width: 300px;
+    height: 414px;
+    border-radius: 0px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 50px 24px 54px 24px;
+    text-align: left;
+    position: relative;
+    transition: transform 0.3s;
+  }
+
+  .news-card:hover {
+    transform: translateY(-5px);
+  }
+
+  .news-card img.main-image {
+    width: 100%;
+    border-radius: 0;
+    margin: 12px 0;
+  }
+
+  .news-card .date {
+    font-weight: 700;
+    text-align: right;
+    color: #444;
+  }
+
+  .news-card .title {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 8px 0 4px;
+    color: #1a1a1a;
+  }
+
+  .news-card .excerpt {
+    font-size: 13px;
+    color: #666;
+  }
+
+  .card-decor {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 56px;
+    height: auto;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    .recent-news-cards {
+      flex-direction: column;
+      align-items: center;
+      margin-top: -100px;
+    }
+  }
+</style>
+
+<section id="news">
+  <div class="recent-news-wrapper">
+    <h2>RECENT NEWS</h2>
+  </div>
+
+  <div class="recent-news-cards">
+    {% for block in section.blocks %}
+      <div class="news-card">
+        <!-- 左上角装饰图标 -->
+        <img
+          class="card-decor"
+          src="https://cdn.shopify.com/s/files/1/0714/2408/2105/files/design.png?v=1753428751"
+          alt="decor"
+        >
+
+        <div class="date">{{ block.settings.date }}</div>
+
+        {% if block.settings.image %}
+          <img
+            class="main-image"
+            src="{{ block.settings.image | image_url: width: 600 }}"
+            alt="{{ block.settings.title }}"
+          >
+        {% endif %}
+
+        <div class="title">{{ block.settings.title }}</div>
+        <div class="excerpt">{{ block.settings.excerpt }}</div>
+      </div>
+    {% endfor %}
+  </div>
+</section>

@@ -1,0 +1,255 @@
+{%- comment -%}
+如果开启 only_on_all 且当前不是 /collections/all，就不渲染内容
+{%- endcomment -%}
+{% assign hide_section = false %}
+{% if section.settings.only_on_all %}
+  {% if collection == nil or collection.handle != 'all' %}
+    {% assign hide_section = true %}
+  {% endif %}
+{% endif %}
+
+{% unless hide_section %}
+<section class="usp-tabs"
+  style="--maxw: {{ section.settings.max_w }}px; --cols: {{ section.settings.columns }};
+         --title: {{ section.settings.title_color }}; --tab: {{ section.settings.tab_color }};
+         --tab-active: {{ section.settings.tab_active_color }};
+         --muted: {{ section.settings.muted_color }};
+         --btn-fill: {{ section.settings.btn_fill_bg }};
+         --btn-fill-text: {{ section.settings.btn_fill_text }};
+         --btn-outline: {{ section.settings.btn_outline }};
+         --circle: {{ section.settings.circle_bg }};
+         --pad-top: {{ section.settings.pt }}px; --pad-btm: {{ section.settings.pb }}px;
+         --bg: {{ section.settings.bg_color }};">
+  <div class="usp-wrap">
+    {% if section.settings.title != blank %}
+      <h2 class="usp-title">{{ section.settings.title }}</h2>
+    {% endif %}
+
+    {%- comment -%} 收集 Tabs，并取第一个 Tab 的 handle key（用于默认显示） {%- endcomment -%}
+    {% assign tabs = section.blocks | where: 'type', 'tab' %}
+    {% assign first_tab_key = '' %}
+    {% if tabs.size > 0 %}
+      {% assign first_tab_key = tabs.first.settings.key | handle %}
+    {% endif %}
+
+    {%- comment -%} Tab 头部 {%- endcomment -%}
+    {% if tabs.size > 0 %}
+      <div class="usp-tabbar" role="tablist">
+        {% for block in tabs %}
+          <button class="usp-tab{% if forloop.first %} is-active{% endif %}"
+                  role="tab"
+                  aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                  data-key="{{ block.settings.key | handle }}">
+            <span class="usp-tab-title">{{ block.settings.label }}</span>
+            {% if block.settings.subline != blank %}
+              <span class="usp-tab-sub">{{ block.settings.subline }}</span>
+            {% endif %}
+          </button>
+        {% endfor %}
+      </div>
+      <hr class="usp-divider">
+    {% endif %}
+
+    {%- comment -%} Grid {%- endcomment -%}
+    <div class="usp-grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'item' %}
+          {% assign prod  = all_products[block.settings.product] %}
+          {% assign img   = block.settings.image | default: prod.featured_image %}
+          {% assign title = block.settings.title | default: prod.title %}
+          {% assign sub   = block.settings.subtitle %}
+          {% assign url   = block.settings.btn_url | default: prod.url %}
+          {% assign k     = block.settings.tab_key | handle %}
+          <article class="usp-item"
+                   data-key="{{ k }}"{% if tabs.size > 0 and k != first_tab_key %} hidden{% endif %}>
+            <div class="usp-thumb">
+              <span class="circle"></span>
+              {% if img %}
+                <img src="{{ img | image_url: width: 600 }}" alt="{{ title | escape }}">
+              {% endif %}
+            </div>
+            {% if title %}<h3 class="card-title">{{ title }}</h3>{% endif %}
+            {% if sub %}<p class="card-sub">{{ sub }}</p>{% endif %}
+            {% if block.settings.btn_label != blank and url != blank %}
+              <a href="{{ url }}"
+                 class="btn {% if block.settings.btn_style == 'filled' %}btn--filled{% else %}btn--outline{% endif %}">
+                {{ block.settings.btn_label }}
+              </a>
+            {% endif %}
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  {%- comment -%} 可替换为你的品牌字体 {%- endcomment -%}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Yeseva+One&display=swap" rel="stylesheet">
+
+  <style>
+    .usp-tabs{ background: var(--bg); }
+    .usp-wrap{max-width:var(--maxw); margin:0 auto; padding:var(--pad-top) 20px var(--pad-btm);}
+    .usp-title{ margin:0 0 24px; text-align:center; color:var(--title); font:700 44px/1.1 "Yeseva One", Georgia, serif; letter-spacing:.02em; }
+    .usp-tabbar{display:flex; gap:32px; justify-content:center; flex-wrap:wrap; margin:8px 0 8px;}
+    .usp-tab{background:none; border:0; cursor:pointer; padding:8px 10px 14px; text-align:center;}
+    .usp-tab-title{ display:block; color:var(--tab); font:700 15px/1 "Montserrat", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+    .usp-tab-sub{ display:block; margin-top:8px; color:var(--muted); font:500 12px/1.1 "Montserrat", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; letter-spacing:.08em; }
+    .usp-tab.is-active{ position:relative; }
+    .usp-tab.is-active::after{ content:""; position:absolute; left:12px; right:12px; bottom:0; height:3px; background:var(--tab-active); border-radius:2px; }
+    .usp-divider{ border:none; height:1px; background:#e8e1d6; margin:6px auto 24px; max-width:880px; }
+    .usp-grid{ display:grid; gap:28px; grid-template-columns:repeat(var(--cols), minmax(0,1fr)); }
+    .usp-item{text-align:center;}
+    .usp-thumb{ position:relative; width:100%; display:flex; align-items:center; justify-content:center; margin:0 auto 14px; }
+    .usp-thumb .circle{ position:absolute; width:160px; height:160px; border-radius:50%; background:var(--circle); z-index:0; transform:translateZ(0); }
+    .usp-thumb img{ position:relative; z-index:1; width:auto; max-height:170px; filter: drop-shadow(0 16px 28px rgba(0,0,0,.12));}
+    .card-title{ margin:6px 0 2px; font:700 14px/1.1 "Montserrat", system-ui; letter-spacing:.06em; text-transform:uppercase; }
+    .card-sub{ margin:0 0 14px; color:var(--muted); font:500 12px/1.1 "Montserrat", system-ui; letter-spacing:.06em; text-transform:uppercase;}
+    .btn{ display:inline-flex; align-items:center; justify-content:center; min-width:140px; padding:11px 18px; border-radius:10px; text-decoration:none; font:700 13px/1 "Montserrat", system-ui; letter-spacing:.06em; text-transform:uppercase; border:1.5px solid; }
+    .btn--filled{ background:var(--btn-fill); color:var(--btn-fill-text); border-color:var(--btn-fill); }
+    .btn--outline{ background:transparent; color:var(--btn-outline); border-color:var(--btn-outline); }
+    @media (max-width: 1024px){ .usp-grid{ --cols: 3; } }
+    @media (max-width: 720px){ .usp-title{ font-size:32px; } .usp-grid{ --cols: 2; gap:20px; } .usp-thumb .circle{ width:120px; height:120px; } .usp-thumb img{ max-height:140px; } }
+    .usp-item {
+  /* 卡片整体用纵向排布，按钮贴底对齐 */
+.usp-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  height:100%;
+}
+
+/* 统一图片区域高度（根据你视觉调，180~220px均可） */
+.usp-thumb{
+  height:200px;            /* ← 想要更紧凑可改为180px */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 14px;
+}
+.usp-thumb .circle{ width:160px; height:160px; }
+.usp-thumb img{ max-height:170px; }
+
+/* —— 关键：标题/副标题等高 —— */
+/* 标题最多显示2行；不够2行也“占位”到2行的高度，从而各卡片标题顶端齐平 */
+.card-title{
+  --ttl-lines: 2;                 /* 想允许1/2/3行就改这个数字 */
+  line-height:1.1;
+  min-height: calc(1.1em * var(--ttl-lines));
+  margin:6px 0 2px;
+  display:-webkit-box;
+  -webkit-line-clamp: var(--ttl-lines);
+  -webkit-box-orient: vertical;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  word-break:break-word;
+}
+
+/* 副标题同理（如果你要两行等高就设为2；只要1行等高就设为1） */
+.card-sub{
+  --sub-lines: 1;
+  line-height:1.1;
+  min-height: calc(1.1em * var(--sub-lines));
+  margin:0 0 14px;
+  display:-webkit-box;
+  -webkit-line-clamp: var(--sub-lines);
+  -webkit-box-orient: vertical;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/* 按钮固定在底部，整排对齐 */
+.usp-item .btn{
+  margin-top:auto;
+}
+
+/* 小屏适配：缩小图片区，标题仍保持等高 */
+@media (max-width: 720px){
+  .usp-thumb{ height:160px; }
+  .usp-thumb .circle{ width:120px; height:120px; }
+  .usp-thumb img{ max-height:140px; }
+}
+
+  </style>
+
+  <script>
+    (function(){
+      const root = document.querySelector('#shopify-section-{{ section.id }}');
+      if(!root) return;
+      const tabs = root.querySelectorAll('.usp-tab');
+      const items = root.querySelectorAll('.usp-item');
+      tabs.forEach(tab=>{
+        tab.addEventListener('click', ()=>{
+          const key = tab.getAttribute('data-key');
+          tabs.forEach(t => t.classList.remove('is-active'));
+          tab.classList.add('is-active');
+          items.forEach(it=>{
+            it.toggleAttribute('hidden', it.getAttribute('data-key') !== key);
+          });
+        });
+      });
+    })();
+  </script>
+</section>
+{% endunless %}
+
+{% schema %}
+{
+  "name": "USP · Tabbed Products",
+  "templates": ["collection"],
+  "settings": [
+    { "type": "checkbox", "id": "only_on_all", "label": "仅在 /collections/all 显示", "default": true },
+    { "type": "text", "id": "title", "label": "标题", "default": "UNIQUE SELLING PROPOSITION" },
+    { "type": "range", "id": "columns", "label": "每行列数", "min": 2, "max": 6, "step": 1, "default": 6 },
+    { "type": "range", "id": "max_w", "label": "内容最大宽度(px)", "min": 800, "max": 1400, "step": 20, "default": 1200 },
+    { "type": "range", "id": "pt", "label": "上内边距(px)", "min": 0, "max": 160, "step": 8, "default": 48 },
+    { "type": "range", "id": "pb", "label": "下内边距(px)", "min": 0, "max": 160, "step": 8, "default": 48 },
+
+    { "type": "color", "id": "bg_color", "label": "背景颜色（纯色）", "default": "#ffffff" },
+    { "type": "color", "id": "title_color", "label": "标题颜色", "default": "#000000" },
+    { "type": "color", "id": "tab_color", "label": "副标题/标签颜色", "default": "#8f8574" },
+    { "type": "color", "id": "tab_active_color", "label": "激活标签下划线颜色", "default": "#b78a4a" },
+    { "type": "color", "id": "muted_color", "label": "说明文字颜色", "default": "#9b958a" },
+    { "type": "color", "id": "circle_bg", "label": "圆形底色", "default": "#f3efe8" },
+
+    { "type": "color", "id": "btn_fill_bg", "label": "主按钮背景色（Filled）", "default": "#E4C399" },
+    { "type": "color", "id": "btn_fill_text", "label": "主按钮文字色（Filled）", "default": "#1a1a1a" },
+    { "type": "color", "id": "btn_outline", "label": "描边按钮颜色（Outline）", "default": "#3a2b1f" }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "副标题标签（Tab）",
+      "settings": [
+        { "type": "text", "id": "key", "label": "Tab Key（英文唯一标识）", "default": "wheat-beer" },
+        { "type": "text", "id": "label", "label": "标签标题（如：WHEAT BEER）", "default": "WHEAT BEER" },
+        { "type": "text", "id": "subline", "label": "标签副文案（可空）", "default": "CRISP, FRESH, WITH A TWIST OF EAST." }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "产品卡片",
+      "settings": [
+        { "type": "text", "id": "tab_key", "label": "属于哪个 Tab（填上面的 Key）", "default": "wheat-beer" },
+        { "type": "product", "id": "product", "label": "选择产品（可选）" },
+        { "type": "image_picker", "id": "image", "label": "自定义图片（优先使用）" },
+        { "type": "text", "id": "title", "label": "标题（默认用产品名）" },
+        { "type": "text", "id": "subtitle", "label": "副标题（小字）" },
+        { "type": "text", "id": "btn_label", "label": "按钮文案", "default": "SHOP NOW" },
+        { "type": "url", "id": "btn_url", "label": "按钮链接（默认跳转到产品）" },
+        { "type": "select", "id": "btn_style", "label": "按钮样式", "default": "outline",
+          "options": [
+            { "value": "filled", "label": "实心（Filled）" },
+            { "value": "outline", "label": "描边（Outline）" }
+          ]
+        }
+      ]
+    }
+  ],
+  "max_blocks": 50,
+  "presets": [
+    { "name": "USP · Tabbed Products", "category": "Products" }
+  ]
+}
+{% endschema %}

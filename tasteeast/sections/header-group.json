@@ -8,15 +8,72 @@
  * ------------------------------------------------------------
  */
 {
+  "name": "t:sections.header.name",
   "type": "header",
-  "name": "t:general.header",
   "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement_aXmrbC": {
+          "type": "announcement",
+          "settings": {
+            "text": "Now Offering Free Shipping For Pre-Order, No Matter What You Choose",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_aXmrbC"
+      ],
+      "settings": {
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "color_scheme": "scheme-70d5dfb2-e6ff-4ca5-97f8-1189bf1f0e99",
+        "show_line_separator": true,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false
+      }
+    },
+    "custom_liquid_h8VVJL": {
+      "type": "custom-liquid",
+      "custom_css": [
+        ".custom-top-bar {display: flex; justify-content: space-between; align-items: center; padding: 8px 20px; border-bottom: 1px solid #eee; background: white; font-size: 14px;}",
+        ".custom-top-bar a {margin-right: 20px; color: #333; text-decoration: none;}",
+        ".top-icons a i {font-size: 18px; margin-right: 12px;}"
+      ],
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<div class=\"custom-top-bar\">\n  <div class=\"top-links\">\n    <a href=\"/pages/faq\">FAQ</a>\n    <a href=\"/pages/cooperation\">Cooperation</a>\n    <a \nhref=\"/pages/help\">Help</a>\n    <a \nhref=\"/pages/shipping&return\">Shipping&Return</a>\n  </div>",
+        "color_scheme": "scheme-2",
+        "padding_top": 0,
+        "padding_bottom": 8
+      }
+    },
     "header": {
       "type": "header",
-      "settings": {}
+      "custom_css": [],
+      "settings": {
+        "logo_position": "middle-left",
+        "mobile_logo_position": "center",
+        "menu": "main-menu",
+        "menu_type_desktop": "dropdown",
+        "sticky_header_type": "on-scroll-up",
+        "show_line_separator": true,
+        "color_scheme": "scheme-2",
+        "menu_color_scheme": "scheme-70d5dfb2-e6ff-4ca5-97f8-1189bf1f0e99",
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "enable_customer_avatar": false,
+        "margin_bottom": 0,
+        "padding_top": 20,
+        "padding_bottom": 20
+      }
     }
   },
   "order": [
+    "announcement-bar",
+    "custom_liquid_h8VVJL",
     "header"
-  ],
+  ]
 }

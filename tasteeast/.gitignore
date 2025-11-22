@@ -1,17 +1,32 @@
-# OS generated files #
-######################
+# macOS
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-node_modules/
+.AppleDouble
+.LSOverride
 
-# Shopify CLI files
+# Shopify CLI
 .shopify/
 
-## Release files
-release
-*.zip
+# Development scripts (可选，如果想保留这些脚本，删除下面这行)
+start-dev.sh
+
+# Node modules (如果有的话)
+node_modules/
+
+# Environment variables
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+tmp/
+temp/

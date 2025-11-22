@@ -1,0 +1,136 @@
+<section class="partner-three-columns" style="background-color: #f7f1e8; padding: 60px 0;">
+  <style>
+    .partner-three-columns .grid__item {
+      background-color: #fefaf3;
+      padding: 40px 20px;
+      text-align: center;
+      border-radius: 6px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .partner-three-columns .grid__item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .partner-three-columns h2 {
+      font-family: 'Rozha One', serif;
+      font-size: 24px;
+      color: #4e2e1e;
+      margin-bottom: 16px;
+    }
+
+    .partner-three-columns div {
+      font-size: 15px;
+      line-height: 1.7;
+      word-break: break-word;
+    }
+
+    /* 动效 keyframes */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 📱 移动端样式优化 */
+    @media screen and (max-width: 749px) {
+      .partner-three-columns .grid--3-col-desktop {
+        display: flex !important;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .partner-three-columns .grid__item {
+        width: 100%;
+        max-width: 100%;
+        text-align: left !important;
+        padding: 24px 16px;
+        transform: none !important;
+        animation: none !important;
+        opacity: 1 !important;
+      }
+
+      .partner-three-columns h2 {
+        font-size: 20px !important;
+        text-align: left !important;
+      }
+
+      .partner-three-columns .page-width {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+    }
+  </style>
+
+  <div class="page-width">
+    <div class="grid grid--3-col-desktop grid--gap-large">
+      {% for block in section.blocks %}
+        <div class="grid__item">
+          {% if block.settings.icon %}
+            <div style="margin-bottom: 20px;">
+              <img src="{{ block.settings.icon | image_url: width: 80 }}" alt="icon" style="height: 80px; width: auto;">
+            </div>
+          {% endif %}
+          <h2>{{ block.settings.heading }}</h2>
+          <div style="color: #2f2f2f;">
+            {{ block.settings.text }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Partner Three Columns",
+  "tag": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Column",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "WHY PARTNER WITH US"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Text",
+          "default": "Your supporting text here."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Partner Three Columns",
+      "category": "Custom",
+      "blocks": [
+        { "type": "column" },
+        { "type": "column" },
+        { "type": "column" }
+      ]
+    }
+  ]
+}
+{% endschema %}

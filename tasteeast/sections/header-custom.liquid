@@ -1,0 +1,68 @@
+<!-- Custom Shopify Header  -->
+<style>
+  .custom-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #e5e5e5;
+    background-color: white;
+  }
+
+  .custom-header .nav-left,
+  .custom-header .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .custom-header .logo {
+    text-align: center;
+    flex: 1;
+  }
+
+  .custom-header .logo img {
+    max-height: 40px;
+  }
+
+  .custom-header a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+  .custom-header a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<header class="custom-header">
+  <!-- Left Menu -->
+  <div class="nav-left">
+    <a href="/collections">Categories</a>
+    <a href="/collections/gifts">Gifts</a>
+    <a href="/collections/sale">Sale</a>
+    <a href="/pages/about">About</a>
+    <a href="/pages/contact">Contact</a>
+    <a href="/pages/presets">Presets</a>
+  </div>
+
+  <!-- Logo Center -->
+  <div class="logo">
+    <a href="/">
+      <img src="{{ settings.logo | img_url: '200x' }}" alt="{{ shop.name }} logo">
+    </a>
+  </div>
+
+  <!-- Right Icons -->
+  <div class="nav-right">
+    <a href="/search" aria-label="Search">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </a>
+    <a href="/account" aria-label="Account">Login</a>
+    <a href="/cart" aria-label="Cart">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 001.98-1.75L23 6H6"/></svg>
+    </a>
+  </div>
+</header>

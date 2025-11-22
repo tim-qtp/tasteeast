@@ -1,0 +1,130 @@
+{% schema %}
+{
+  "name": "China to California",
+  "tag": "section",
+  "settings": [],
+  "presets": [
+    {
+      "name": "China to California",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section id="china-california" class="china-california-section" style="background-color: #0b1a2d; display: flex; align-items: stretch; flex-wrap: wrap; overflow: hidden;">
+  <!-- 左侧背景图区域 -->
+  <div class="china-california-image" style="
+    width: 30%;
+    flex: 1 1 50%;
+    background-image: url('https://cdn.shopify.com/s/files/1/0714/2408/2105/files/left.jpg?v=1753426403');
+    background-size: cover;
+    background-position: center;
+    min-height: 480px;
+    transition: transform 1s ease;
+  ">
+  </div>
+
+  <!-- 右侧内容 -->
+  <div class="china-california-content" style="flex: 1 1 50%; color: #fff; padding: 60px 40px; display: flex; flex-direction: column; justify-content: center;">
+    <p style="
+      font-family: Helvetica Neue, sans-serif;
+      font-size: 14px;
+      line-height: 1.8;
+      letter-spacing: 0.5px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s ease-out 0.2s forwards;
+    ">
+      FROM THE HEART OF CHINA TO THE COASTS OF CALIFORNIA, EACH BOTTLE<br>
+      CARRIES THE QUIET FRAGRANCE OF A LAND LONG OVERLOOKED — NOW READY<br>
+      TO BE CELEBRATED.
+    </p>
+
+    <h2 style="
+      font-size: 48px;
+      font-family: 'Limelight', serif;
+      background: linear-gradient(to right, #FFDEBB, #CAA16F);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 40px 0 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.8s ease-out 0.4s forwards;
+    ">
+      FROM CHINA TO<br>
+      CALIFORNIA
+    </h2>
+
+    <!-- 按钮跳转到关于我们页面 -->
+    <a
+      href="/pages/about"
+      style="
+        margin-top: 20px;
+        padding: 12px 32px;
+        background-color: #e6d3b3;
+        color: #1a1a1a;
+        border-radius: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        width: fit-content;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 0.8s ease-out 0.6s forwards;
+      "
+    >
+      DISCOVER MORE
+    </a>
+  </div>
+</section>
+
+<style>
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.china-california-image:hover {
+  transform: scale(1.05);
+}
+
+.china-california-content a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+.china-california-content a:active {
+  transform: scale(0.96);
+}
+
+@media screen and (max-width: 768px) {
+  .china-california-section {
+    flex-direction: column;
+  }
+
+  .china-california-image {
+    width: 100% !important;
+    min-height: 240px !important;
+  }
+
+  .china-california-content {
+    padding: 40px 20px !important;
+  }
+
+  .china-california-content h2 {
+    font-size: 36px !important;
+    text-align: center;
+  }
+
+  .china-california-content p {
+    text-align: center;
+  }
+
+  .china-california-content a {
+    margin: 20px auto 0;
+  }
+}
+</style>

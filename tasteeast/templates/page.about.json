@@ -1,0 +1,158 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "about-hero": {
+      "type": "about-hero",
+      "settings": {}
+    },
+    "about-story": {
+      "type": "about-story",
+      "settings": {
+        "bg_image": "shopify://shop_images/back_stroy.jpg"
+      }
+    },
+    "about-bring": {
+      "type": "about-bring",
+      "blocks": {
+        "block1": {
+          "type": "image_text_block",
+          "settings": {
+            "image": "shopify://shop_images/a.jpg",
+            "text": "We bring China’s finest to American consumers\n\nFeaturing artisanal foods and curated drinks\n\nShowcasing the rising excellence of Chinese wine"
+          }
+        },
+        "block2": {
+          "type": "image_text_block",
+          "settings": {
+            "image": "shopify://shop_images/b.jpg",
+            "text": "We showcase the unique beauty of China’s wine regions — each bottle reflecting its land, people, and craft. Through thoughtful selection, we share the richness of Chinese terroir and invite the world to experience Eastern elegance."
+          }
+        },
+        "block3": {
+          "type": "image_text_block",
+          "settings": {
+            "image": "shopify://shop_images/ccc.jpg",
+            "text": "Every product tells a deeper story\n\nA harmony of nature, culture, and care\n\nWaiting to be discovered and felt"
+          }
+        }
+      },
+      "block_order": [
+        "block1",
+        "block2",
+        "block3"
+      ],
+      "settings": {
+        "subheading": "Rooted in heritage, guided by quality,",
+        "heading": "BRINGING THE BEST OF CHINA TO THE HEART OF AMERICA"
+      }
+    },
+    "about-valuesa": {
+      "type": "about-valuesa",
+      "blocks": {
+        "block_1": {
+          "type": "value_card",
+          "settings": {
+            "image": "shopify://shop_images/disable.jpg",
+            "title": "HUMAN- CENTERED CARE",
+            "text": "We prioritize hiring individuals from vulnerable communities — including those with physical disabilities, autism, or communication challenges."
+          }
+        },
+        "block_2": {
+          "type": "value_card",
+          "settings": {
+            "image": "shopify://shop_images/kids.jpg",
+            "title": "FAITH-INSPIRED LOVE",
+            "text": "We believe every child of God holds dignity and value in participation."
+          }
+        },
+        "block_3": {
+          "type": "value_card",
+          "settings": {
+            "image": "shopify://shop_images/match.jpg",
+            "title": "ROLE-BASED MATCHING",
+            "text": "We assign people to roles that suit their strengths — such as customer service or packaging collaboration."
+          }
+        },
+        "block_4": {
+          "type": "value_card",
+          "settings": {
+            "image": "shopify://shop_images/stroy.jpg",
+            "title": "PEOPLE-FIRST QUALITY",
+            "text": "We prioritize not just high-quality products, but also the people and stories behind their creation."
+          }
+        },
+        "block_5": {
+          "type": "sustainability_point",
+          "settings": {
+            "icon": "shopify://shop_images/greenchain.svg",
+            "title": "GREEN SUPPLY CHAIN",
+            "text": "We use eco-friendly packaging and strive to reduce transportation emissions."
+          }
+        },
+        "block_6": {
+          "type": "sustainability_point",
+          "settings": {
+            "icon": "shopify://shop_images/land.svg",
+            "title": "RESPECT FOR THE LAND",
+            "text": "We honor the natural rhythms of each region, harvesting and crafting responsibly."
+          }
+        },
+        "block_7": {
+          "type": "sustainability_point",
+          "settings": {
+            "icon": "shopify://shop_images/collaborate.svg",
+            "title": "COLLABORATIVE HARMONY",
+            "text": "We partner with conscientious producers who value integrity and humanity."
+          }
+        }
+      },
+      "block_order": [
+        "block_1",
+        "block_2",
+        "block_3",
+        "block_4",
+        "block_5",
+        "block_6",
+        "block_7"
+      ],
+      "settings": {
+        "bg_image": "shopify://shop_images/back_sus.jpg",
+        "left_heading": "OUR VALUES",
+        "left_subheading": "People-Centered, Faith-Inspired",
+        "left_desc": "Every Soul Deserves Respect and Empowerment",
+        "right_heading": "SUSTAINABILITY",
+        "right_subheading": "Sustainability Is Not a Slogan — It's Our Mission",
+        "right_desc": "A Future Built on Environmental Care, Ethics, and Shared Prosperity"
+      }
+    },
+    "taste-subscribe": {
+      "type": "taste-subscribe",
+      "settings": {
+        "heading": "TASTE THE EAST.",
+        "subheading": "EXPERIENCE THE ESSENCE, FROM THE HEART.",
+        "button_label": "JOIN"
+      }
+    },
+    "footer_ybkEQk": {
+      "type": "footer",
+      "name": "Footer",
+      "settings": {}
+    }
+  },
+  "order": [
+    "about-hero",
+    "about-story",
+    "about-bring",
+    "about-valuesa",
+    "taste-subscribe",
+    "footer_ybkEQk"
+  ]
+}

@@ -1,0 +1,195 @@
+<section class="hero-copy-right"
+  style="
+    --pt: {{ section.settings.pt }}px;
+    --pb: {{ section.settings.pb }}px;
+    --minh: {{ section.settings.min_h }}px;
+    --contentw: {{ section.settings.content_w }}px;
+    --mediaw: {{ section.settings.media_w }}px;
+    --media-maxh: {{ section.settings.media_max_h }}px;
+    --kicker: {{ section.settings.kicker_color }};
+    --heading: {{ section.settings.heading_color }};
+    --bigline: {{ section.settings.bigline_color }};
+    --subhead: {{ section.settings.subhead_color }};
+    --primary-bg: {{ section.settings.primary_bg }};
+    --primary-text: {{ section.settings.primary_text }};
+    --ghost: {{ section.settings.ghost_color }};
+  ">
+  {% if section.settings.bg_image %}
+    <div class="hero-bg" style="background-image:url({{ section.settings.bg_image | image_url: width: 2400 }});"></div>
+  {% endif %}
+  {% if section.settings.overlay_opacity > 0 %}
+    <div class="hero-overlay"
+      style="background-color: {{ section.settings.overlay_color }}; opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};">
+    </div>
+  {% endif %}
+
+  <div class="hero-inner">
+
+    <!-- ✅ 左侧图片 -->
+    {% if section.settings.left_image != blank %}
+      <div class="hero-media">
+        {% if section.settings.left_link != blank %}
+          <a href="{{ section.settings.left_link }}" class="media-wrap" aria-label="{{ section.settings.left_alt | escape }}">
+            <img src="{{ section.settings.left_image | image_url: width: 1200 }}" alt="{{ section.settings.left_alt | escape }}">
+          </a>
+        {% else %}
+          <div class="media-wrap">
+            <img src="{{ section.settings.left_image | image_url: width: 1200 }}" alt="{{ section.settings.left_alt | escape }}">
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <!-- ✅ 右侧文案 -->
+    <div class="hero-copy">
+      {% if section.settings.kicker != blank %}
+        <p class="kicker">{{ section.settings.kicker }}</p>
+      {% endif %}
+      {% if section.settings.headline != blank %}
+        <h2 class="headline">{{ section.settings.headline }}</h2>
+      {% endif %}
+      {% if section.settings.bigline != blank %}
+        <p class="bigline">{{ section.settings.bigline }}</p>
+      {% endif %}
+      {% if section.settings.subhead != blank %}
+        <p class="subhead">{{ section.settings.subhead }}</p>
+      {% endif %}
+
+      <div class="cta-row">
+        {% if section.settings.primary_label != blank and section.settings.primary_url != blank %}
+          <a class="btn btn--primary" href="{{ section.settings.primary_url }}">{{ section.settings.primary_label }}</a>
+        {% endif %}
+        {% if section.settings.secondary_label != blank and section.settings.secondary_url != blank %}
+          <a class="btn btn--ghost" href="{{ section.settings.secondary_url }}">{{ section.settings.secondary_label }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- 字体 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Yeseva+One&display=swap" rel="stylesheet">
+
+  <style>
+    .hero-copy-right{ position:relative; padding: var(--pt) 20px var(--pb); min-height: var(--minh); overflow:hidden; }
+    .hero-bg{ position:absolute; inset:0; background-size:cover; background-position:center; }
+    .hero-overlay{ position:absolute; inset:0; pointer-events:none; }
+
+    /* ✅ 桌面布局：左右结构 */
+    .hero-inner{
+      position:relative; z-index:1; max-width:1280px; margin:0 auto;
+      min-height: var(--minh);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:48px;
+    }
+
+    /* 左侧图片 */
+    .hero-media{ flex:0 0 auto; width:min(var(--mediaw), 100%); display:flex; justify-content:center; }
+    .media-wrap{
+      display:block; position:relative; padding:18px; border-radius:18px;
+      background: rgba(255,255,255,.85);
+      box-shadow:0 20px 60px rgba(0,0,0,.1);
+      transition: transform .25s ease;
+    }
+    .media-wrap:hover{ transform: translateY(-4px); }
+    .hero-media img{
+      max-width:100%; height:auto; max-height: var(--media-maxh);
+      filter: drop-shadow(0 12px 28px rgba(0,0,0,.12));
+    }
+
+    /* 右侧文案 */
+    .hero-copy{ width:min(var(--contentw), 100%); text-align:left; }
+    .kicker{
+      margin:0 0 10px; color: var(--kicker);
+      letter-spacing:.22em; text-transform:uppercase;
+      font: 500 18px/1.2 "Montserrat", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; opacity:.95;
+    }
+    .headline{
+      margin:0 0 6px; color: var(--heading);
+      font: 700 46px/1.05 "Yeseva One", Georgia, serif; letter-spacing:.02em;
+    }
+    .bigline{
+      margin:8px 0 12px; color: var(--bigline);
+      font: 700 64px/1 "Yeseva One", Georgia, serif; letter-spacing:.01em;
+    }
+    .subhead{
+      margin:0 0 28px; color: var(--subhead);
+      font: 500 18px/1.2 "Montserrat", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+      letter-spacing:.12em; text-transform:uppercase; opacity:.95;
+    }
+    .cta-row{ display:flex; gap:18px; flex-wrap:wrap; }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:14px 28px; border-radius:14px; text-decoration:none; border:1.5px solid currentColor;
+      font: 700 14px/1 "Montserrat", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; letter-spacing:.06em; text-transform:uppercase;
+    }
+    .btn--primary{ background: var(--primary-bg); color: var(--primary-text); border-color: var(--primary-bg); }
+    .btn--ghost{ background: transparent; color: var(--ghost); border-color: var(--ghost); }
+
+    /* ✅ 移动端：上下堆叠并居中 */
+    @media (max-width: 900px){
+      .hero-inner{
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 32px;
+      }
+      .hero-media{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .hero-copy{
+        width: 100%;
+        max-width: 480px;
+        text-align: center;
+      }
+      .headline{ font-size:36px; }
+      .bigline{ font-size:44px; }
+      .subhead{ font-size:16px; letter-spacing:.1em; }
+      .cta-row{ justify-content: center; }
+    }
+  </style>
+
+  {% schema %}
+  {
+    "name": "Hero Copy (Image + Text)",
+    "settings": [
+      { "type": "image_picker", "id": "bg_image", "label": "背景图/纹理" },
+      { "type": "color", "id": "overlay_color", "label": "覆盖层颜色", "default": "#000000" },
+      { "type": "range", "id": "overlay_opacity", "label": "覆盖层不透明度(%)", "min": 0, "max": 90, "step": 5, "default": 0 },
+
+      { "type": "image_picker", "id": "left_image", "label": "左侧图片（产品/罐身）" },
+      { "type": "text", "id": "left_alt", "label": "左侧图片 ALT 文本", "default": "Product image" },
+      { "type": "url", "id": "left_link", "label": "点击图片跳转链接（可选）" },
+
+      { "type": "text", "id": "kicker", "label": "Kicker（上方小字）", "default": "TASTE THE BEST FROM EAST" },
+      { "type": "text", "id": "headline", "label": "主标题", "default": "LIMITED-TIME OFFER:" },
+      { "type": "text", "id": "bigline", "label": "大号一行（如：20% OFF）", "default": "20% OFF" },
+      { "type": "text", "id": "subhead", "label": "副标题", "default": "ORDER BEFORE TO ENJOY" },
+
+      { "type": "text", "id": "primary_label", "label": "主按钮文案", "default": "SHOP NOW" },
+      { "type": "url", "id": "primary_url", "label": "主按钮链接" },
+      { "type": "text", "id": "secondary_label", "label": "次按钮文案", "default": "LEARN MORE" },
+      { "type": "url", "id": "secondary_url", "label": "次按钮链接" },
+
+      { "type": "color", "id": "kicker_color", "label": "Kicker 颜色", "default": "#8f8574" },
+      { "type": "color", "id": "heading_color", "label": "主标题颜色", "default": "#3a2b1f" },
+      { "type": "color", "id": "bigline_color", "label": "大号行颜色", "default": "#3a2b1f" },
+      { "type": "color", "id": "subhead_color", "label": "副标题颜色", "default": "#3a2b1f" },
+      { "type": "color", "id": "primary_bg", "label": "主按钮背景色", "default": "#0d1c2c" },
+      { "type": "color", "id": "primary_text", "label": "主按钮文字色", "default": "#f3ddbc" },
+      { "type": "color", "id": "ghost_color", "label": "次按钮描边/文字颜色", "default": "#3a2b1f" },
+
+      { "type": "range", "id": "content_w", "label": "右侧文案最大宽度(px)", "min": 360, "max": 720, "step": 10, "default": 560 },
+      { "type": "range", "id": "media_w", "label": "左侧图片最大宽度(px)", "min": 240, "max": 640, "step": 10, "default": 440 },
+      { "type": "range", "id": "media_max_h", "label": "图片最大高度(px)", "min": 200, "max": 620, "step": 10, "default": 520 },
+      { "type": "range", "id": "min_h", "label": "区块最小高度(px)", "min": 360, "max": 760, "step": 20, "default": 560 },
+      { "type": "range", "id": "pt", "label": "上内边距(px)", "min": 0, "max": 160, "step": 8, "default": 72 },
+      { "type": "range", "id": "pb", "label": "下内边距(px)", "min": 0, "max": 160, "step": 8, "default": 72 }
+    ],
+    "presets": [{ "name": "Hero Copy ImageText" }]
+  }
+  {% endschema %}
+</section>

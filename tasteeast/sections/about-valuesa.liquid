@@ -1,0 +1,202 @@
+<section class="about-valuesa-section" style="background-image: url({{ section.settings.bg_image | image_url }}); background-size: cover; background-position: center;" data-aos="fade-up">
+  <div class="page-width about-valuesa-wrapper">
+    <div class="about-valuesa-columns">
+
+      <!-- Left Section (Our Values) -->
+      <div class="about-valuesa-left" data-aos="fade-right">
+        <h2 class="title">{{ section.settings.left_heading }}</h2>
+        <h3 class="subtitle">{{ section.settings.left_subheading }}</h3>
+        <p class="description">{{ section.settings.left_desc }}</p>
+
+        <div class="value-grid">
+          {% assign value_blocks = section.blocks | where: 'type', 'value_card' %}
+          {% for block in value_blocks limit: 4 %}
+            {% if forloop.index == 1 or forloop.index == 3 %}<div class="value-row">{% endif %}
+            <div class="value-column" data-aos="zoom-in" data-aos-delay="{{ forloop.index | times: 100 }}">
+              <img src="{{ block.settings.image | image_url }}" class="value-img" alt="">
+              <h4>{{ block.settings.title }}</h4>
+              <p>{{ block.settings.text }}</p>
+            </div>
+            {% if forloop.index == 2 or forloop.index == 4 %}</div>{% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Right Section (Sustainability) -->
+      <div class="about-valuesa-right" data-aos="fade-left">
+        <h2 class="title">{{ section.settings.right_heading }}</h2>
+        <h3 class="subtitle">{{ section.settings.right_subheading }}</h3>
+        <p class="description">{{ section.settings.right_desc }}</p>
+
+        <div class="sustainability-grid vertical">
+          {% for block in section.blocks %}
+            {% if block.type == 'sustainability_point' %}
+              <div class="sustainability-point vertical" data-aos="fade-up" data-aos-delay="{{ forloop.index | times: 100 }}">
+                <img src="{{ block.settings.icon | image_url }}" class="icon" alt="">
+                <div class="point-text">
+                  <h4>{{ block.settings.title }}</h4>
+                  <p>{{ block.settings.text }}</p>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.about-valuesa-section {
+  padding: 100px 20px;
+  background-repeat: no-repeat;
+}
+.about-valuesa-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 80px;
+}
+.about-valuesa-columns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+.about-valuesa-left,
+.about-valuesa-right {
+  flex: 1 1 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+@media(min-width: 768px){
+  .about-valuesa-left,
+  .about-valuesa-right {
+    flex: 1 1 48%;
+    max-width: 48%;
+  }
+}
+.title {
+  font-family: 'Rozha One', serif;
+  font-size: 32px;
+  color: #623B1C;
+  margin-bottom: 10px;
+}
+.subtitle {
+  font-family: 'Rozha One', serif;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  color: #000;
+}
+.description {
+  font-size: 14px;
+  margin-bottom: 32px;
+  color: #666;
+}
+.value-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-right: 0;
+}
+.value-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px;
+}
+.value-column {
+  flex: 1 1 45%;
+  text-align: left;
+  max-width: 48%;
+}
+.value-column img {
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+.value-column h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #000;
+}
+.value-column p {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.5;
+}
+.sustainability-grid.vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin-top: 40px;
+}
+.sustainability-point.vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+.point-text h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #000;
+}
+.point-text p {
+  font-size: 13px;
+  color: #444;
+  line-height: 1.5;
+}
+</style>
+
+{% schema %}
+{
+  "name": "About Value Section",
+  "settings": [
+    { "type": "image_picker", "id": "bg_image", "label": "Background Texture" },
+    { "type": "text", "id": "left_heading", "label": "Left Title", "default": "OUR VALUES" },
+    { "type": "text", "id": "left_subheading", "label": "Left Subtitle", "default": "People-Centered, Faith-Inspired" },
+    { "type": "text", "id": "left_desc", "label": "Left Description", "default": "Every Soul Deserves Respect and Empowerment" },
+    { "type": "text", "id": "right_heading", "label": "Right Title", "default": "SUSTAINABILITY" },
+    { "type": "text", "id": "right_subheading", "label": "Right Subtitle", "default": "Sustainability Is Not a Slogan — It's Our Mission" },
+    { "type": "text", "id": "right_desc", "label": "Right Description", "default": "A Future Built on Environmental Care, Ethics, and Shared Prosperity" }
+  ],
+  "blocks": [
+    {
+      "type": "value_card",
+      "name": "Value Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Card Image" },
+        { "type": "text", "id": "title", "label": "Card Title" },
+        { "type": "textarea", "id": "text", "label": "Card Description" }
+      ]
+    },
+    {
+      "type": "sustainability_point",
+      "name": "Sustainability Point",
+      "settings": [
+        { "type": "image_picker", "id": "icon", "label": "Point Icon" },
+        { "type": "text", "id": "title", "label": "Point Title" },
+        { "type": "textarea", "id": "text", "label": "Point Description" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "About Value Section", "category": "Custom" }
+  ]
+}
+{% endschema %}

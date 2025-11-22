@@ -1,0 +1,70 @@
+<section class="how-it-works-section" style="background-color: #f7f1e8; padding: 80px 0;">
+  <div class="page-width">
+    <div class="grid grid--3-col-desktop grid--gap-large">
+      {% for block in section.blocks %}
+        <div class="grid__item" style="background-color: #f7f1e8; text-align: center; padding: 40px 20px; border: 1px solid #eee;">
+          {% if block.settings.icon %}
+            <img src="{{ block.settings.icon | image_url: width: 100 }}" alt="icon" style="width: 60px; height: auto; margin-bottom: 20px;">
+          {% endif %}
+          <h3 style="font-family: 'Rozha One', serif; font-size: 24px; color: #4e2e1e; margin-bottom: 20px;">
+            {{ block.settings.title }}
+          </h3>
+          <div style="text-align: center;">
+            {{ block.settings.description | replace: '\n', '<br>' }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "How It Works Section",
+  "tag": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "column",
+      "name": "Info Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "HOW IT WORKS"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "A LETTER, A MEETING, A SHARED JOURNEY.\nSubmit your product proposal. Our curation team will reach out for further discussion. Once selected, you’ll receive tailored creative support to help your brand truly shine."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "How It Works Section",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        },
+        {
+          "type": "column"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

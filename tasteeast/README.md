@@ -1,160 +1,161 @@
-<h1 align="center" style="position: relative;">
-  <br>
-    <img src="./assets/shoppy-x-ray.svg" alt="logo" width="200">
-  <br>
-  Shopify Skeleton Theme
-</h1>
+# Shopify 主题本地开发指南
 
-A minimal, carefully structured Shopify theme designed to help you quickly get started. Designed with modularity, maintainability, and Shopify's best practices in mind.
+这是从 Shopify 商店 (vkwzu0-s1) 下载的主题源码。
 
-<p align="center">
-  <a href="./LICENSE.md"><img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License"></a>
-  <a href="./actions/workflows/ci.yml"><img alt="CI" src="https://github.com/Shopify/skeleton-theme/actions/workflows/ci.yml/badge.svg"></a>
-</p>
+## 📁 项目结构
 
-## Getting started
-
-### Prerequisites
-
-Before starting, ensure you have the latest Shopify CLI installed:
-
-- [Shopify CLI](https://shopify.dev/docs/api/shopify-cli) – helps you download, upload, preview themes, and streamline your workflows
-
-If you use VS Code:
-
-- [Shopify Liquid VS Code Extension](https://shopify.dev/docs/storefronts/themes/tools/shopify-liquid-vscode) – provides syntax highlighting, linting, inline documentation, and auto-completion specifically designed for Liquid templates
-
-### Clone
-
-Clone this repository using Git or Shopify CLI:
-
-```bash
-git clone git@github.com:Shopify/skeleton-theme.git
-# or
-shopify theme init
+```
+tasteeast/
+├── assets/          # 静态资源（CSS, JS, 图片, 图标）
+├── config/          # 主题配置文件
+├── layout/          # 页面布局模板
+├── locales/         # 多语言翻译文件
+├── sections/        # 页面区块（可在主题编辑器中配置）
+├── snippets/        # 可复用的代码片段
+└── templates/       # 页面模板
 ```
 
-### Preview
+## 🚀 本地开发方法
 
-Preview this theme using Shopify CLI:
+### 方法 1: 使用 Shopify CLI 实时开发（推荐）
 
-```bash
-shopify theme dev
-```
-
-## Theme architecture
+这是最佳的开发方式，可以实时预览修改效果。
 
 ```bash
-.
-├── assets          # Stores static assets (CSS, JS, images, fonts, etc.)
-├── blocks          # Reusable, nestable, customizable UI components
-├── config          # Global theme settings and customization options
-├── layout          # Top-level wrappers for pages (layout templates)
-├── locales         # Translation files for theme internationalization
-├── sections        # Modular full-width page components
-├── snippets        # Reusable Liquid code or HTML fragments
-└── templates       # Templates combining sections to define page structures
+# 启动开发服务器
+shopify theme dev --store=vkwzu0-s1.myshopify.com
 ```
 
-To learn more, refer to the [theme architecture documentation](https://shopify.dev/docs/storefronts/themes/architecture).
+**会发生什么：**
+1. 🌐 浏览器会自动打开授权页面
+2. ✅ 使用您已登录的 Shopify 账号授权（**不需要邮箱验证**）
+3. ⬆️  主题文件会上传到开发环境
+4. 🔗 获得预览URL，例如：`https://vkwzu0-s1.myshopify.com?preview_theme_id=xxxxx`
+5. 🔄 文件修改会自动同步并刷新浏览器
 
-### Templates
+**优点：**
+- ✓ 实时预览修改
+- ✓ 自动同步文件
+- ✓ 支持热重载
+- ✓ 不影响线上主题
 
-[Templates](https://shopify.dev/docs/storefronts/themes/architecture/templates#template-types) control what's rendered on each type of page in a theme.
+### 方法 2: 推送为新主题
 
-The Skeleton Theme scaffolds [JSON templates](https://shopify.dev/docs/storefronts/themes/architecture/templates/json-templates) to make it easy for merchants to customize their store.
+如果您想在商店后台预览，可以将主题推送为未发布的主题。
 
-None of the template types are required, and not all of them are included in the Skeleton Theme. Refer to the [template types reference](https://shopify.dev/docs/storefronts/themes/architecture/templates#template-types) for a full list.
+```bash
+# 推送为未发布主题
+shopify theme push --unpublished --store=vkwzu0-s1.myshopify.com
 
-### Sections
+# 或者推送并覆盖开发主题
+shopify theme push --development --store=vkwzu0-s1.myshopify.com
+```
 
-[Sections](https://shopify.dev/docs/storefronts/themes/architecture/sections) are Liquid files that allow you to create reusable modules of content that can be customized by merchants. They can also include blocks which allow merchants to add, remove, and reorder content within a section.
+然后在 Shopify 后台 → Themes 中查看和预览。
 
-Sections are made customizable by including a `{% schema %}` in the body. For more information, refer to the [section schema documentation](https://shopify.dev/docs/storefronts/themes/architecture/sections/section-schema).
+### 方法 3: 检查主题质量
 
-### Blocks
+```bash
+# 检查主题是否符合 Shopify 标准
+shopify theme check
 
-[Blocks](https://shopify.dev/docs/storefronts/themes/architecture/blocks) let developers create flexible layouts by breaking down sections into smaller, reusable pieces of Liquid. Each block has its own set of settings, and can be added, removed, and reordered within a section.
+# 查看主题信息
+shopify theme info
+```
 
-Blocks are made customizable by including a `{% schema %}` in the body. For more information, refer to the [block schema documentation](https://shopify.dev/docs/storefronts/themes/architecture/blocks/theme-blocks/schema).
+## 🔧 开发工作流
 
-## Schemas
+### 日常开发
 
-When developing components defined by schema settings, we recommend these guidelines to simplify your code:
+1. **启动开发服务器**
+   ```bash
+   shopify theme dev --store=vkwzu0-s1.myshopify.com
+   ```
 
-- **Single property settings**: For settings that correspond to a single CSS property, use CSS variables:
+2. **编辑文件**
+   - 修改 `.liquid`, `.css`, `.js` 文件
+   - 保存后自动同步到开发环境
 
-  ```liquid
-  <div class="collection" style="--gap: {{ block.settings.gap }}px">
-    ...
-  </div>
+3. **在浏览器中预览**
+   - 访问 CLI 提供的预览 URL
+   - 修改会实时反映在浏览器中
 
-  {% stylesheet %}
-    .collection {
-      gap: var(--gap);
-    }
-  {% endstylesheet %}
+### 拉取线上主题最新修改
 
-  {% schema %}
-  {
-    "settings": [{
-      "type": "range",
-      "label": "gap",
-      "id": "gap",
-      "min": 0,
-      "max": 100,
-      "unit": "px",
-      "default": 0,
-    }]
-  }
-  {% endschema %}
-  ```
+如果团队成员在 Shopify 后台直接编辑了主题：
 
-- **Multiple property settings**: For settings that control multiple CSS properties, use CSS classes:
+```bash
+shopify theme pull --store=vkwzu0-s1.myshopify.com
+```
 
-  ```liquid
-  <div class="collection {{ block.settings.layout }}">
-    ...
-  </div>
+### 推送到生产环境
 
-  {% stylesheet %}
-    .collection--full-width {
-      /* multiple styles */
-    }
-    .collection--narrow {
-      /* multiple styles */
-    }
-  {% endstylesheet %}
+```bash
+# 推送并发布（谨慎使用！）
+shopify theme push --store=vkwzu0-s1.myshopify.com --live
+```
 
-  {% schema %}
-  {
-    "settings": [{
-      "type": "select",
-      "id": "layout",
-      "label": "layout",
-      "values": [
-        { "value": "collection--full-width", "label": "t:options.full" },
-        { "value": "collection--narrow", "label": "t:options.narrow" }
-      ]
-    }]
-  }
-  {% endschema %}
-  ```
+## 📝 常用命令
 
-## CSS & JavaScript
+| 命令 | 说明 |
+|------|------|
+| `shopify theme dev` | 启动开发服务器 |
+| `shopify theme push` | 推送主题到商店 |
+| `shopify theme pull` | 从商店拉取主题 |
+| `shopify theme check` | 检查主题质量 |
+| `shopify theme list` | 列出商店中所有主题 |
+| `shopify theme info` | 显示当前主题信息 |
 
-For CSS and JavaScript, we recommend using the [`{% stylesheet %}`](https://shopify.dev/docs/api/liquid/tags#stylesheet) and [`{% javascript %}`](https://shopify.dev/docs/api/liquid/tags/javascript) tags. They can be included multiple times, but the code will only appear once.
+## ⚠️ 注意事项
 
-### `critical.css`
+1. **不要直接推送到生产环境**
+   - 使用 `--unpublished` 或 `--development` 标志
+   - 在 Shopify 后台测试后再发布
 
-The Skeleton Theme explicitly separates essential CSS necessary for every page into a dedicated `critical.css` file.
+2. **文件同步**
+   - `shopify theme dev` 不会永久保存修改到商店
+   - 需要使用 `shopify theme push` 推送修改
 
-## Contributing
+3. **版本控制**
+   - 建议使用 Git 管理主题代码
+   - 定期提交修改
 
-We're excited for your contributions to the Skeleton Theme! This repository aims to remain as lean, lightweight, and fundamental as possible, and we kindly ask your contributions to align with this intention.
+## 🆘 问题排查
 
-Visit our [CONTRIBUTING.md](./CONTRIBUTING.md) for a detailed overview of our process, guidelines, and recommendations.
+### CLI 授权失败
+- 确保浏览器已登录 Shopify 后台
+- 尝试运行 `shopify logout` 然后重新登录
 
-## License
+### 文件同步失败
+- 检查网络连接
+- 确认商店URL正确：`vkwzu0-s1.myshopify.com`
 
-Skeleton Theme is open-sourced under the [MIT](./LICENSE.md) License.
+### 主题检查失败
+```bash
+shopify theme check --list
+```
+
+## 📚 相关资源
+
+- [Shopify CLI 文档](https://shopify.dev/docs/themes/tools/cli)
+- [Liquid 模板语言](https://shopify.dev/docs/api/liquid)
+- [主题架构](https://shopify.dev/docs/themes/architecture)
+
+## 🎯 快速开始
+
+```bash
+# 1. 启动开发服务器
+shopify theme dev --store=vkwzu0-s1.myshopify.com
+
+# 2. 在浏览器中授权
+
+# 3. 开始编辑文件，实时预览修改！
+```
+
+---
+
+**主题信息**
+- 商店: vkwzu0-s1.myshopify.com
+- 原始主题ID: 149868118244
+- 下载日期: 2025-11-22
+
