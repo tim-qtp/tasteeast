@@ -1,4 +1,4 @@
-{{ 'customer.css' | asset_url | stylesheet_tag }}
+<link rel="stylesheet" href="{{ 'customer-account.css' | asset_url }}">
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -14,137 +14,91 @@
   }
 {%- endstyle -%}
 
-<div class="customer account section-{{ section.id }}-padding">
-  <div>
-    <h1 class="customer__title">{{ 'customer.account.title' | t }}</h1>
-    <a href="{{ routes.account_logout_url }}">
-      <span class="svg-wrapper">
-        {{- 'icon-account.svg' | inline_asset_content -}}
-      </span>
-      {{ 'customer.log_out' | t }}
-    </a>
-  </div>
+<div class="customer-page section-{{ section.id }}-padding">
+  <h1 class="customer-page__title">My Account</h1>
 
-  <div>
-    <div>
-      <h2>{{ 'customer.orders.title' | t }}</h2>
-
-      {% paginate customer.orders by 20 %}
-        {%- if customer.orders.size > 0 -%}
-          <table role="table" class="order-history">
-            <caption class="visually-hidden">
-              {{ 'customer.orders.title' | t }}
-            </caption>
-            <thead role="rowgroup">
-              <tr role="row">
-                <th id="ColumnOrder" scope="col" role="columnheader">{{ 'customer.orders.order_number' | t }}</th>
-                <th id="ColumnDate" scope="col" role="columnheader">{{ 'customer.orders.date' | t }}</th>
-                <th id="ColumnPayment" scope="col" role="columnheader">{{ 'customer.orders.payment_status' | t }}</th>
-                <th id="ColumnFulfillment" scope="col" role="columnheader">
-                  {{ 'customer.orders.fulfillment_status' | t }}
-                </th>
-                <th id="ColumnTotal" scope="col" role="columnheader">{{ 'customer.orders.total' | t }}</th>
-              </tr>
-            </thead>
-            <tbody role="rowgroup">
-              {%- for order in customer.orders -%}
-                <tr role="row">
-                  <td
-                    id="RowOrder"
-                    role="cell"
-                    headers="ColumnOrder"
-                    data-label="{{ 'customer.orders.order_number' | t }}"
-                  >
-                    <a
-                      href="{{ order.customer_url }}"
-                      aria-label="{{ 'customer.orders.order_number_link' | t: number: order.name }}"
-                    >
-                      {{ order.name }}
-                    </a>
-                  </td>
-                  <td headers="RowOrder ColumnDate" role="cell" data-label="{{ 'customer.orders.date' | t }}">
-                    {{ order.created_at | time_tag: format: 'date' }}
-                  </td>
-                  <td
-                    headers="RowOrder ColumnPayment"
-                    role="cell"
-                    data-label="{{ 'customer.orders.payment_status' | t }}"
-                  >
+  <div class="account-container">
+    {/* Left Side: Order History */}
+    <div class="account-orders">
+      <h2 class="account-orders__title">Order history</h2>
+      
+      {%- if customer.orders.size > 0 -%}
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="border-bottom: 2px solid rgba(var(--color-foreground), 0.1);">
+              <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Order</th>
+              <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Date</th>
+              <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Payment Status</th>
+              <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Fulfillment Status</th>
+              <th style="text-align: right; padding: 12px 8px; font-size: 14px; font-weight: 600;">Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {%- for order in customer.orders -%}
+              <tr style="border-bottom: 1px solid rgba(var(--color-foreground), 0.08);">
+                <td style="padding: 16px 8px;">
+                  <a href="{{ order.customer_url }}" style="color: #0a7084; text-decoration: none; font-size: 14px; font-weight: 500;">
+                    {{ order.name }}
+                  </a>
+                </td>
+                <td style="padding: 16px 8px; font-size: 14px; color: rgba(var(--color-foreground), 0.7);">
+                  {{ order.created_at | date: "%B %d, %Y" }}
+                </td>
+                <td style="padding: 16px 8px; font-size: 14px;">
+                  <span style="padding: 4px 12px; background: rgba(var(--color-foreground), 0.05); border-radius: 4px; font-size: 13px;">
                     {{ order.financial_status_label }}
-                  </td>
-                  <td
-                    headers="RowOrder ColumnFulfillment"
-                    role="cell"
-                    data-label="{{ 'customer.orders.fulfillment_status' | t }}"
-                  >
+                  </span>
+                </td>
+                <td style="padding: 16px 8px; font-size: 14px;">
+                  <span style="padding: 4px 12px; background: rgba(var(--color-foreground), 0.05); border-radius: 4px; font-size: 13px;">
                     {{ order.fulfillment_status_label }}
-                  </td>
-                  <td headers="RowOrder ColumnTotal" role="cell" data-label="{{ 'customer.orders.total' | t }}">
-                    {{ order.total_net_amount | money_with_currency }}
-                  </td>
-                </tr>
-              {%- endfor -%}
-            </tbody>
-          </table>
-        {%- else -%}
-          <p>{{ 'customer.orders.none' | t }}</p>
-        {%- endif -%}
-
-        {%- if paginate.pages > 1 -%}
-          {%- if paginate.parts.size > 0 -%}
-            <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
-              <ul role="list">
-                {%- if paginate.previous -%}
-                  <li>
-                    <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
-                      <span class="svg-wrapper">
-                        {{- 'icon-caret.svg' | inline_asset_content -}}
-                      </span>
-                    </a>
-                  </li>
-                {%- endif -%}
-
-                {%- for part in paginate.parts -%}
-                  <li>
-                    {%- if part.is_link -%}
-                      <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
-                        {{- part.title -}}
-                      </a>
-                    {%- else -%}
-                      {%- if part.title == paginate.current_page -%}
-                        <span aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">
-                          {{- part.title -}}
-                        </span>
-                      {%- else -%}
-                        <span>{{ part.title }}</span>
-                      {%- endif -%}
-                    {%- endif -%}
-                  </li>
-                {%- endfor -%}
-
-                {%- if paginate.next -%}
-                  <li>
-                    <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}">
-                      <span class="svg-wrapper">
-                        {{- 'icon-caret.svg' | inline_asset_content -}}
-                      </span>
-                    </a>
-                  </li>
-                {%- endif -%}
-              </ul>
-            </nav>
-          {%- endif -%}
-        {%- endif -%}
-      {% endpaginate %}
+                  </span>
+                </td>
+                <td style="padding: 16px 8px; text-align: right; font-size: 14px; font-weight: 600;">
+                  {{ order.total_price | money }}
+                </td>
+              </tr>
+            {%- endfor -%}
+          </tbody>
+        </table>
+      {%- else -%}
+        <div class="account-orders__empty">
+          You have no orders
+        </div>
+      {%- endif -%}
     </div>
 
-    <div>
-      <h2>{{ 'customer.account.details' | t }}</h2>
+    {/* Right Side: Customer Info */}
+    <div class="account-info">
+      <div class="account-info__name">{{ customer.first_name }} {{ customer.last_name }}</div>
+      <div class="account-info__email">{{ customer.email }}</div>
 
-      {{ customer.default_address | format_address }}
+      <h3 class="account-info__section-title">Default address</h3>
+      
+      {%- if customer.default_address -%}
+        <div class="account-info__address">
+          {%- if customer.default_address.company != blank -%}
+            {{ customer.default_address.company }}<br>
+          {%- endif -%}
+          {{ customer.default_address.address1 }}<br>
+          {%- if customer.default_address.address2 != blank -%}
+            {{ customer.default_address.address2 }}<br>
+          {%- endif -%}
+          {{ customer.default_address.city }}, {{ customer.default_address.province_code }}<br>
+          {{ customer.default_address.country }} {{ customer.default_address.zip }}<br>
+          {{ customer.default_address.phone }}
+        </div>
+        <a href="{{ routes.account_addresses_url }}" class="account-info__link">
+          View addresses ({{ customer.addresses_count }})
+        </a>
+      {%- else -%}
+        <a href="{{ routes.account_addresses_url }}" class="account-info__link">
+          Edit Address
+        </a>
+      {%- endif -%}
 
-      <a href="{{ routes.account_addresses_url }}">
-        {{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})
+      <a href="{{ routes.account_logout_url }}" class="account-info__logout">
+        Log out
       </a>
     </div>
   </div>
@@ -152,11 +106,11 @@
 
 {% schema %}
 {
-  "name": "t:sections.main-account.name",
+  "name": "Account",
   "settings": [
     {
       "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
+      "content": "Section padding"
     },
     {
       "type": "range",
@@ -165,7 +119,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
+      "label": "Padding top",
       "default": 36
     },
     {
@@ -175,7 +129,7 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
+      "label": "Padding bottom",
       "default": 36
     }
   ]
