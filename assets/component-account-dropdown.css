@@ -1,17 +1,18 @@
-/* Account Login Link */
-.header__account-login {
+/* Account Text Link (Login / My Account) */
+.header__account-text {
   display: inline-flex;
   align-items: center;
   padding: 0.8rem 1.2rem;
   font-size: 14px;
   font-weight: 500;
   color: rgb(var(--color-foreground));
-  text-decoration: none;
+  text-decoration: none !important;
   transition: color 0.3s ease;
 }
 
-.header__account-login:hover {
+.header__account-text:hover {
   color: #0a7084;
+  text-decoration: none !important;
 }
 
 /* Account Dropdown Container */
