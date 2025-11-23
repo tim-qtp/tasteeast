@@ -122,15 +122,16 @@
           >
         </div>
 
-        <div class="account-modal__actions account-modal__actions--register">
-          <div class="account-modal__links account-modal__links--left">
-            <div class="account-modal__link-item">
-              <span>New Customer?</span>
-            </div>
-          </div>
+        <div class="account-modal__actions">
           <button type="submit" class="account-modal__button account-modal__button--small">
             Create
           </button>
+          <div class="account-modal__links">
+            <div class="account-modal__link-item">
+              <span>Returning customer?</span>
+              <a href="#" onclick="showLoginForm(); return false;" class="account-modal__link">Sign in</a>
+            </div>
+          </div>
         </div>
       {%- endform -%}
     </div>
