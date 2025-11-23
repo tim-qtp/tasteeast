@@ -2,18 +2,39 @@
 .header__icon--account-text {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  padding: 8px 16px;
+  border: 1px solid rgba(var(--color-foreground), 0.2);
+  border-radius: 6px;
   font-size: 14px;
   font-weight: 400;
   color: rgb(var(--color-foreground));
   text-decoration: none;
+  white-space: nowrap;
+  line-height: 1;
+  height: auto;
+  min-height: 44px;
 }
 
 .header__icon--account-text .svg-wrapper {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  margin: 0;
+}
+
+.header__icon--account-text .svg-wrapper svg {
+  width: 100%;
+  height: 100%;
+}
+
+.header__icon--account-text > span:not(.svg-wrapper) {
+  line-height: 1;
+  display: inline-block;
 }
 
 /* Account Text Link (My Account) */
