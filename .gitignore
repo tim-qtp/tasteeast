@@ -12,6 +12,7 @@
 # Documentation (keep local only)
 README.md
 start-dev.sh
+docs/
 
 # Shopify theme config (keep local only)
 .shopify.theme.toml
