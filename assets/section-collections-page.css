@@ -22,6 +22,11 @@
   color: #1a1a1a;
 }
 
+/* Hide heading if empty */
+.collections-page__sidebar:has(.collections-page__heading:empty) .collections-page__heading {
+  display: none;
+}
+
 .collections-nav__list {
   list-style: none;
   padding: 0;

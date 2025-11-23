@@ -33,25 +33,94 @@
             "collection_handle": "beer"
           }
         },
-        "single_beverage": {
-          "type": "single_category",
+        "parent_beverage": {
+          "type": "parent_category",
           "settings": {
-            "title": "Beverage",
-            "collection_handle": "beverage"
+            "title": "Beverage"
           }
         },
-        "single_chinese_cookie": {
-          "type": "single_category",
+        "child_beverage_tea": {
+          "type": "child_category",
           "settings": {
-            "title": "Chinese Cookie",
-            "collection_handle": "chinese-cookie"
+            "parent_id": "parent_beverage",
+            "title": "Tea",
+            "collection_handle": "tea"
           }
         },
-        "single_gift": {
-          "type": "single_category",
+        "child_beverage_coffee": {
+          "type": "child_category",
           "settings": {
-            "title": "Gift",
-            "collection_handle": "gift"
+            "parent_id": "parent_beverage",
+            "title": "Coffee",
+            "collection_handle": "coffee"
+          }
+        },
+        "child_beverage_juice": {
+          "type": "child_category",
+          "settings": {
+            "parent_id": "parent_beverage",
+            "title": "Juice",
+            "collection_handle": "juice"
+          }
+        },
+        "parent_chinese_cookie": {
+          "type": "parent_category",
+          "settings": {
+            "title": "Chinese Cookie"
+          }
+        },
+        "child_cookie_traditional": {
+          "type": "child_category",
+          "settings": {
+            "parent_id": "parent_chinese_cookie",
+            "title": "Traditional",
+            "collection_handle": "traditional-cookie"
+          }
+        },
+        "child_cookie_modern": {
+          "type": "child_category",
+          "settings": {
+            "parent_id": "parent_chinese_cookie",
+            "title": "Modern",
+            "collection_handle": "modern-cookie"
+          }
+        },
+        "child_cookie_gift_box": {
+          "type": "child_category",
+          "settings": {
+            "parent_id": "parent_chinese_cookie",
+            "title": "Gift Box",
+            "collection_handle": "cookie-gift-box"
+          }
+        },
+        "parent_gift": {
+          "type": "parent_category",
+          "settings": {
+            "title": "Gift"
+          }
+        },
+        "child_gift_sets": {
+          "type": "child_category",
+          "settings": {
+            "parent_id": "parent_gift",
+            "title": "Gift Sets",
+            "collection_handle": "gift-sets"
+          }
+        },
+        "child_gift_baskets": {
+          "type": "child_category",
+          "settings": {
+            "parent_id": "parent_gift",
+            "title": "Gift Baskets",
+            "collection_handle": "gift-baskets"
+          }
+        },
+        "child_gift_custom": {
+          "type": "child_category",
+          "settings": {
+            "parent_id": "parent_gift",
+            "title": "Custom Gifts",
+            "collection_handle": "custom-gifts"
           }
         },
         "featured_new_arrivals": {
@@ -74,14 +143,23 @@
         "child_red_wine",
         "child_white_wine",
         "child_beer",
-        "single_beverage",
-        "single_chinese_cookie",
-        "single_gift",
+        "parent_beverage",
+        "child_beverage_tea",
+        "child_beverage_coffee",
+        "child_beverage_juice",
+        "parent_chinese_cookie",
+        "child_cookie_traditional",
+        "child_cookie_modern",
+        "child_cookie_gift_box",
+        "parent_gift",
+        "child_gift_sets",
+        "child_gift_baskets",
+        "child_gift_custom",
         "featured_new_arrivals",
         "featured_best_seller"
       ],
       "settings": {
-        "heading": "Shop by Category"
+        "heading": ""
       }
     }
   },
