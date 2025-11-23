@@ -4,7 +4,7 @@
     <div class="account-modal__header">
       <h2 class="account-modal__title">Login</h2>
       <button class="account-modal__close" onclick="closeAccountModal()" aria-label="Close">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="20" height="20" viewBox="0 0 18 17">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="22" height="22" viewBox="0 0 18 17">
           <path fill="currentColor" d="M.865 15.978a.5.5 0 0 0 .707.707l7.433-7.431 7.579 7.282a.501.501 0 0 0 .846-.37.5.5 0 0 0-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 1 0-.707-.708L8.991 7.853 1.413.573a.5.5 0 1 0-.693.72l7.563 7.268z"></path>
         </svg>
       </button>
@@ -219,6 +219,7 @@
   justify-content: space-between;
   padding: 32px 40px 24px;
   border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
+  min-height: 60px;
 }
 
 @keyframes modalSlideIn {
@@ -247,8 +248,8 @@
 }
 
 .account-modal__close svg {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
 }
 
 .account-modal__close:hover {
@@ -262,6 +263,9 @@
   color: rgb(var(--color-foreground));
   flex: 1;
   letter-spacing: -0.02em;
+  display: block;
+  visibility: visible;
+  opacity: 1;
 }
 
 .account-modal__description {
@@ -382,6 +386,13 @@
   gap: 4px;
   white-space: nowrap;
   justify-content: flex-end;
+}
+
+.account-modal__link-item span {
+  display: inline-block;
+  color: rgba(var(--color-foreground), 0.9);
+  font-weight: 400;
+  margin-right: 4px;
 }
 
 .account-modal__links--left {
@@ -522,6 +533,12 @@
   // Handle form submissions - allow normal form submission
   // Shopify will handle redirects and errors
   document.addEventListener('DOMContentLoaded', function() {
+    // Ensure title is visible on initial load
+    const titleElement = document.querySelector('.account-modal__title');
+    if (titleElement && !titleElement.textContent.trim()) {
+      titleElement.textContent = 'Login';
+    }
+    
     // Close modal on ESC key
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
