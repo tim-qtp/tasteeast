@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "collections_page": {
@@ -38,7 +47,7 @@
           "type": "parent_category",
           "settings": {
             "title": "Beverage",
-            "collection_handle": "beverage"
+            "collection_handle": ""
           }
         },
         "child_beverage_tea": {
@@ -69,7 +78,7 @@
           "type": "parent_category",
           "settings": {
             "title": "Chinese Cookie",
-            "collection_handle": "chinese-cookie"
+            "collection_handle": ""
           }
         },
         "child_cookie_traditional": {
@@ -100,7 +109,7 @@
           "type": "parent_category",
           "settings": {
             "title": "Gift",
-            "collection_handle": "gift"
+            "collection_handle": ""
           }
         },
         "child_gift_sets": {
@@ -171,4 +180,3 @@
     "collections_page"
   ]
 }
-
