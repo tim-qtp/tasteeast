@@ -1,16 +1,17 @@
 <div id="account-modal" class="account-modal" style="display: none;">
   <div class="account-modal__overlay" onclick="closeAccountModal()"></div>
   <div class="account-modal__content">
-    <button class="account-modal__close" onclick="closeAccountModal()" aria-label="Close">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 18 17">
-        <path fill="currentColor" d="M.865 15.978a.5.5 0 0 0 .707.707l7.433-7.431 7.579 7.282a.501.501 0 0 0 .846-.37.5.5 0 0 0-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 1 0-.707-.708L8.991 7.853 1.413.573a.5.5 0 1 0-.693.72l7.563 7.268z"></path>
-      </svg>
-    </button>
+    <div class="account-modal__header">
+      <h2 class="account-modal__title">Login</h2>
+      <button class="account-modal__close" onclick="closeAccountModal()" aria-label="Close">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="20" height="20" viewBox="0 0 18 17">
+          <path fill="currentColor" d="M.865 15.978a.5.5 0 0 0 .707.707l7.433-7.431 7.579 7.282a.501.501 0 0 0 .846-.37.5.5 0 0 0-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 1 0-.707-.708L8.991 7.853 1.413.573a.5.5 0 1 0-.693.72l7.563 7.268z"></path>
+        </svg>
+      </button>
+    </div>
 
     {/* Login Form */}
     <div id="account-modal-login" class="account-modal__form">
-      <h2 class="account-modal__title">Login</h2>
-      
       {%- form 'customer_login', id: 'CustomerLoginForm', novalidate: 'novalidate' -%}
         <input type="hidden" name="return_to" value="{{ request.path }}">
         <div id="login-error" class="account-modal__error" style="display: none;"></div>
@@ -43,21 +44,25 @@
           >
         </div>
 
-        <button type="submit" class="account-modal__button">
-          Sign in
-        </button>
-
-        <div class="account-modal__links">
-          <div>New Customer? <a href="#" onclick="showRegisterForm(); return false;" class="account-modal__link">Create account</a></div>
-          <div><a href="#" onclick="showResetPasswordForm(); return false;" class="account-modal__link">Forgot your password?</a></div>
+        <div class="account-modal__actions">
+          <div class="account-modal__links">
+            <div class="account-modal__link-item">
+              <span>New Customer?</span>
+              <a href="#" onclick="showRegisterForm(); return false;" class="account-modal__link">Create account</a>
+            </div>
+            <div class="account-modal__link-item">
+              <a href="#" onclick="showResetPasswordForm(); return false;" class="account-modal__link">Forgot your password?</a>
+            </div>
+          </div>
+          <button type="submit" class="account-modal__button account-modal__button--small">
+            Sign in
+          </button>
         </div>
       {%- endform -%}
     </div>
 
     {/* Register Form */}
     <div id="account-modal-register" class="account-modal__form" style="display: none;">
-      <h2 class="account-modal__title">Create account</h2>
-      
       {%- form 'create_customer', id: 'CustomerRegisterForm', novalidate: 'novalidate' -%}
         <div id="register-error" class="account-modal__error" style="display: none;"></div>
         
@@ -117,19 +122,22 @@
           >
         </div>
 
-        <button type="submit" class="account-modal__button">
-          Create
-        </button>
-
-        <div class="account-modal__links">
-          Returning customer? <a href="#" onclick="showLoginForm(); return false;" class="account-modal__link">Sign in</a>
+        <div class="account-modal__actions">
+          <div class="account-modal__links">
+            <div class="account-modal__link-item">
+              <span>Returning customer?</span>
+              <a href="#" onclick="showLoginForm(); return false;" class="account-modal__link">Sign in</a>
+            </div>
+          </div>
+          <button type="submit" class="account-modal__button account-modal__button--small">
+            Create
+          </button>
         </div>
       {%- endform -%}
     </div>
 
     {/* Reset Password Form */}
     <div id="account-modal-reset" class="account-modal__form" style="display: none;">
-      <h2 class="account-modal__title">Reset your password</h2>
       <p class="account-modal__description">
         We will send you an email to reset your password.
       </p>
@@ -153,13 +161,15 @@
           >
         </div>
 
-        <div style="display: flex; gap: 12px;">
-          <button type="submit" class="account-modal__button" style="flex: 1;">
-            Submit
-          </button>
-          <button type="button" onclick="showLoginForm()" class="account-modal__button account-modal__button--secondary" style="flex: 1;">
-            Cancel
-          </button>
+        <div class="account-modal__actions">
+          <div style="display: flex; gap: 12px;">
+            <button type="submit" class="account-modal__button account-modal__button--small" style="flex: 1;">
+              Submit
+            </button>
+            <button type="button" onclick="showLoginForm()" class="account-modal__button account-modal__button--secondary account-modal__button--small" style="flex: 1;">
+              Cancel
+            </button>
+          </div>
         </div>
       {%- endform -%}
     </div>
@@ -185,22 +195,31 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .account-modal__content {
   position: relative;
   background: #fff;
   border-radius: 12px;
-  padding: 32px 40px 32px;
-  max-width: 480px;
+  padding: 0;
+  max-width: 500px;
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   animation: modalSlideIn 0.3s ease-out;
   z-index: 1;
+}
+
+.account-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 40px 24px;
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.1);
 }
 
 @keyframes modalSlideIn {
@@ -215,16 +234,22 @@
 }
 
 .account-modal__close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
+  position: relative;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 8px;
+  padding: 6px;
   color: rgba(var(--color-foreground), 0.5);
   transition: color 0.3s ease;
-  z-index: 10;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.account-modal__close svg {
+  width: 18px;
+  height: 18px;
 }
 
 .account-modal__close:hover {
@@ -234,9 +259,10 @@
 .account-modal__title {
   font-size: 28px;
   font-weight: 700;
-  margin-bottom: 24px;
+  margin: 0;
   color: rgb(var(--color-foreground));
-  text-align: center;
+  flex: 1;
+  letter-spacing: -0.02em;
 }
 
 .account-modal__description {
@@ -248,6 +274,7 @@
 
 .account-modal__form {
   width: 100%;
+  padding: 24px 40px 32px;
 }
 
 .account-modal__field {
@@ -290,19 +317,34 @@
   box-shadow: 0 0 0 3px rgba(10, 112, 132, 0.1);
 }
 
+.account-modal__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
 .account-modal__button {
-  width: 100%;
-  padding: 13px 20px;
+  padding: 10px 24px;
   background: #f04f36;
   color: #fff;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 6px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 4px;
   font-family: inherit;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.account-modal__button--small {
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .account-modal__button:hover {
@@ -324,29 +366,33 @@
 }
 
 .account-modal__links {
-  margin-top: 20px;
-  text-align: left;
-  font-size: 14px;
-  line-height: 1.8;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.5;
   color: rgba(var(--color-foreground), 0.8);
+  flex: 1;
 }
 
-.account-modal__links > div {
-  margin-bottom: 8px;
-}
-
-.account-modal__links > div:last-child {
-  margin-bottom: 0;
+.account-modal__link-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
 }
 
 .account-modal__link {
   color: #0a7084;
   text-decoration: none;
   transition: opacity 0.3s ease;
+  font-weight: 500;
 }
 
 .account-modal__link:hover {
   opacity: 0.7;
+  text-decoration: underline;
 }
 
 .account-modal__error {
@@ -377,6 +423,28 @@
   .account-modal__row {
     grid-template-columns: 1fr;
   }
+
+  .account-modal__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .account-modal__links {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .account-modal__button {
+    width: 100%;
+  }
+
+  .account-modal__header {
+    padding: 24px 24px 20px;
+  }
+
+  .account-modal__form {
+    padding: 24px 24px 32px;
+  }
 }
 </style>
 
@@ -401,6 +469,13 @@
     document.body.style.overflow = '';
   }
 
+  function updateModalTitle(title) {
+    const titleElement = document.querySelector('.account-modal__title');
+    if (titleElement) {
+      titleElement.textContent = title;
+    }
+  }
+
   function showLoginForm() {
     document.getElementById('account-modal-login').style.display = 'block';
     document.getElementById('account-modal-register').style.display = 'none';
@@ -409,6 +484,7 @@
     document.getElementById('register-error').style.display = 'none';
     document.getElementById('reset-error').style.display = 'none';
     document.getElementById('reset-success').style.display = 'none';
+    updateModalTitle('Login');
   }
 
   function showRegisterForm() {
@@ -419,6 +495,7 @@
     document.getElementById('register-error').style.display = 'none';
     document.getElementById('reset-error').style.display = 'none';
     document.getElementById('reset-success').style.display = 'none';
+    updateModalTitle('Create account');
   }
 
   function showResetPasswordForm() {
@@ -429,6 +506,7 @@
     document.getElementById('register-error').style.display = 'none';
     document.getElementById('reset-error').style.display = 'none';
     document.getElementById('reset-success').style.display = 'none';
+    updateModalTitle('Reset your password');
   }
 
   // Handle form submissions - allow normal form submission
