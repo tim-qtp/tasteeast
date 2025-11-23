@@ -97,14 +97,6 @@
             "collection_handle": "modern-cookie"
           }
         },
-        "child_cookie_gift_box": {
-          "type": "child_category",
-          "settings": {
-            "parent_id": "parent_chinese_cookie",
-            "title": "Gift Box",
-            "collection_handle": "cookie-gift-box"
-          }
-        },
         "parent_gift": {
           "type": "parent_category",
           "settings": {
@@ -163,7 +155,6 @@
         "parent_chinese_cookie",
         "child_cookie_traditional",
         "child_cookie_modern",
-        "child_cookie_gift_box",
         "parent_gift",
         "child_gift_sets",
         "child_gift_baskets",
