@@ -76,6 +76,66 @@
       padding-top: 0.5rem;
     }
   }
+
+  /* Login link next to logo */
+  .header__heading-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .header__heading {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0 !important;
+    margin: 0 !important;
+    line-height: 0 !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .header__heading-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    line-height: 0 !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+  }
+
+  .header__login-next-to-logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-left: 20px !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: rgb(var(--color-foreground)) !important;
+    text-decoration: none !important;
+    transition: color 0.3s ease !important;
+    white-space: nowrap !important;
+    line-height: 1.5 !important;
+    flex-shrink: 0 !important;
+  }
+
+  .header__login-next-to-logo:hover {
+    color: #0a7084 !important;
+  }
+
+  .header__login-next-to-logo .svg-wrapper {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 18px !important;
+    height: 18px !important;
+    flex-shrink: 0 !important;
+  }
+
+  @media screen and (max-width: 989px) {
+    .header__login-next-to-logo {
+      display: none !important;
+    }
+  }
 </style>
 
 {%- style -%}
@@ -150,48 +210,55 @@
     -%}
 
     {%- if section.settings.logo_position != 'middle-center' -%}
-      {%- if request.page_type == 'index' -%}
-        <h1 class="header__heading">
-      {%- endif -%}
-      <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
-          <div class="header__heading-logo-wrapper">
-            {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-            {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
-            {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
-            {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
-            {{
-              settings.logo
-              | image_url: width: 600
-              | image_tag:
-                class: 'header__heading-logo motion-reduce',
-                widths: widths,
-                height: logo_height,
-                width: settings.logo_width,
-                alt: logo_alt,
-                sizes: sizes,
-                preload: true
-            }}
-          </div>
+      <div class="header__heading-wrapper">
+        {%- if request.page_type == 'index' -%}
+          <h1 class="header__heading">
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          <div class="header__heading">
         {%- endif -%}
-      </a>
-      {%- if request.page_type == 'index' -%}
-        </h1>
-      {%- endif -%}
-      
-      {%- if shop.customer_accounts_enabled and customer == null -%}
-        <a
-          href="#"
-          onclick="openAccountModal('login'); return false;"
-          class="header__login-next-to-logo link focus-inset"
-          rel="nofollow"
-        >
-          <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-          <span>Login</span>
+        <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
+          {%- if settings.logo != blank -%}
+            <div class="header__heading-logo-wrapper">
+              {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+              {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+              {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
+              {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
+              {{
+                settings.logo
+                | image_url: width: 600
+                | image_tag:
+                  class: 'header__heading-logo motion-reduce',
+                  widths: widths,
+                  height: logo_height,
+                  width: settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+              }}
+            </div>
+          {%- else -%}
+            <span class="h2">{{ shop.name }}</span>
+          {%- endif -%}
         </a>
-      {%- endif -%}
+        
+        {%- if shop.customer_accounts_enabled and customer == null -%}
+          <a
+            href="#"
+            onclick="openAccountModal('login'); return false;"
+            class="header__login-next-to-logo link focus-inset"
+            rel="nofollow"
+          >
+            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+            <span>Login</span>
+          </a>
+        {%- endif -%}
+        
+        {%- if request.page_type == 'index' -%}
+          </h1>
+        {%- else -%}
+          </div>
+        {%- endif -%}
+      </div>
     {%- endif -%}
 
     {%- liquid
