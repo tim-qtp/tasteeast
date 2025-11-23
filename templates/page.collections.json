@@ -47,7 +47,7 @@
           "type": "parent_category",
           "settings": {
             "title": "Beverage",
-            "collection_handle": ""
+            "collection_handle": "beverage"
           }
         },
         "child_beverage_tea": {
@@ -78,7 +78,7 @@
           "type": "parent_category",
           "settings": {
             "title": "Chinese Cookie",
-            "collection_handle": ""
+            "collection_handle": "chinese-cookie"
           }
         },
         "child_cookie_traditional": {
