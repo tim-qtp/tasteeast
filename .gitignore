@@ -37,3 +37,7 @@ node_modules/
 *.tmp
 tmp/
 temp/
+
+# Test data files
+test-products-import.csv
+*.csv
