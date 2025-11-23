@@ -87,7 +87,7 @@
 /* Account Dropdown Menu */
 .header__account-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 10px);
   right: 0;
   margin-top: 8px;
   min-width: 180px;
@@ -111,10 +111,8 @@
 }
 
 /* Account Menu Links */
-.header__account-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+.header__account-menu-item {
+  display: block;
   padding: 12px 20px;
   font-size: 14px;
   color: rgb(var(--color-foreground));
@@ -122,13 +120,9 @@
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.header__account-link:hover {
+.header__account-menu-item:hover {
   background-color: rgba(var(--color-foreground), 0.05);
   color: #0a7084;
-}
-
-.header__account-link svg {
-  flex-shrink: 0;
 }
 
 /* Responsive */
