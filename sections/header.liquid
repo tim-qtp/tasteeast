@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-header-navigation.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="{{ 'component-account-dropdown.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
 <link
   rel="stylesheet"
@@ -18,11 +19,6 @@
 {%- endif -%}
 
 <style>
-  /* Force hide sticky header - show only the regular header */
-  sticky-header.header-wrapper {
-    display: none !important;
-  }
-
   header-drawer {
     justify-self: start;
     margin-left: -1.2rem;
@@ -256,32 +252,43 @@
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
       {%- if shop.customer_accounts_enabled -%}
-        <a
-          href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-          class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
-          rel="nofollow"
-        >
-          {%- if section.settings.enable_customer_avatar -%}
-            <account-icon>
-              {%- if customer and customer.has_avatar? -%}
-                {{ customer | avatar }}
-              {%- else -%}
-                <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-              {%- endif -%}
-            </account-icon>
-          {%- else -%}
-            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-          {%- endif -%}
-          <span class="visually-hidden">
-            {%- liquid
-              if customer
-                echo 'customer.account_fallback' | t
-              else
-                echo 'customer.log_in' | t
-              endif
-            -%}
-          </span>
-        </a>
+        {%- if customer -%}
+          <div class="header__account-dropdown">
+            <button
+              type="button"
+              class="header__account-toggle link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+              aria-expanded="false"
+            >
+              My Account
+              <svg class="icon icon-caret" viewBox="0 0 10 6" width="10" height="6">
+                <path fill="currentColor" fill-rule="evenodd" d="M9.354.646a.5.5 0 0 0-.708 0L5 4.293 1.354.646a.5.5 0 0 0-.708.708l4 4a.5.5 0 0 0 .708 0l4-4a.5.5 0 0 0 0-.708" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+            <div class="header__account-menu" style="display: none;">
+              <a href="{{ routes.account_url }}" class="header__account-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16" viewBox="0 0 18 19">
+                  <path fill="currentColor" fill-rule="evenodd" d="M6 4.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-4a4 4 0 1 0 0 8 4 4 0 0 0 0-8m5.58 12.15c1.12.82 1.83 2.24 1.91 4.85H1.51c.08-2.6.79-4.03 1.9-4.85C4.66 11.75 6.5 11.5 9 11.5s4.35.26 5.58 1.15M9 10.5c-2.5 0-4.65.24-6.17 1.35C1.27 12.98.5 14.93.5 18v.5h17V18c0-3.07-.77-5.02-2.33-6.15-1.52-1.1-3.67-1.35-6.17-1.35" clip-rule="evenodd"></path>
+                </svg>
+                View Account
+              </a>
+              <a href="{{ routes.account_logout_url }}" class="header__account-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="16" height="16" viewBox="0 0 18 18">
+                  <path fill="currentColor" d="M11.5 14.25a.75.75 0 0 1 0 1.5h-7a1.75 1.75 0 0 1-1.75-1.75v-10A1.75 1.75 0 0 1 4.5 2.25h7a.75.75 0 0 1 0 1.5h-7a.25.25 0 0 0-.25.25v10c0 .138.112.25.25.25z"></path>
+                  <path fill="currentColor" d="M15.78 8.47 12.53 5.22a.75.75 0 0 0-1.06 1.06l2.219 2.22H6.75a.75.75 0 0 0 0 1.5h6.939l-2.22 2.22a.75.75 0 1 0 1.061 1.06l3.25-3.25a.75.75 0 0 0 0-1.06"></path>
+                </svg>
+                Log Out
+              </a>
+            </div>
+          </div>
+        {%- else -%}
+          <a
+            href="{{ routes.account_login_url }}"
+            class="header__account-login link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+            rel="nofollow"
+          >
+            Login
+          </a>
+        {%- endif -%}
       {%- endif -%}
 
       {%- for block in section.blocks -%}
@@ -431,6 +438,52 @@
 
   customElements.define('sticky-header', StickyHeader);
 {% endjavascript %}
+
+<script>
+  // Account dropdown functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const accountDropdowns = document.querySelectorAll('.header__account-dropdown');
+    
+    accountDropdowns.forEach(function(dropdown) {
+      const toggleButton = dropdown.querySelector('.header__account-toggle');
+      const menu = dropdown.querySelector('.header__account-menu');
+      
+      if (!toggleButton || !menu) return;
+      
+      // Toggle dropdown
+      toggleButton.onclick = function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const isOpen = menu.style.display === 'block';
+        
+        if (isOpen) {
+          menu.style.display = 'none';
+          toggleButton.setAttribute('aria-expanded', 'false');
+        } else {
+          menu.style.display = 'block';
+          toggleButton.setAttribute('aria-expanded', 'true');
+        }
+      };
+      
+      // Close on outside click
+      document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target) && menu.style.display === 'block') {
+          menu.style.display = 'none';
+          toggleButton.setAttribute('aria-expanded', 'false');
+        }
+      });
+      
+      // Close on ESC key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.style.display === 'block') {
+          menu.style.display = 'none';
+          toggleButton.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  });
+</script>
 
 <script type="application/ld+json">
   {

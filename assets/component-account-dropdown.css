@@ -1,0 +1,105 @@
+/* Account Login Link */
+.header__account-login {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8rem 1.2rem;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(var(--color-foreground));
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.header__account-login:hover {
+  color: #0a7084;
+}
+
+/* Account Dropdown Container */
+.header__account-dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Account Toggle Button */
+.header__account-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.8rem 1.2rem;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(var(--color-foreground));
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.header__account-toggle:hover {
+  color: #0a7084;
+}
+
+.header__account-toggle .icon-caret {
+  transition: transform 0.3s ease;
+}
+
+.header__account-toggle[aria-expanded="true"] .icon-caret {
+  transform: rotate(180deg);
+}
+
+/* Account Dropdown Menu */
+.header__account-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  min-width: 180px;
+  background: rgb(var(--color-background));
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  z-index: 1000;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Account Menu Links */
+.header__account-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  font-size: 14px;
+  color: rgb(var(--color-foreground));
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.header__account-link:hover {
+  background-color: rgba(var(--color-foreground), 0.05);
+  color: #0a7084;
+}
+
+.header__account-link svg {
+  flex-shrink: 0;
+}
+
+/* Responsive */
+@media screen and (max-width: 989px) {
+  .header__account-dropdown.small-hide,
+  .header__account-login.small-hide {
+    display: none;
+  }
+}
+
