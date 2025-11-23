@@ -6,7 +6,8 @@
         "parent_wine": {
           "type": "parent_category",
           "settings": {
-            "title": "Wine"
+            "title": "Wine",
+            "collection_handle": "wine"
           }
         },
         "child_red_wine": {
@@ -36,7 +37,8 @@
         "parent_beverage": {
           "type": "parent_category",
           "settings": {
-            "title": "Beverage"
+            "title": "Beverage",
+            "collection_handle": "beverage"
           }
         },
         "child_beverage_tea": {
@@ -66,7 +68,8 @@
         "parent_chinese_cookie": {
           "type": "parent_category",
           "settings": {
-            "title": "Chinese Cookie"
+            "title": "Chinese Cookie",
+            "collection_handle": "chinese-cookie"
           }
         },
         "child_cookie_traditional": {
@@ -96,7 +99,8 @@
         "parent_gift": {
           "type": "parent_category",
           "settings": {
-            "title": "Gift"
+            "title": "Gift",
+            "collection_handle": "gift"
           }
         },
         "child_gift_sets": {

@@ -59,6 +59,18 @@
   letter-spacing: 0.3px;
 }
 
+.collections-nav__parent-title--link {
+  display: inline-block;
+  text-decoration: none;
+  color: #1a1a1a;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.collections-nav__parent-title--link:hover {
+  color: #0a7084;
+}
+
 .collections-nav__link {
   display: block;
   padding: 6px 0;

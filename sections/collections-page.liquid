@@ -11,9 +11,15 @@
               {%- case block.type -%}
                 {%- when 'parent_category' -%}
                   <li class="collections-nav__item collections-nav__item--parent" {{ block.shopify_attributes }}>
-                    <div class="collections-nav__parent-title">
-                      {{ block.settings.title }}
-                    </div>
+                    {%- if block.settings.collection_handle != blank -%}
+                      <a href="/collections/{{ block.settings.collection_handle }}" class="collections-nav__parent-title collections-nav__parent-title--link">
+                        {{ block.settings.title }}
+                      </a>
+                    {%- else -%}
+                      <div class="collections-nav__parent-title">
+                        {{ block.settings.title }}
+                      </div>
+                    {%- endif -%}
                     
                     {%- assign parent_id = block.id -%}
                     {%- assign has_children = false -%}
@@ -127,6 +133,12 @@
           "label": "Category Title",
           "default": "Wine",
           "info": "This is a parent category that can have child categories"
+        },
+        {
+          "type": "text",
+          "id": "collection_handle",
+          "label": "Collection Handle",
+          "info": "Enter the collection handle for this parent category (e.g., 'wine'). Leave blank if parent should not be clickable. Find this in Products > Collections"
         }
       ]
     },
