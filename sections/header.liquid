@@ -252,13 +252,24 @@
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
       {%- if shop.customer_accounts_enabled -%}
-        <a
-          href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-          class="header__account-text link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
-          rel="nofollow"
-        >
-          {%- if customer -%}My Account{%- else -%}Login{%- endif -%}
-        </a>
+        {%- if customer -%}
+          <a
+            href="{{ routes.account_url }}"
+            class="header__account-text link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+            rel="nofollow"
+          >
+            My Account
+          </a>
+        {%- else -%}
+          <a
+            href="#"
+            onclick="openAccountModal('login'); return false;"
+            class="header__account-text link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+            rel="nofollow"
+          >
+            Login
+          </a>
+        {%- endif -%}
       {%- endif -%}
 
       {%- for block in section.blocks -%}
@@ -287,6 +298,10 @@
     </div>
   </header>
 </{{ header_tag }}>
+
+{%- if shop.customer_accounts_enabled -%}
+  {% render 'account-modal' %}
+{%- endif -%}
 
 {%- if settings.cart_type == 'notification' -%}
   {%- render 'cart-notification',
