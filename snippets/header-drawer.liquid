@@ -137,11 +137,22 @@
           </nav>
           <div class="menu-drawer__utility-links">
             {%- if shop.customer_accounts_enabled -%}
-              <a
-                href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
-                class="menu-drawer__account link focus-inset h5 medium-hide large-up-hide"
-                rel="nofollow"
-              >
+              {%- if customer -%}
+                {%- comment -%}已登录：打开弹窗或跳转到账户页面{%- endcomment -%}
+                <a
+                  href="{{ routes.account_url }}"
+                  class="menu-drawer__account link focus-inset h5 medium-hide large-up-hide"
+                  rel="nofollow"
+                >
+              {%- else -%}
+                {%- comment -%}未登录：打开登录弹窗{%- endcomment -%}
+                <a
+                  href="#"
+                  onclick="closeMenuDrawer(); openAccountModal('login'); return false;"
+                  class="menu-drawer__account link focus-inset h5 medium-hide large-up-hide"
+                  rel="nofollow"
+                >
+              {%- endif -%}
                 {%- if section.settings.enable_customer_avatar -%}
                   <account-icon>
                     {%- if customer and customer.has_avatar? -%}
@@ -293,3 +304,12 @@
     </div>
   </details>
 </header-drawer>
+
+<script>
+  function closeMenuDrawer() {
+    const menuDrawer = document.getElementById('Details-menu-drawer-container');
+    if (menuDrawer) {
+      menuDrawer.removeAttribute('open');
+    }
+  }
+</script>
