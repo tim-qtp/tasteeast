@@ -261,16 +261,17 @@
         {%- if customer -%}
           <a
             href="{{ routes.account_url }}"
-            class="header__account-text link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+            class="header__icon header__icon--account link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
             rel="nofollow"
           >
-            My Account
+            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+            <span class="visually-hidden">My Account</span>
           </a>
         {%- else -%}
           <a
             href="#"
             onclick="openAccountModal('login'); return false;"
-            class="header__account-link link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+            class="header__icon header__icon--account header__icon--account-text link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
             rel="nofollow"
           >
             <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
