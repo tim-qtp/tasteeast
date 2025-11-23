@@ -7,12 +7,16 @@
   grid-template-columns: 280px 1fr;
   gap: 48px;
   align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
 /* Sidebar - Category Menu */
 .collections-page__sidebar {
   position: sticky;
   top: 100px;
+  padding-left: 20px;
 }
 
 .collections-page__heading {
@@ -106,6 +110,8 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .featured-collection__card {
@@ -182,6 +188,12 @@
   .collections-page__container {
     grid-template-columns: 240px 1fr;
     gap: 32px;
+    max-width: 100%;
+    padding: 0 16px;
+  }
+
+  .collections-page__sidebar {
+    padding-left: 10px;
   }
 
   .collections-nav__list {
@@ -191,6 +203,7 @@
 
   .featured-collections {
     gap: 16px;
+    max-width: 100%;
   }
 }
 
@@ -202,11 +215,14 @@
   .collections-page__container {
     grid-template-columns: 1fr;
     gap: 32px;
+    max-width: 100%;
+    padding: 0 16px;
   }
 
   .collections-page__sidebar {
     position: relative;
     top: 0;
+    padding-left: 0;
   }
 
   .collections-page__heading {
