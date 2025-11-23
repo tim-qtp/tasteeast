@@ -45,6 +45,9 @@
         </div>
 
         <div class="account-modal__actions">
+          <button type="submit" class="account-modal__button account-modal__button--small">
+            Sign in
+          </button>
           <div class="account-modal__links">
             <div class="account-modal__link-item">
               <span>New Customer?</span>
@@ -54,9 +57,6 @@
               <a href="#" onclick="showResetPasswordForm(); return false;" class="account-modal__link">Forgot your password?</a>
             </div>
           </div>
-          <button type="submit" class="account-modal__button account-modal__button--small">
-            Sign in
-          </button>
         </div>
       {%- endform -%}
     </div>
@@ -122,11 +122,10 @@
           >
         </div>
 
-        <div class="account-modal__actions">
-          <div class="account-modal__links">
+        <div class="account-modal__actions account-modal__actions--register">
+          <div class="account-modal__links account-modal__links--left">
             <div class="account-modal__link-item">
-              <span>Returning customer?</span>
-              <a href="#" onclick="showLoginForm(); return false;" class="account-modal__link">Sign in</a>
+              <span>New Customer?</span>
             </div>
           </div>
           <button type="submit" class="account-modal__button account-modal__button--small">
@@ -319,9 +318,9 @@
 
 .account-modal__actions {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 20px;
+  gap: 24px;
   margin-top: 24px;
   flex-wrap: wrap;
 }
@@ -374,6 +373,7 @@
   line-height: 1.5;
   color: rgba(var(--color-foreground), 0.8);
   flex: 1;
+  text-align: right;
 }
 
 .account-modal__link-item {
@@ -381,6 +381,16 @@
   align-items: center;
   gap: 4px;
   white-space: nowrap;
+  justify-content: flex-end;
+}
+
+.account-modal__links--left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.account-modal__links--left .account-modal__link-item {
+  justify-content: flex-start;
 }
 
 .account-modal__link {
