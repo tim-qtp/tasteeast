@@ -112,22 +112,6 @@
             "collection_handle": "gift-sets"
           }
         },
-        "child_gift_baskets": {
-          "type": "child_category",
-          "settings": {
-            "parent_id": "parent_gift",
-            "title": "Gift Baskets",
-            "collection_handle": "gift-baskets"
-          }
-        },
-        "child_gift_custom": {
-          "type": "child_category",
-          "settings": {
-            "parent_id": "parent_gift",
-            "title": "Custom Gifts",
-            "collection_handle": "custom-gifts"
-          }
-        },
         "featured_new_arrivals": {
           "type": "featured_collection",
           "settings": {
@@ -157,8 +141,6 @@
         "child_cookie_modern",
         "parent_gift",
         "child_gift_sets",
-        "child_gift_baskets",
-        "child_gift_custom",
         "featured_new_arrivals",
         "featured_best_seller"
       ],
