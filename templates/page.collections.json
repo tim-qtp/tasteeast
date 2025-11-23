@@ -109,7 +109,7 @@
           "type": "parent_category",
           "settings": {
             "title": "Gift",
-            "collection_handle": ""
+            "collection_handle": "gift"
           }
         },
         "child_gift_sets": {
