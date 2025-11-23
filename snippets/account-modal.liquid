@@ -190,7 +190,7 @@
 }
 
 .account-modal__overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -198,6 +198,7 @@
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  z-index: 0;
 }
 
 .account-modal__content {
