@@ -86,75 +86,89 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    const searchContainer = document.querySelector('.header__search--dropdown');
-    if (!searchContainer) return;
+    // Find ALL search containers (for both sticky and regular header)
+    const searchContainers = document.querySelectorAll('.header__search--dropdown');
     
-    const toggleButton = searchContainer.querySelector('.header__search-toggle');
-    const dropdown = searchContainer.querySelector('.header__search-dropdown');
-    const searchInput = searchContainer.querySelector('.search__input');
-    const closeButton = searchContainer.querySelector('.header__search-close');
-    
-    if (!toggleButton || !dropdown) return;
-    
-    // Toggle dropdown
-    toggleButton.onclick = function(e) {
-      e.preventDefault();
-      e.stopPropagation();
+    searchContainers.forEach(function(searchContainer) {
+      const toggleButton = searchContainer.querySelector('.header__search-toggle');
+      const dropdown = searchContainer.querySelector('.header__search-dropdown');
+      const searchInput = searchContainer.querySelector('.search__input');
+      const closeButton = searchContainer.querySelector('.header__search-close');
       
-      const isOpen = dropdown.style.display === 'block';
+      if (!toggleButton || !dropdown) return;
       
-      if (isOpen) {
-        dropdown.style.display = 'none';
-        toggleButton.setAttribute('aria-expanded', 'false');
-      } else {
-        dropdown.style.display = 'block';
-        toggleButton.setAttribute('aria-expanded', 'true');
-        setTimeout(function() {
-          if (searchInput) searchInput.focus();
-        }, 100);
-      }
-    };
-    
-    // Close button
-    if (closeButton) {
-      closeButton.onclick = function(e) {
+      // Toggle dropdown
+      toggleButton.onclick = function(e) {
         e.preventDefault();
         e.stopPropagation();
         
-        if (searchInput) {
-          searchInput.value = '';
-        }
+        // Close all other dropdowns first
+        searchContainers.forEach(function(otherContainer) {
+          if (otherContainer !== searchContainer) {
+            const otherDropdown = otherContainer.querySelector('.header__search-dropdown');
+            const otherToggle = otherContainer.querySelector('.header__search-toggle');
+            if (otherDropdown) {
+              otherDropdown.style.display = 'none';
+              if (otherToggle) otherToggle.setAttribute('aria-expanded', 'false');
+            }
+          }
+        });
         
-        dropdown.style.display = 'none';
-        toggleButton.setAttribute('aria-expanded', 'false');
-      };
-    }
-    
-    // Close on outside click
-    document.addEventListener('click', function(e) {
-      if (!searchContainer.contains(e.target) && dropdown.style.display === 'block') {
-        dropdown.style.display = 'none';
-        toggleButton.setAttribute('aria-expanded', 'false');
-      }
-    });
-    
-    // Close on ESC key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && dropdown.style.display === 'block') {
-        dropdown.style.display = 'none';
-        toggleButton.setAttribute('aria-expanded', 'false');
-      }
-    });
-    
-    // Show/hide close button based on input value
-    if (searchInput && closeButton) {
-      searchInput.addEventListener('input', function() {
-        if (this.value.trim() !== '') {
-          closeButton.classList.remove('hidden');
+        const isOpen = dropdown.style.display === 'block';
+        
+        if (isOpen) {
+          dropdown.style.display = 'none';
+          toggleButton.setAttribute('aria-expanded', 'false');
         } else {
-          closeButton.classList.add('hidden');
+          dropdown.style.display = 'block';
+          toggleButton.setAttribute('aria-expanded', 'true');
+          setTimeout(function() {
+            if (searchInput) searchInput.focus();
+          }, 100);
+        }
+      };
+      
+      // Close button
+      if (closeButton) {
+        closeButton.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          if (searchInput) {
+            searchInput.value = '';
+          }
+          
+          dropdown.style.display = 'none';
+          toggleButton.setAttribute('aria-expanded', 'false');
+        };
+      }
+      
+      // Close on outside click
+      document.addEventListener('click', function(e) {
+        if (!searchContainer.contains(e.target) && dropdown.style.display === 'block') {
+          dropdown.style.display = 'none';
+          toggleButton.setAttribute('aria-expanded', 'false');
         }
       });
-    }
+      
+      // Close on ESC key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && dropdown.style.display === 'block') {
+          dropdown.style.display = 'none';
+          toggleButton.setAttribute('aria-expanded', 'false');
+        }
+      });
+      
+      // Show/hide close button based on input value
+      if (searchInput && closeButton) {
+        searchInput.addEventListener('input', function() {
+          if (this.value.trim() !== '') {
+            closeButton.classList.remove('hidden');
+          } else {
+            closeButton.classList.add('hidden');
+          }
+        });
+      }
+    });
   });
 </script>
