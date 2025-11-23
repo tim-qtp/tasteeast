@@ -127,15 +127,15 @@
 .featured-collection__image-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 2 / 1; /* 2:1 ratio - wider and shorter */
+  height: 300px; /* Fixed height - much shorter */
   overflow: hidden;
   background: #f5f5f5;
 }
 
-/* Fallback for older browsers */
-@supports not (aspect-ratio: 2 / 1) {
+/* Responsive height */
+@media screen and (min-width: 750px) {
   .featured-collection__image-wrapper {
-    padding-bottom: 50%;
+    height: 280px; /* Shorter fixed height on desktop */
   }
 }
 
