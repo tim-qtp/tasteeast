@@ -85,7 +85,7 @@
 </div>
 
 <script>
-  (function() {
+  document.addEventListener('DOMContentLoaded', function() {
     const searchContainer = document.querySelector('.header__search--dropdown');
     if (!searchContainer) return;
     
@@ -97,45 +97,42 @@
     if (!toggleButton || !dropdown) return;
     
     // Toggle dropdown
-    toggleButton.addEventListener('click', function(e) {
+    toggleButton.onclick = function(e) {
       e.preventDefault();
       e.stopPropagation();
       
-      const isOpen = dropdown.style.display !== 'none';
+      const isOpen = dropdown.style.display === 'block';
       
       if (isOpen) {
-        // Close
         dropdown.style.display = 'none';
         toggleButton.setAttribute('aria-expanded', 'false');
       } else {
-        // Open
         dropdown.style.display = 'block';
         toggleButton.setAttribute('aria-expanded', 'true');
-        setTimeout(() => {
+        setTimeout(function() {
           if (searchInput) searchInput.focus();
         }, 100);
       }
-    });
+    };
     
     // Close button
     if (closeButton) {
-      closeButton.addEventListener('click', function(e) {
+      closeButton.onclick = function(e) {
         e.preventDefault();
         e.stopPropagation();
         
         if (searchInput) {
           searchInput.value = '';
-          searchInput.dispatchEvent(new Event('input', { bubbles: true }));
         }
         
         dropdown.style.display = 'none';
         toggleButton.setAttribute('aria-expanded', 'false');
-      });
+      };
     }
     
     // Close on outside click
     document.addEventListener('click', function(e) {
-      if (!searchContainer.contains(e.target) && dropdown.style.display !== 'none') {
+      if (!searchContainer.contains(e.target) && dropdown.style.display === 'block') {
         dropdown.style.display = 'none';
         toggleButton.setAttribute('aria-expanded', 'false');
       }
@@ -143,7 +140,7 @@
     
     // Close on ESC key
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && dropdown.style.display !== 'none') {
+      if (e.key === 'Escape' && dropdown.style.display === 'block') {
         dropdown.style.display = 'none';
         toggleButton.setAttribute('aria-expanded', 'false');
       }
@@ -159,5 +156,5 @@
         }
       });
     }
-  })();
+  });
 </script>

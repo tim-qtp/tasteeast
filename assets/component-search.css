@@ -86,6 +86,17 @@ input::-webkit-search-decoration {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.header__search-toggle:hover {
+  opacity: 0.7;
+}
+
+.header__search-toggle:active {
+  opacity: 0.5;
 }
 
 .header__search-dropdown {
