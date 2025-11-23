@@ -76,66 +76,6 @@
       padding-top: 0.5rem;
     }
   }
-
-  /* Login link next to logo */
-  .header__heading-wrapper {
-    display: flex !important;
-    align-items: center !important;
-    gap: 0 !important;
-    flex-wrap: nowrap !important;
-  }
-
-  .header__heading {
-    display: flex !important;
-    align-items: center !important;
-    gap: 0 !important;
-    margin: 0 !important;
-    line-height: 0 !important;
-    flex-wrap: nowrap !important;
-  }
-
-  .header__heading-link {
-    display: inline-flex !important;
-    align-items: center !important;
-    line-height: 0 !important;
-    flex-shrink: 0 !important;
-    margin: 0 !important;
-  }
-
-  .header__login-next-to-logo {
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 8px !important;
-    margin-left: 20px !important;
-    padding: 0.5rem 1rem !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    color: rgb(var(--color-foreground)) !important;
-    text-decoration: none !important;
-    transition: color 0.3s ease !important;
-    white-space: nowrap !important;
-    line-height: 1.5 !important;
-    flex-shrink: 0 !important;
-  }
-
-  .header__login-next-to-logo:hover {
-    color: #0a7084 !important;
-  }
-
-  .header__login-next-to-logo .svg-wrapper {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 18px !important;
-    height: 18px !important;
-    flex-shrink: 0 !important;
-  }
-
-  @media screen and (max-width: 989px) {
-    .header__login-next-to-logo {
-      display: none !important;
-    }
-  }
 </style>
 
 {%- style -%}
@@ -240,19 +180,6 @@
             <span class="h2">{{ shop.name }}</span>
           {%- endif -%}
         </a>
-        
-        {%- if shop.customer_accounts_enabled and customer == null -%}
-          <a
-            href="#"
-            onclick="openAccountModal('login'); return false;"
-            class="header__login-next-to-logo link focus-inset"
-            rel="nofollow"
-          >
-            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-            <span>Login</span>
-          </a>
-        {%- endif -%}
-        
         {%- if request.page_type == 'index' -%}
           </h1>
         {%- else -%}
@@ -330,14 +257,26 @@
       </div>
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
-      {%- if shop.customer_accounts_enabled and customer -%}
-        <a
-          href="{{ routes.account_url }}"
-          class="header__account-text link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
-          rel="nofollow"
-        >
-          My Account
-        </a>
+      {%- if shop.customer_accounts_enabled -%}
+        {%- if customer -%}
+          <a
+            href="{{ routes.account_url }}"
+            class="header__account-text link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+            rel="nofollow"
+          >
+            My Account
+          </a>
+        {%- else -%}
+          <a
+            href="#"
+            onclick="openAccountModal('login'); return false;"
+            class="header__account-link link focus-inset{% if section.settings.menu != blank %} small-hide{% endif %}"
+            rel="nofollow"
+          >
+            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+            <span>Login</span>
+          </a>
+        {%- endif -%}
       {%- endif -%}
 
       {%- for block in section.blocks -%}
