@@ -11,7 +11,6 @@
   "sections": {
     "banner": {
       "type": "main-collection-banner",
-      "disabled": true,
       "settings": {
         "show_collection_description": true,
         "show_collection_image": false,
@@ -20,9 +19,8 @@
     },
     "product-grid": {
       "type": "main-collection-product-grid",
-      "disabled": true,
       "settings": {
-        "products_per_page": 16,
+        "products_per_page": 24,
         "columns_desktop": 4,
         "columns_mobile": "2",
         "color_scheme": "",
@@ -41,6 +39,7 @@
     },
     "hero_product_banner_iDBNxE": {
       "type": "hero-product-banner",
+      "disabled": true,
       "name": "Hero Copy (Right)",
       "settings": {
         "bg_image": "shopify://shop_images/101_941d8cf8-cc89-4210-a7e5-b30653f23cf8.png",
@@ -192,6 +191,7 @@
     },
     "split_hero_left_image_JbwP9G": {
       "type": "split-hero-left-image",
+      "disabled": true,
       "name": "Split Hero · Left Image",
       "settings": {
         "image": "shopify://shop_images/left.jpg",
@@ -219,6 +219,7 @@
     },
     "best_spirits_grid_QwprWV": {
       "type": "best-spirits-grid",
+      "disabled": true,
       "blocks": {
         "item_tY8zam": {
           "type": "item",
@@ -341,6 +342,7 @@
     },
     "logistics_icons_row_LtXNMU": {
       "type": "logistics-icons-row",
+      "disabled": true,
       "blocks": {
         "item_4DTMD3": {
           "type": "item",
@@ -393,6 +395,7 @@
     },
     "taste_subscribe_3kmfrx": {
       "type": "taste-subscribe",
+      "disabled": true,
       "name": "Taste Subscribe Block",
       "settings": {
         "heading": "TASTE THE EAST.",
