@@ -1,0 +1,92 @@
+{
+  "sections": {
+    "collections_page": {
+      "type": "collections-page",
+      "blocks": {
+        "parent_wine": {
+          "type": "parent_category",
+          "settings": {
+            "title": "Wine"
+          }
+        },
+        "child_red_wine": {
+          "type": "child_category",
+          "settings": {
+            "parent_id": "parent_wine",
+            "title": "Red Wine",
+            "collection_handle": "red-wine"
+          }
+        },
+        "child_white_wine": {
+          "type": "child_category",
+          "settings": {
+            "parent_id": "parent_wine",
+            "title": "White Wine",
+            "collection_handle": "white-wine"
+          }
+        },
+        "child_beer": {
+          "type": "child_category",
+          "settings": {
+            "parent_id": "parent_wine",
+            "title": "Beer",
+            "collection_handle": "beer"
+          }
+        },
+        "single_beverage": {
+          "type": "single_category",
+          "settings": {
+            "title": "Beverage",
+            "collection_handle": "beverage"
+          }
+        },
+        "single_chinese_cookie": {
+          "type": "single_category",
+          "settings": {
+            "title": "Chinese Cookie",
+            "collection_handle": "chinese-cookie"
+          }
+        },
+        "single_gift": {
+          "type": "single_category",
+          "settings": {
+            "title": "Gift",
+            "collection_handle": "gift"
+          }
+        },
+        "featured_new_arrivals": {
+          "type": "featured_collection",
+          "settings": {
+            "title": "New Arrivals",
+            "link": "/collections/new-arrivals"
+          }
+        },
+        "featured_best_seller": {
+          "type": "featured_collection",
+          "settings": {
+            "title": "Best Seller",
+            "link": "/collections/best-seller"
+          }
+        }
+      },
+      "block_order": [
+        "parent_wine",
+        "child_red_wine",
+        "child_white_wine",
+        "child_beer",
+        "single_beverage",
+        "single_chinese_cookie",
+        "single_gift",
+        "featured_new_arrivals",
+        "featured_best_seller"
+      ],
+      "settings": {
+        "heading": "Shop by Category"
+      }
+    }
+  },
+  "order": [
+    "collections_page"
+  ]
+}
+
