@@ -1,22 +1,22 @@
 .collections-page {
-  padding: 40px 0 80px;
+  padding: 60px 0 80px;
 }
 
 .collections-page__container {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 48px;
+  grid-template-columns: 320px 1fr;
+  gap: 60px;
   align-items: start;
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
 }
 
 /* Sidebar - Category Menu */
 .collections-page__sidebar {
   position: sticky;
-  top: 100px;
-  padding-left: 20px;
+  top: 120px;
+  padding-left: 0;
 }
 
 .collections-page__heading {
@@ -37,7 +37,7 @@
   margin: 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px 32px;
+  gap: 28px 40px;
   align-items: start;
 }
 
@@ -46,21 +46,22 @@
 }
 
 .collections-nav__item--parent {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 /* Parent Category Title */
 .collections-nav__parent-title {
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 600;
   color: #1a1a1a;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   padding: 0;
+  letter-spacing: 0.3px;
 }
 
 .collections-nav__link {
   display: block;
-  padding: 8px 0;
+  padding: 6px 0;
   color: #333;
   text-decoration: none;
   font-size: 14px;
@@ -70,6 +71,7 @@
   border: none;
   width: 100%;
   text-align: left;
+  line-height: 1.5;
 }
 
 .collections-nav__link:hover {
@@ -89,9 +91,10 @@
 }
 
 .collections-nav__link--child {
-  padding: 6px 0;
+  padding: 5px 0;
   font-size: 14px;
   font-weight: 400;
+  line-height: 1.5;
 }
 
 .collections-nav__item--single {
@@ -106,12 +109,16 @@
 }
 
 /* Featured Collections - Right Side */
+.collections-page__featured {
+  width: 100%;
+}
+
 .featured-collections {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  max-width: 600px;
-  margin: 0 auto;
+  gap: 32px;
+  width: 100%;
+  max-width: 800px;
 }
 
 .featured-collection__card {
@@ -133,7 +140,7 @@
 .featured-collection__image-wrapper {
   position: relative;
   width: 100%;
-  height: 300px; /* Fixed height - much shorter */
+  height: 320px; /* Balanced height */
   overflow: hidden;
   background: #f5f5f5;
 }
@@ -141,7 +148,7 @@
 /* Responsive height */
 @media screen and (min-width: 750px) {
   .featured-collection__image-wrapper {
-    height: 280px; /* Shorter fixed height on desktop */
+    height: 320px;
   }
 }
 
@@ -167,16 +174,18 @@
 }
 
 .featured-collection__content {
-  padding: 20px;
+  padding: 24px;
   background: #fff;
 }
 
 .featured-collection__title {
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 600;
   color: #1a1a1a;
   margin: 0;
   transition: color 0.3s ease;
+  text-align: center;
+  letter-spacing: 0.5px;
 }
 
 .featured-collection__card:hover .featured-collection__title {
@@ -185,15 +194,20 @@
 
 /* Responsive Design */
 @media screen and (max-width: 990px) {
+  .collections-page {
+    padding: 40px 0 60px;
+  }
+
   .collections-page__container {
-    grid-template-columns: 240px 1fr;
-    gap: 32px;
+    grid-template-columns: 260px 1fr;
+    gap: 40px;
     max-width: 100%;
-    padding: 0 16px;
+    padding: 0 24px;
   }
 
   .collections-page__sidebar {
-    padding-left: 10px;
+    padding-left: 0;
+    top: 100px;
   }
 
   .collections-nav__list {
@@ -202,21 +216,25 @@
   }
 
   .featured-collections {
-    gap: 16px;
+    gap: 24px;
     max-width: 100%;
+  }
+
+  .featured-collection__image-wrapper {
+    height: 280px;
   }
 }
 
 @media screen and (max-width: 749px) {
   .collections-page {
-    padding: 24px 0 48px;
+    padding: 32px 0 48px;
   }
 
   .collections-page__container {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 40px;
     max-width: 100%;
-    padding: 0 16px;
+    padding: 0 20px;
   }
 
   .collections-page__sidebar {
@@ -226,17 +244,23 @@
   }
 
   .collections-page__heading {
-    font-size: 20px;
-    margin-bottom: 16px;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .collections-nav__list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 32px;
   }
 
   .featured-collections {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 24px;
+    max-width: 100%;
   }
 
   .featured-collection__image-wrapper {
-    padding-bottom: 100%; /* 1:1 aspect ratio on mobile */
+    height: 300px;
   }
 }
 
