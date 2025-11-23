@@ -1,3 +1,28 @@
+/* Background overlay effect for customer pages */
+body.customer-page-active::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+body.customer-page-active #shopify-section-header {
+  position: relative;
+  z-index: 10;
+}
+
+body.customer-page-active .shopify-section {
+  position: relative;
+  z-index: 1;
+}
+
 /* Customer Pages General Styles */
 .customer-page {
   max-width: 1200px;
@@ -5,21 +30,6 @@
   padding: 60px 20px;
   position: relative;
   z-index: 1;
-}
-
-/* Background overlay effect for customer pages */
-.customer-page::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  z-index: -1;
-  pointer-events: none;
 }
 
 .customer-page__title {
