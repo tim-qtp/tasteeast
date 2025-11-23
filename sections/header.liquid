@@ -180,6 +180,18 @@
       {%- if request.page_type == 'index' -%}
         </h1>
       {%- endif -%}
+      
+      {%- if shop.customer_accounts_enabled and customer == null -%}
+        <a
+          href="#"
+          onclick="openAccountModal('login'); return false;"
+          class="header__login-next-to-logo link focus-inset"
+          rel="nofollow"
+        >
+          <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+          <span>Login</span>
+        </a>
+      {%- endif -%}
     {%- endif -%}
 
     {%- liquid
