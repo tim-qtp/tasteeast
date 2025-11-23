@@ -25,7 +25,7 @@
       {%- if customer.orders.size > 0 -%}
         <table style="width: 100%; border-collapse: collapse;">
           <thead>
-            <tr style="border-bottom: 2px solid rgba(var(--color-foreground), 0.1);">
+            <tr style="border-bottom: 2px solid rgba(18, 18, 18, 0.1);">
               <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Order</th>
               <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Date</th>
               <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Payment Status</th>
@@ -35,22 +35,22 @@
           </thead>
           <tbody>
             {%- for order in customer.orders -%}
-              <tr style="border-bottom: 1px solid rgba(var(--color-foreground), 0.08);">
+              <tr style="border-bottom: 1px solid rgba(18, 18, 18, 0.08);">
                 <td style="padding: 16px 8px;">
                   <a href="{{ order.customer_url }}" style="color: #0a7084; text-decoration: none; font-size: 14px; font-weight: 500;">
                     {{ order.name }}
                   </a>
                 </td>
-                <td style="padding: 16px 8px; font-size: 14px; color: rgba(var(--color-foreground), 0.7);">
+                <td style="padding: 16px 8px; font-size: 14px; color: rgba(18, 18, 18, 0.7);">
                   {{ order.created_at | date: "%B %d, %Y" }}
                 </td>
                 <td style="padding: 16px 8px; font-size: 14px;">
-                  <span style="padding: 4px 12px; background: rgba(var(--color-foreground), 0.05); border-radius: 4px; font-size: 13px;">
+                  <span style="padding: 4px 12px; background: rgba(18, 18, 18, 0.05); border-radius: 4px; font-size: 13px;">
                     {{ order.financial_status_label }}
                   </span>
                 </td>
                 <td style="padding: 16px 8px; font-size: 14px;">
-                  <span style="padding: 4px 12px; background: rgba(var(--color-foreground), 0.05); border-radius: 4px; font-size: 13px;">
+                  <span style="padding: 4px 12px; background: rgba(18, 18, 18, 0.05); border-radius: 4px; font-size: 13px;">
                     {{ order.fulfillment_status_label }}
                   </span>
                 </td>
