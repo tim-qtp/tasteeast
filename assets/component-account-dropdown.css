@@ -12,6 +12,17 @@
   background: none;
   border: none;
   box-shadow: none;
+  outline: none !important;
+}
+
+.header__login-link:focus,
+.header__login-link:focus-visible,
+.header__login-link:focus-within,
+.header__login-link.focus-inset:focus-visible,
+.header__login-link.focused.focus-inset {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 .header__login-link .svg-wrapper {
