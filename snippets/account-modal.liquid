@@ -48,9 +48,8 @@
         </button>
 
         <div class="account-modal__links">
-          New Customer? <a href="#" onclick="showRegisterForm(); return false;" class="account-modal__link">Create account</a>
-          <br>
-          <a href="#" onclick="showResetPasswordForm(); return false;" class="account-modal__link">Forgot your password?</a>
+          <div>New Customer? <a href="#" onclick="showRegisterForm(); return false;" class="account-modal__link">Create account</a></div>
+          <div><a href="#" onclick="showResetPasswordForm(); return false;" class="account-modal__link">Forgot your password?</a></div>
         </div>
       {%- endform -%}
     </div>
@@ -194,10 +193,10 @@
   position: relative;
   background: #fff;
   border-radius: 12px;
-  padding: 48px 40px 40px;
+  padding: 32px 40px 32px;
   max-width: 480px;
   width: 90%;
-  max-height: 85vh;
+  max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   animation: modalSlideIn 0.3s ease-out;
@@ -233,15 +232,15 @@
 }
 
 .account-modal__title {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 700;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   color: rgb(var(--color-foreground));
   text-align: center;
 }
 
 .account-modal__description {
-  margin-bottom: 28px;
+  margin-bottom: 20px;
   color: rgba(var(--color-foreground), 0.7);
   font-size: 14px;
   text-align: center;
@@ -252,7 +251,7 @@
 }
 
 .account-modal__field {
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .account-modal__row {
@@ -275,13 +274,14 @@
 
 .account-modal__input {
   width: 100%;
-  padding: 11px 14px;
-  border: 1px solid rgba(var(--color-foreground), 0.2);
+  padding: 12px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   font-size: 15px;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   box-sizing: border-box;
   font-family: inherit;
+  background: #fff;
 }
 
 .account-modal__input:focus {
@@ -301,7 +301,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  margin-top: 8px;
+  margin-top: 4px;
   font-family: inherit;
 }
 
@@ -324,11 +324,19 @@
 }
 
 .account-modal__links {
-  margin-top: 24px;
-  text-align: center;
+  margin-top: 20px;
+  text-align: left;
   font-size: 14px;
   line-height: 1.8;
   color: rgba(var(--color-foreground), 0.8);
+}
+
+.account-modal__links > div {
+  margin-bottom: 8px;
+}
+
+.account-modal__links > div:last-child {
+  margin-bottom: 0;
 }
 
 .account-modal__link {
