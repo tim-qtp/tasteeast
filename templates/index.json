@@ -12,6 +12,16 @@
     "hero_taste_east_a3wmh7": {
       "type": "hero-taste-east",
       "blocks": {
+        "banner_QNCGHH": {
+          "type": "banner",
+          "settings": {
+            "background_image": "shopify://shop_images/a.jpg",
+            "subheadline": "Boutique and Eastern flavors from China",
+            "headline": "TASTE THE BEST FROM EAST",
+            "button_label": "Shop Now",
+            "button_link": ""
+          }
+        },
         "banner_cP7JJt": {
           "type": "banner",
           "settings": {
@@ -24,6 +34,7 @@
         }
       },
       "block_order": [
+        "banner_QNCGHH",
         "banner_cP7JJt"
       ],
       "name": "Taste East Hero",
