@@ -106,12 +106,15 @@
           data-slide-index="{{ forloop.index0 }}"
           {{ block.shopify_attributes }}
         >
-          <div 
-            class="hero-slide-background {% if block.settings.background_image == blank %}hero-slide-background-placeholder{% endif %}"
-            {% if block.settings.background_image != blank %}
-              style="background-image: url('{{ block.settings.background_image | image_url: width: 1920 }}');"
-            {% endif %}
-          ></div>
+          {% if block.settings.background_image != blank %}
+            {% assign bg_image_url = block.settings.background_image | image_url: width: 1920 %}
+            <div 
+              class="hero-slide-background"
+              style="background-image: url('{{ bg_image_url }}');"
+            ></div>
+          {% else %}
+            <div class="hero-slide-background hero-slide-background-placeholder"></div>
+          {% endif %}
           
           <div class="hero-slide-content page-width">
             <p class="hero-subheadline">
@@ -202,9 +205,11 @@
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 1;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-color: #f5f5f5;
 }
 
 .hero-slide-background-placeholder {
