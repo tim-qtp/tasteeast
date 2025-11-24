@@ -110,7 +110,7 @@
             {% assign bg_image_url = block.settings.background_image | image_url: width: 1920 %}
             <div 
               class="hero-slide-background"
-              style="background-image: url('{{ bg_image_url }}');"
+              style="background-image: url({{ bg_image_url }});"
             ></div>
           {% else %}
             <div class="hero-slide-background hero-slide-background-placeholder"></div>
