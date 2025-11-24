@@ -187,7 +187,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.05);
   pointer-events: none;
 }
 
@@ -198,18 +198,18 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 60px 20px 80px;
+  align-items: flex-start;
+  text-align: left;
+  padding: 60px 50px 80px;
 }
 
 .hero-subheadline {
   margin: 0 0 20px 0;
-  font-size: 20px;
+  font-size: 16px;
   font-family: 'Gurmukhi MN', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.5px;
-  color: white;
+  color: #333;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s;
@@ -221,16 +221,13 @@
 }
 
 .hero-headline {
-  font-size: 120px;
-  font-family: 'Limelight', serif;
+  font-size: 56px;
+  font-family: 'Arial', sans-serif;
   font-weight: 700;
-  background: linear-gradient(to right, #FFDEBB, #CAA16F);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin: 0 auto 40px;
-  line-height: 1.1;
-  letter-spacing: 1px;
+  color: #000;
+  margin: 0 0 20px 0;
+  line-height: 1.2;
+  letter-spacing: 0;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s;
@@ -243,15 +240,17 @@
 
 .hero-button {
   display: inline-block;
-  padding: 16px 36px;
-  background: linear-gradient(to right, #d9b989, #e2c59a);
-  color: #000;
-  font-weight: bold;
-  border-radius: 4px;
+  padding: 14px 32px;
+  background: #EA5234;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 0;
   text-decoration: none;
+  text-transform: capitalize;
   opacity: 0;
   transform: translateY(30px);
-  transition: opacity 0.8s ease-out 0.6s, transform 0.8s ease-out 0.6s;
+  transition: opacity 0.8s ease-out 0.6s, transform 0.8s ease-out 0.6s, background 0.3s ease;
 }
 
 .hero-slide.active .hero-button {
@@ -260,7 +259,8 @@
 }
 
 .hero-button:hover {
-  transform: translateY(0) scale(1.05);
+  transform: translateY(0);
+  background: #d94830;
 }
 
 /* Navigation Arrows */
