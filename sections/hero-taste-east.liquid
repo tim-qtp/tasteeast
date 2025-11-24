@@ -3,115 +3,477 @@
   "name": "Taste East Hero",
   "settings": [
     {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background Image"
-    },
+      "type": "range",
+      "id": "auto_rotate_interval",
+      "label": "Auto rotate interval (seconds)",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5,
+      "unit": "s"
+    }
+  ],
+  "blocks": [
     {
-      "type": "text",
-      "id": "headline",
-      "label": "Main headline",
-      "default": "TASTE THE BEST FROM EAST"
-    },
-    {
-      "type": "text",
-      "id": "subheadline",
-      "label": "Sub headline",
-      "default": "Boutique and Eastern flavors from China"
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image"
+        },
+        {
+          "type": "text",
+          "id": "subheadline",
+          "label": "Sub headline",
+          "default": "Boutique and Eastern flavors from China"
+        },
+        {
+          "type": "text",
+          "id": "headline",
+          "label": "Main headline",
+          "default": "TASTE THE BEST FROM EAST"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link",
+          "info": "Link to collection page (e.g., /collections/wine)"
+        }
+      ]
     }
   ],
   "presets": [
     {
       "name": "Taste East Hero",
-      "category": "Custom"
+      "blocks": [
+        {
+          "type": "banner",
+          "settings": {
+            "subheadline": "Boutique and Eastern flavors from China",
+            "headline": "TASTE THE BEST FROM EAST",
+            "button_label": "Shop Wine",
+            "button_link": "/collections/wine"
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "subheadline": "Discover refreshing beverages",
+            "headline": "PREMIUM BEVERAGES",
+            "button_label": "Shop Beverage",
+            "button_link": "/collections/beverage"
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "subheadline": "Traditional Chinese delicacies",
+            "headline": "CHINESE COOKIES",
+            "button_label": "Shop Cookies",
+            "button_link": "/collections/chinese-cookie"
+          }
+        },
+        {
+          "type": "banner",
+          "settings": {
+            "subheadline": "Perfect gifts for every occasion",
+            "headline": "GIFT COLLECTIONS",
+            "button_label": "Shop Gifts",
+            "button_link": "/collections/gift"
+          }
+        }
+      ]
     }
   ]
 }
 {% endschema %}
 
-<section
-  class="hero-taste-east"
-  style="
-    position: relative;
-    background-image: url({{ section.settings.background_image | image_url: width: 1920 }});
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    aspect-ratio: 16/6.5;
-    min-height: 520px;
-    overflow:hidden;
-  "
->
-  <!-- 主文案 -->
-  <div class="page-width" style="padding: 60px 20px 80px; text-align: center; color: #111;">
-    <p
-      class="hero-subheadline"
-      style="
-        margin: 8% 0 -4% 0;
-        font-size: 20px;
-        font-family: 'Gurmukhi MN', sans-serif;
-        font-weight: 300;
-        letter-spacing: 0.5px;
-        color: white;
-      "
-    >
-      {{ section.settings.subheadline }}
-    </p>
-
-    <h1
-      class="hero-headline"
-      style="
-        font-size: 120px;
-        font-family: 'Limelight', serif;
-        font-weight: 700;
-        background: linear-gradient(to right, #FFDEBB, #CAA16F);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        margin: 80px auto 80px;
-        line-height: 1.1;
-        letter-spacing: 1px;
-      "
-    >
-      {{ section.settings.headline }}
-    </h1>
+{% if section.blocks.size > 0 %}
+<section class="hero-taste-east-carousel" data-auto-rotate="{{ section.settings.auto_rotate_interval | default: 5 }}">
+  <div class="hero-carousel-container">
+    <div class="hero-carousel-wrapper">
+      {% for block in section.blocks %}
+        <div 
+          class="hero-slide {% if forloop.first %}active{% endif %}" 
+          data-slide-index="{{ forloop.index0 }}"
+          {{ block.shopify_attributes }}
+        >
+          <div 
+            class="hero-slide-background"
+            style="background-image: url({{ block.settings.background_image | image_url: width: 1920 }});"
+          ></div>
+          
+          <div class="hero-slide-content page-width">
+            <p class="hero-subheadline">
+              {{ block.settings.subheadline }}
+            </p>
+            
+            <h1 class="hero-headline">
+              {{ block.settings.headline }}
+            </h1>
+            
+            {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+              <a href="{{ block.settings.button_link }}" class="hero-button">
+                {{ block.settings.button_label }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <!-- Navigation Arrows -->
+    {% if section.blocks.size > 1 %}
+      <button class="hero-carousel-nav hero-carousel-prev" aria-label="Previous slide">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="hero-carousel-nav hero-carousel-next" aria-label="Next slide">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      
+      <!-- Pagination Dots -->
+      <div class="hero-carousel-pagination">
+        {% for block in section.blocks %}
+          <button 
+            class="hero-pagination-dot {% if forloop.first %}active{% endif %}" 
+            data-slide-index="{{ forloop.index0 }}"
+            aria-label="Go to slide {{ forloop.index }}"
+          ></button>
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
 </section>
 
 <style>
-@media screen and (max-width: 768px) {
-  .hero-taste-east {
-    aspect-ratio: auto !important;
-    min-height: auto !important;
-    padding: 40px 20px !important;
-  }
-
-  .hero-taste-east .hero-subheadline {
-    font-size: 16px !important;
-    margin: 60px 0 20px 0 !important;
-  }
-
-  .hero-taste-east .hero-headline {
-    font-size: 48px !important;
-    margin: 20px auto 40px !important;
-    line-height: 1.2 !important;
-  }
+.hero-taste-east-carousel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/6.5;
+  min-height: 520px;
+  overflow: hidden;
 }
 
-/* ===== 动画效果（仅标题和副标题） ===== */
-.hero-taste-east .hero-subheadline,
-.hero-taste-east .hero-headline {
+.hero-carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  z-index: 1;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+.hero-slide-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero-slide-content {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 60px 20px 80px;
+}
+
+.hero-subheadline {
+  margin: 0 0 20px 0;
+  font-size: 20px;
+  font-family: 'Gurmukhi MN', sans-serif;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  color: white;
   opacity: 0;
   transform: translateY(30px);
-  animation: fadeUp 0.8s ease-out forwards;
+  transition: opacity 0.8s ease-out 0.2s, transform 0.8s ease-out 0.2s;
 }
 
-.hero-taste-east .hero-subheadline { animation-delay: 0.2s; }
-.hero-taste-east .hero-headline { animation-delay: 0.4s; }
+.hero-slide.active .hero-subheadline {
+  opacity: 1;
+  transform: translateY(0);
+}
 
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+.hero-headline {
+  font-size: 120px;
+  font-family: 'Limelight', serif;
+  font-weight: 700;
+  background: linear-gradient(to right, #FFDEBB, #CAA16F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 auto 40px;
+  line-height: 1.1;
+  letter-spacing: 1px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out 0.4s, transform 0.8s ease-out 0.4s;
+}
+
+.hero-slide.active .hero-headline {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-button {
+  display: inline-block;
+  padding: 16px 36px;
+  background: linear-gradient(to right, #d9b989, #e2c59a);
+  color: #000;
+  font-weight: bold;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out 0.6s, transform 0.8s ease-out 0.6s, transform 0.3s ease;
+}
+
+.hero-slide.active .hero-button {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-button:hover {
+  transform: scale(1.05);
+}
+
+/* Navigation Arrows */
+.hero-carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: #333;
+}
+
+.hero-carousel-nav:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.hero-carousel-prev {
+  left: 20px;
+}
+
+.hero-carousel-next {
+  right: 20px;
+}
+
+/* Pagination Dots */
+.hero-carousel-pagination {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.hero-pagination-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.hero-pagination-dot.active {
+  background: white;
+  border-color: white;
+  width: 14px;
+  height: 14px;
+}
+
+.hero-pagination-dot:hover {
+  border-color: white;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .hero-taste-east-carousel {
+    aspect-ratio: auto;
+    min-height: 400px;
+  }
+
+  .hero-slide-content {
+    padding: 40px 20px;
+  }
+
+  .hero-subheadline {
+    font-size: 16px;
+    margin: 0 0 20px 0;
+  }
+
+  .hero-headline {
+    font-size: 48px;
+    margin: 0 auto 30px;
+    line-height: 1.2;
+  }
+
+  .hero-button {
+    padding: 12px 28px;
+    font-size: 14px;
+  }
+
+  .hero-carousel-nav {
+    width: 40px;
+    height: 40px;
+  }
+
+  .hero-carousel-prev {
+    left: 10px;
+  }
+
+  .hero-carousel-next {
+    right: 10px;
+  }
+
+  .hero-carousel-pagination {
+    bottom: 20px;
   }
 }
 </style>
+
+<script>
+(function() {
+  const carousel = document.querySelector('.hero-taste-east-carousel');
+  if (!carousel) return;
+
+  const slides = carousel.querySelectorAll('.hero-slide');
+  const dots = carousel.querySelectorAll('.hero-pagination-dot');
+  const prevBtn = carousel.querySelector('.hero-carousel-prev');
+  const nextBtn = carousel.querySelector('.hero-carousel-next');
+  const autoRotateInterval = parseInt(carousel.dataset.autoRotate) * 1000 || 5000;
+
+  let currentSlide = 0;
+  let autoRotateTimer = null;
+
+  function showSlide(index) {
+    // Remove active class from all slides and dots
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+
+    // Add active class to current slide and dot
+    if (slides[index]) {
+      slides[index].classList.add('active');
+    }
+    if (dots[index]) {
+      dots[index].classList.add('active');
+    }
+
+    currentSlide = index;
+  }
+
+  function nextSlide() {
+    const next = (currentSlide + 1) % slides.length;
+    showSlide(next);
+  }
+
+  function prevSlide() {
+    const prev = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(prev);
+  }
+
+  function startAutoRotate() {
+    stopAutoRotate();
+    autoRotateTimer = setInterval(nextSlide, autoRotateInterval);
+  }
+
+  function stopAutoRotate() {
+    if (autoRotateTimer) {
+      clearInterval(autoRotateTimer);
+      autoRotateTimer = null;
+    }
+  }
+
+  // Navigation button events
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      startAutoRotate();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      startAutoRotate();
+    });
+  }
+
+  // Dot navigation
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      showSlide(index);
+      startAutoRotate();
+    });
+  });
+
+  // Pause on hover
+  carousel.addEventListener('mouseenter', stopAutoRotate);
+  carousel.addEventListener('mouseleave', startAutoRotate);
+
+  // Start auto rotate
+  if (slides.length > 1) {
+    startAutoRotate();
+  }
+})();
+</script>
+{% endif %}
