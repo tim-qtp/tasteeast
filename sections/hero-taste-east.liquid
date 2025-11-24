@@ -107,8 +107,10 @@
           {{ block.shopify_attributes }}
         >
           <div 
-            class="hero-slide-background"
-            style="background-image: url({{ block.settings.background_image | image_url: width: 1920 }});"
+            class="hero-slide-background {% if block.settings.background_image == blank %}hero-slide-background-placeholder{% endif %}"
+            {% if block.settings.background_image != blank %}
+              style="background-image: url('{{ block.settings.background_image | image_url: width: 1920 }}');"
+            {% endif %}
           ></div>
           
           <div class="hero-slide-content page-width">
@@ -203,6 +205,10 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.hero-slide-background-placeholder {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .hero-slide-content {
