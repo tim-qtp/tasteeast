@@ -282,12 +282,9 @@
             </div>
           </div>
         {%- else -%}
-          <a
-            href="#"
-            onclick="openAccountModal('login'); return false;"
-            class="header__login-link link{% if section.settings.menu != blank %} small-hide{% endif %}"
-            rel="nofollow"
-          >
+          
+            <a href="{{ routes.account_login_url }}?return_to={{ routes.account_url }}">Login</a>
+
             <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
             <span>Login</span>
           </a>
