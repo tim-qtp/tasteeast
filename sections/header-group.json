@@ -13,6 +13,18 @@
   "sections": {
     "announcement-bar": {
       "type": "announcement-bar",
+      "blocks": {
+        "announcement_X9gjmX": {
+          "type": "announcement",
+          "settings": {
+            "text": "We offer free shipping on all orders！",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "announcement_X9gjmX"
+      ],
       "settings": {
         "auto_rotate": false,
         "change_slides_speed": 5,
