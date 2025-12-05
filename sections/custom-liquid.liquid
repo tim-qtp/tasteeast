@@ -5,70 +5,11 @@
     font-family: 'Carlito', sans-serif !important;
   }
 
-  /* 链接：默认和已访问——无下划线、继承文字颜色 */
-  .section-{{ section.id }}-padding a,
-  .section-{{ section.id }}-padding a:link,
-  .section-{{ section.id }}-padding a:visited {
-    text-decoration: none !important;
-    color: inherit !important;
-  }
-
-  /* 悬停/聚焦时变化字体颜色 */
-  .section-{{ section.id }}-padding a:hover,
-  .section-{{ section.id }}-padding a:focus {
-    text-decoration: none !important;
-    color: #d2232a !important; /* ← 自定义高亮颜色 */
-  }
-
-  /* 按下状态颜色（可改可删） */
-  .section-{{ section.id }}-padding a:active {
-    text-decoration: none !important;
-    color: #a1191f !important;
-  }
-
   /* 保留原有 padding 逻辑 */
   .section-{{ section.id }}-padding {
     padding-top: calc({{ section.settings.padding_top }}px * 0.75);
     padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.75);
   }
-
-.top-links {
-  display: flex;
-  justify-content: left; /* 居中展示 */
-  gap: 24px; /* 链接之间距离 */
-  padding-left: 10px; /* 上下留白不挤 */
-  font-family: 'Carlito', sans-serif !important;
-}
-
-/* 链接样式统一为黑色无下划线 */
-.top-links a {
-  color: #000 !important; 
-  text-decoration: none !important;
-  font-size: 16px;
-}
-
-/* 默认 & 访问过都黑色 */
-.top-links a,
-.top-links a:link,
-.top-links a:visited {
-  color: #000 !important;
-  text-decoration: none !important;
-  font-size: 16px;
-}
-
-/* 悬停时无论是否访问过，都变红色 */
-.top-links a:hover,
-.top-links a:focus,
-.top-links a:visited:hover {
-  color: #d2232a !important;
-  text-decoration: none !important;
-}
-
-/* 点击（按住）时稍微深一点（可选） */
-.top-links a:active {
-  color: #a1191f !important;
-  text-decoration: none !important;
-}
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
@@ -76,13 +17,66 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* 顶部小导航区域布局 */
+  .top-links {
+    display: flex;
+    justify-content: left;
+    gap: 24px;
+    padding-left: 10px;
+    font-family: 'Carlito', sans-serif !important;
+  }
+
+  /* 默认 & 访问过 = 黑色，无下划线 */
+  .top-links a,
+  .top-links a:link,
+  .top-links a:visited {
+    color: #000 !important;
+    text-decoration: none !important;
+    font-size: 16px;
+  }
+
+  /* 悬停时变红 */
+  .top-links a:hover,
+  .top-links a:focus,
+  .top-links a:visited:hover {
+    color: #d2232a !important;
+    text-decoration: none !important;
+  }
+
+  /* 当前页（active）一直保持红色 */
+  .top-links a.active,
+  .top-links a.active:visited {
+    color: #d2232a !important;
+    text-decoration: none !important;
+  }
+
+  /* 点击按住那一瞬间稍深一点（可留可删） */
+  .top-links a:active {
+    color: #a1191f !important;
+    text-decoration: none !important;
+  }
 {%- endstyle -%}
 
 
-
 <div class="top-links">
-  <a href="/pages/faq">FAQ</a>
-  <a href="/pages/cooperation">Cooperation</a>
-  <a href="/pages/help">Help</a>
-  <a href="/policies/shipping-policy">Shipping & Return</a>
+  <a href="/pages/faq"
+     class="{% if request.path contains '/pages/faq' %}active{% endif %}">
+    FAQ
+  </a>
+
+  <a href="/pages/cooperation"
+     class="{% if request.path contains '/pages/cooperation' %}active{% endif %}">
+    Cooperation
+  </a>
+
+  <a href="/pages/help"
+     class="{% if request.path contains '/pages/help' %}active{% endif %}">
+    Help
+  </a>
+
+  <a href="/policies/shipping-policy"
+     class="{% if request.path contains '/policies/shipping-policy' or request.path contains 'shipping-policy' %}active{% endif %}">
+    Shipping & Return
+  </a>
 </div>
