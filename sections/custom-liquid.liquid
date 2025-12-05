@@ -47,12 +47,27 @@
   font-size: 16px;
 }
 
-/* 悬停时只变颜色 */
-.top-links a:hover {
-  color: #d2232a !important; /* 高亮颜色可替换 */
+/* 默认 & 访问过都黑色 */
+.top-links a,
+.top-links a:link,
+.top-links a:visited {
+  color: #000 !important;
+  text-decoration: none !important;
+  font-size: 16px;
 }
-.top-links a:after {
-  color: #d2232a !important; /* 高亮颜色可替换 */
+
+/* 悬停时无论是否访问过，都变红色 */
+.top-links a:hover,
+.top-links a:focus,
+.top-links a:visited:hover {
+  color: #d2232a !important;
+  text-decoration: none !important;
+}
+
+/* 点击（按住）时稍微深一点（可选） */
+.top-links a:active {
+  color: #a1191f !important;
+  text-decoration: none !important;
 }
 
   @media screen and (min-width: 750px) {
