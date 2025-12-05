@@ -1,10 +1,27 @@
 {%- style -%}
-  @import url('https://fonts.googleapis.com/css2?family=Carlito:wght@300;400;700&display=swap');
-  .section-{{ section.id }}-padding {
-    padding-top: calc({{ section.settings.padding_top }}px * 0.75);
-    padding-bottom: calc({{ section.settings.padding_bottom }}px  * 0.75);
+  
+    .section-{{ section.id }}-padding,
+  .section-{{ section.id }}-padding * {
     font-family: 'Carlito', sans-serif !important;
   }
+  .section-{{ section.id }}-padding a {
+    text-decoration: none !important;
+    color: inherit;
+  }
+  .section-{{ section.id }}-padding a:hover,
+  .section-{{ section.id }}-padding a:focus {
+    text-decoration: none;
+    color: #d2232a; /* 这里换成你想要的高亮颜色 */
+  }
+   .section-{{ section.id }}-padding a:active {
+    text-decoration: none;
+    color: #a1191f; /* 点击按住时的颜色（可选） */
+  }
+  .section-{{ section.id }}-padding {
+    padding-top: calc({{ section.settings.padding_top }}px * 0.75);
+    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.75);
+  }
+
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
