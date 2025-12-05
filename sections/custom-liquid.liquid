@@ -61,22 +61,23 @@
 
 <div class="top-links">
   <a href="/pages/faq"
-     class="{% if request.path contains '/pages/faq' %}active{% endif %}">
+     class="{% if request.path == '/pages/faq' %}active{% endif %}">
     FAQ
   </a>
 
   <a href="/pages/cooperation"
-     class="{% if request.path contains '/pages/cooperation' %}active{% endif %}">
+     class="{% if request.path == '/pages/cooperation' %}active{% endif %}">
     Cooperation
   </a>
 
   <a href="/pages/help"
-     class="{% if request.path contains '/pages/help' %}active{% endif %}">
+     class="{% if request.path == '/pages/help' %}active{% endif %}">
     Help
   </a>
 
   <a href="/pages/shipping-return"
-     class="{% if request.path contains '/policies/shipping-policy' or request.path contains 'shipping-policy' %}active{% endif %}">
+     class="{% if request.path == '/pages/shipping-return' %}active{% endif %}">
     Shipping & Return
   </a>
 </div>
+
