@@ -1,20 +1,23 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "help_page": {
       "type": "help-page",
       "settings": {
-        "heading": "Help",
-        "content": "<p>Welcome to our help center. If you have any questions or need assistance, please don't hesitate to reach out. Fill out the form below and we'll get back to you as soon as possible.</p>",
+        "heading": "",
+        "content": "",
         "show_contact_form": true,
         "form_heading": "Contact Us",
         "recipient_email": "support@tasteeast.com",
-        "name_placeholder": "Name",
-        "email_placeholder": "Email",
-        "phone_placeholder": "Phone Number",
-        "message_placeholder": "Message",
-        "button_text": "Send",
-        "padding_top": 60,
-        "padding_bottom": 60
+        "button_text": "Send"
       }
     }
   },
@@ -22,4 +25,3 @@
     "help_page"
   ]
 }
-
