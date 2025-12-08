@@ -249,10 +249,24 @@
 </style>
 
 {%- style -%}
-  /* 只控制上下间距，左右交给 .page-width 来对齐 top bar */
+/* 让 Logo+菜单 靠左，Icons 靠右，两边对齐 Top Bar */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* 使 Logo 和导航贴左排列 */
+.header__heading-wrapper,
+.header__inline-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem; /* 菜单和 Logo 之间间距，可自己调 */
+}
+
   .header {
-    padding-top: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px;
+    padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
   }
 
   .section-header {
@@ -273,7 +287,6 @@
     }
   }
 {%- endstyle -%}
-
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
 
