@@ -1,3 +1,5 @@
+{{ 'section-collections-page.css' | asset_url | stylesheet_tag }}
+
 <link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-header-navigation.css' | asset_url }}" media="print" onload="this.media='all'">
 <link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
@@ -12,10 +14,6 @@
 
 {%- if settings.predictive_search_enabled -%}
   <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
-{%- endif -%}
-
-{%- if section.settings.menu_type_desktop == 'mega' -%}
-  <link rel="stylesheet" href="{{ 'component-mega-menu.css' | asset_url }}" media="print" onload="this.media='all'">
 {%- endif -%}
 
 <style>
@@ -76,6 +74,108 @@
       padding-top: 0.5rem;
     }
   }
+
+  /* ==== Categories mega menu 样式 ==== */
+  .header-wrapper {
+    position: relative;
+    z-index: 40;
+  }
+
+  .header__inline-menu {
+    margin-left: 3rem;
+  }
+
+  .header__menu-item--mega {
+    position: relative;
+  }
+
+  .header__menu-item--mega > .header__menu-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .header__menu-item--mega .icon-caret {
+    width: 10px;
+    height: 6px;
+  }
+
+  .mega-menu {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    background: #fff;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    padding: 32px 48px 40px;
+  }
+
+  .header__menu-item--mega:hover .mega-menu,
+  .header__menu-item--mega:focus-within .mega-menu {
+    display: block;
+  }
+
+  .mega-menu__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 32px;
+  }
+
+  .mega-menu__columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 40px;
+  }
+
+  .mega-menu__group-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 16px;
+  }
+
+  .mega-menu__link {
+    display: block;
+    font-size: 14px;
+    padding: 2px 0;
+  }
+
+  .mega-menu__link:hover {
+    text-decoration: underline;
+  }
+
+  .mega-menu__cards {
+    display: grid;
+    gap: 16px;
+  }
+
+  .mega-menu-card {
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f7f7f7;
+  }
+
+  .mega-menu-card img {
+    width: 100%;
+    display: block;
+  }
+
+  .mega-menu-card__body {
+    padding: 12px 14px 16px;
+    font-size: 14px;
+  }
+
+  .mega-menu-card__title {
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .mega-menu-card__link {
+    font-size: 13px;
+    text-decoration: underline;
+  }
 </style>
 
 {%- style -%}
@@ -84,7 +184,7 @@
   }
 
   .section-header {
-    position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
+    position: sticky; /* Safari z-index bug fix */
     margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
   }
 
@@ -188,15 +288,94 @@
       </div>
     {%- endif -%}
 
-    {%- liquid
-      if section.settings.menu != blank
-        if section.settings.menu_type_desktop == 'dropdown'
-          render 'header-dropdown-menu'
-        elsif section.settings.menu_type_desktop != 'drawer'
-          render 'header-mega-menu'
-        endif
-      endif
-    %}
+    {%- comment -%}
+      这里替换成自定义的 Categories mega menu
+    {%- endcomment -%}
+    {% if section.settings.menu != blank %}
+      <nav class="header__inline-menu">
+        <ul class="list-menu list-menu--inline" role="list">
+          {% for link in section.settings.menu.links %}
+            {% if link.title == 'Categories' %}
+              <li class="list-menu__item header__menu-item header__menu-item--mega">
+                <button class="header__menu-link list-menu__item--link" type="button">
+                  {{ link.title }}
+                  <svg class="icon-caret" viewBox="0 0 10 6" aria-hidden="true" focusable="false">
+                    <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                </button>
+
+                <div class="mega-menu" aria-hidden="true">
+                  <div class="mega-menu__inner">
+                    <div class="mega-menu__columns">
+                      <div>
+                        <div class="mega-menu__group-title">Kitchen</div>
+                        <a href="/collections/kitchen-tools" class="mega-menu__link">Kitchen Tools</a>
+                        <a href="/collections/organization" class="mega-menu__link">Organization</a>
+                        <a href="/collections/pots-pans" class="mega-menu__link">Pots &amp; Pans</a>
+                        <a href="/collections/cookbooks" class="mega-menu__link">Cookbooks</a>
+                        <a href="/collections/food-drink" class="mega-menu__link">Food &amp; Drink</a>
+                      </div>
+
+                      <div>
+                        <div class="mega-menu__group-title">Bar</div>
+                        <a href="/collections/glassware" class="mega-menu__link">Glassware</a>
+                        <a href="/collections/bar-tools" class="mega-menu__link">Bar Tools</a>
+                        <a href="/collections/wine-gifts" class="mega-menu__link">Wine Gifts</a>
+                        <a href="/collections/storage-racks" class="mega-menu__link">Storage Racks</a>
+                        <a href="/collections/serveware" class="mega-menu__link">Serveware</a>
+                      </div>
+
+                      <div>
+                        <div class="mega-menu__group-title">Home Goods</div>
+                        <a href="/collections/bed-bath" class="mega-menu__link">Bed &amp; Bath</a>
+                        <a href="/collections/home-decor" class="mega-menu__link">Home Decor</a>
+                        <a href="/collections/art-posters" class="mega-menu__link">Art &amp; Posters</a>
+                        <a href="/collections/office" class="mega-menu__link">Office</a>
+                        <a href="/collections/textiles" class="mega-menu__link">Textiles</a>
+                      </div>
+
+                      <div>
+                        <div class="mega-menu__group-title">Kids</div>
+                        <a href="/collections/kids-books" class="mega-menu__link">Books</a>
+                        <a href="/collections/kids-apparel" class="mega-menu__link">Apparel</a>
+                        <a href="/collections/arts-crafts" class="mega-menu__link">Arts &amp; Crafts</a>
+                        <a href="/collections/toys-games" class="mega-menu__link">Toys &amp; Games</a>
+                      </div>
+                    </div>
+
+                    <div class="mega-menu__cards">
+                      <a href="/collections/sale" class="mega-menu-card">
+                        <img src="{{ 'mega-card-1.jpg' | asset_url }}" alt="Promo 1">
+                        <div class="mega-menu-card__body">
+                          <div class="mega-menu-card__title">Get 15% off</div>
+                          <div>Use code <strong>COOK15</strong> at checkout.</div>
+                          <div class="mega-menu-card__link">Shop now →</div>
+                        </div>
+                      </a>
+
+                      <a href="/collections/bed-bath" class="mega-menu-card">
+                        <img src="{{ 'mega-card-2.jpg' | asset_url }}" alt="Promo 2">
+                        <div class="mega-menu-card__body">
+                          <div class="mega-menu-card__title">New bed &amp; bath</div>
+                          <div>Browse our freshest arrivals.</div>
+                          <div class="mega-menu-card__link">Discover more →</div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            {% else %}
+              <li class="list-menu__item header__menu-item">
+                <a href="{{ link.url }}" class="header__menu-link list-menu__item--link">
+                  {{ link.title }}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </nav>
+    {% endif %}
 
     {%- if section.settings.logo_position == 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
@@ -288,7 +467,6 @@
             class="header__login-link link{% if section.settings.menu != blank %} small-hide{% endif %}"
             rel="nofollow"
           >
-            
             <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
             <span>Login</span>
           </a>
@@ -497,22 +675,10 @@
       "type": "select",
       "id": "logo_position",
       "options": [
-        {
-          "value": "top-left",
-          "label": "t:sections.header.settings.logo_position.options__2.label"
-        },
-        {
-          "value": "top-center",
-          "label": "t:sections.header.settings.logo_position.options__3.label"
-        },
-        {
-          "value": "middle-left",
-          "label": "t:sections.header.settings.logo_position.options__1.label"
-        },
-        {
-          "value": "middle-center",
-          "label": "t:sections.header.settings.logo_position.options__4.label"
-        }
+        { "value": "top-left", "label": "t:sections.header.settings.logo_position.options__2.label" },
+        { "value": "top-center", "label": "t:sections.header.settings.logo_position.options__3.label" },
+        { "value": "middle-left", "label": "t:sections.header.settings.logo_position.options__1.label" },
+        { "value": "middle-center", "label": "t:sections.header.settings.logo_position.options__4.label" }
       ],
       "default": "middle-left",
       "label": "t:sections.header.settings.logo_position.label",
@@ -522,14 +688,8 @@
       "type": "select",
       "id": "mobile_logo_position",
       "options": [
-        {
-          "value": "center",
-          "label": "t:sections.header.settings.mobile_logo_position.options__1.label"
-        },
-        {
-          "value": "left",
-          "label": "t:sections.header.settings.mobile_logo_position.options__2.label"
-        }
+        { "value": "center", "label": "t:sections.header.settings.mobile_logo_position.options__1.label" },
+        { "value": "left", "label": "t:sections.header.settings.mobile_logo_position.options__2.label" }
       ],
       "default": "center",
       "label": "t:sections.header.settings.mobile_logo_position.label"
@@ -544,18 +704,9 @@
       "type": "select",
       "id": "menu_type_desktop",
       "options": [
-        {
-          "value": "dropdown",
-          "label": "t:sections.header.settings.menu_type_desktop.options__1.label"
-        },
-        {
-          "value": "mega",
-          "label": "t:sections.header.settings.menu_type_desktop.options__2.label"
-        },
-        {
-          "value": "drawer",
-          "label": "t:sections.header.settings.menu_type_desktop.options__3.label"
-        }
+        { "value": "dropdown", "label": "t:sections.header.settings.menu_type_desktop.options__1.label" },
+        { "value": "mega", "label": "t:sections.header.settings.menu_type_desktop.options__2.label" },
+        { "value": "drawer", "label": "t:sections.header.settings.menu_type_desktop.options__3.label" }
       ],
       "default": "dropdown",
       "label": "t:sections.header.settings.menu_type_desktop.label"
@@ -564,22 +715,10 @@
       "type": "select",
       "id": "sticky_header_type",
       "options": [
-        {
-          "value": "none",
-          "label": "t:sections.header.settings.sticky_header_type.options__1.label"
-        },
-        {
-          "value": "on-scroll-up",
-          "label": "t:sections.header.settings.sticky_header_type.options__2.label"
-        },
-        {
-          "value": "always",
-          "label": "t:sections.header.settings.sticky_header_type.options__3.label"
-        },
-        {
-          "value": "reduce-logo-size",
-          "label": "t:sections.header.settings.sticky_header_type.options__4.label"
-        }
+        { "value": "none", "label": "t:sections.header.settings.sticky_header_type.options__1.label" },
+        { "value": "on-scroll-up", "label": "t:sections.header.settings.sticky_header_type.options__2.label" },
+        { "value": "always", "label": "t:sections.header.settings.sticky_header_type.options__3.label" },
+        { "value": "reduce-logo-size", "label": "t:sections.header.settings.sticky_header_type.options__4.label" }
       ],
       "default": "on-scroll-up",
       "label": "t:sections.header.settings.sticky_header_type.label"
@@ -671,9 +810,7 @@
     }
   ],
   "blocks": [
-    {
-      "type": "@app"
-    }
+    { "type": "@app" }
   ]
 }
 {% endschema %}
@@ -682,7 +819,9 @@
   function toggleAccountDropdown() {
     const menu = document.getElementById('account-dropdown-menu');
     const toggle = document.querySelector('.header__account-toggle');
-    const isOpen = menu.style.display === 'block';
+    const isOpen = menu && menu.style.display === 'block';
+    
+    if (!menu || !toggle) return;
     
     if (isOpen) {
       menu.style.display = 'none';
@@ -693,15 +832,16 @@
     }
   }
   
-  // Close dropdown when clicking outside
   document.addEventListener('click', function(event) {
     const dropdown = document.querySelector('.header__account-dropdown');
     const menu = document.getElementById('account-dropdown-menu');
     const toggle = document.querySelector('.header__account-toggle');
     
-    if (dropdown && menu && !dropdown.contains(event.target)) {
+    if (!dropdown || !menu || !toggle) return;
+    
+    if (!dropdown.contains(event.target)) {
       menu.style.display = 'none';
-      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-expanded', 'false');
     }
   });
 </script>
