@@ -170,21 +170,6 @@
     font-size: 14px;
   }
 }
-/* ===== 把 Search 页的全局顶部空白去掉 ===== */
-body.template-search #MainContent,
-body.template-search main#MainContent {
-  padding-top: 0 !important;
-}
-
-/* 有些主题会给第一个 section 一个 margin-top，这里也清掉 */
-body.template-search .shopify-section:first-of-type {
-  margin-top: 0 !important;
-}
-
-/* 防止别的地方再给 template-search 加 padding-top */
-.template-search.section-{{ section.id }}-padding {
-  padding-top: 0 !important;
-}
 
 </style>
 
