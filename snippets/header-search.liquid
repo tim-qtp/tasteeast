@@ -51,6 +51,8 @@
           >
           <label class="field__label" for="{{ input_id }}">Search for product</label>
           <input type="hidden" name="options[prefix]" value="last">
+
+          {# ✅ 只保留这个 X 按钮 #}
           <button
             type="reset"
             class="reset__button field__button header__search-close{% if search.terms == blank %} hidden{% endif %}"
@@ -60,11 +62,15 @@
               {{- 'icon-close.svg' | inline_asset_content -}}
             </span>
           </button>
+
+          {%- comment -%}
+            ❌ 去掉输入框里的 search 图标按钮（小放大镜）
           <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
             <span class="svg-wrapper">
               {{- 'icon-search.svg' | inline_asset_content -}}
             </span>
           </button>
+          {%- endcomment -%}
         </div>
 
         {%- if settings.predictive_search_enabled -%}
