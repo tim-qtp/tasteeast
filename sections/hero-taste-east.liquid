@@ -263,71 +263,65 @@
   background: #d94830;
 }
 
-/* Navigation Arrows */
+/* Navigation Arrows：去掉外圈，只保留箭头 */
 .hero-carousel-nav {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  width: 48px;
-  height: 48px;
-  background: rgba(255, 255, 255, 0.8);
+  width: 32px;
+  height: 32px;
+  background: transparent;
   border: none;
-  border-radius: 50%;
+  border-radius: 0;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s ease;
-  color: #333;
+  color: #ffffff;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .hero-carousel-nav:hover {
-  background: rgba(255, 255, 255, 1);
-  transform: translateY(-50%) scale(1.1);
+  color: #f2f2f2;
+  transform: translateY(-50%) scale(1.05);
 }
 
 .hero-carousel-prev {
-  left: 20px;
+  left: 30px;
 }
 
 .hero-carousel-next {
-  right: 20px;
+  right: 30px;
 }
 
-/* Pagination Dots */
+/* Pagination Dots：小而低调 */
 .hero-carousel-pagination {
   position: absolute;
-  bottom: 30px;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
   display: flex;
-  gap: 12px;
+  gap: 8px;
   align-items: center;
 }
 
 .hero-pagination-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 255, 255, 0.4);
+  opacity: 0.7;
   padding: 0;
+  cursor: default; /* 只做指示，不用点击 */
 }
 
 .hero-pagination-dot.active {
-  background: white;
-  border-color: white;
-  width: 14px;
-  height: 14px;
-}
-
-.hero-pagination-dot:hover {
-  border-color: white;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.9);
+  opacity: 1;
+  transform: scale(1.2);
 }
 
 /* Responsive Styles */
@@ -347,8 +341,8 @@
   }
 
   .hero-headline {
-    font-size: 48px;
-    margin: 0 auto 30px;
+    font-size: 40px;
+    margin: 0 auto 24px;
     line-height: 1.2;
   }
 
@@ -357,21 +351,16 @@
     font-size: 14px;
   }
 
-  .hero-carousel-nav {
-    width: 40px;
-    height: 40px;
-  }
-
   .hero-carousel-prev {
-    left: 10px;
+    left: 12px;
   }
 
   .hero-carousel-next {
-    right: 10px;
+    right: 12px;
   }
 
   .hero-carousel-pagination {
-    bottom: 20px;
+    bottom: 18px;
   }
 }
 </style>
@@ -440,12 +429,7 @@
     });
   }
 
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      showSlide(index);
-      startAutoRotate();
-    });
-  });
+  // 圆点现在只做显示，不再绑定点击事件
 
   carousel.addEventListener('mouseenter', stopAutoRotate);
   carousel.addEventListener('mouseleave', startAutoRotate);
