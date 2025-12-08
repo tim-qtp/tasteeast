@@ -187,6 +187,16 @@
     display: none !important;
   }
 
+  /* 彻底隐藏 Shopify 默认的放大镜图标 */
+.search__form .icon-search,
+.field__input + .icon-search {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+
   /* 预测搜索结果区域，统一文字颜色，避免“白字中文” */
   .predictive-search,
   .predictive-search * {
