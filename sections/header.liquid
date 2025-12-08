@@ -605,31 +605,53 @@
     var triggers = document.querySelectorAll('.header a[href="/collections"], .header a[href="/collections/all"]');
     if (!triggers.length) return;
 
-    var hideTimer;
-
-    function showPanel() {
-      clearTimeout(hideTimer);
+    function openPanel() {
       panel.classList.add('header-category-panel--open');
     }
 
-    function hidePanel() {
-      hideTimer = setTimeout(function() {
-        panel.classList.remove('header-category-panel--open');
-      }, 150);
+    function closePanel() {
+      panel.classList.remove('header-category-panel--open');
     }
 
+    function togglePanel() {
+      if (panel.classList.contains('header-category-panel--open')) {
+        closePanel();
+      } else {
+        openPanel();
+      }
+    }
+
+    // 点击 Category 时：阻止跳转，只切换下拉
     triggers.forEach(function(trigger) {
-      trigger.addEventListener('mouseenter', showPanel);
-      trigger.addEventListener('mouseleave', hidePanel);
+      trigger.addEventListener('click', function(e) {
+        e.preventDefault();      // 不要跳转页面
+        e.stopPropagation();     // 不让事件冒泡到 document
+        togglePanel();
+      });
     });
 
-    panel.addEventListener('mouseenter', showPanel);
-    panel.addEventListener('mouseleave', hidePanel);
+    // 点击 panel 里的内容，不关闭
+    panel.addEventListener('click', function(e) {
+      e.stopPropagation();
+    });
+
+    // 点击页面其它地方，关闭下拉
+    document.addEventListener('click', function(e) {
+      var clickedOnTrigger = Array.prototype.some.call(triggers, function(t) {
+        return t.contains(e.target);
+      });
+
+      if (!clickedOnTrigger && !panel.contains(e.target)) {
+        closePanel();
+      }
+    });
   });
 
   function toggleAccountDropdown() {
     const menu = document.getElementById('account-dropdown-menu');
     const toggle = document.querySelector('.header__account-toggle');
+    if (!menu || !toggle) return;
+
     const isOpen = menu.style.display === 'block';
     
     if (isOpen) {
@@ -641,7 +663,7 @@
     }
   }
   
-  // Close dropdown when clicking outside
+  // 关闭账号下拉：点击外部时收起
   document.addEventListener('click', function(event) {
     const dropdown = document.querySelector('.header__account-dropdown');
     const menu = document.getElementById('account-dropdown-menu');
@@ -653,6 +675,7 @@
     }
   });
 </script>
+
 
 {% schema %}
 {
