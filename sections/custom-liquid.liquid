@@ -114,24 +114,24 @@
 
 <div class="top-bar">
   <!-- 左侧标签导航 -->
-  <div class="top-links">
-    <a href="/pages/faq"
-       class="{% if request.path == '/pages/faq' %}active{% endif %}">
+    <div class="top-links">
+    <a href="{{ pages['faq'].url | localized_url }}"
+       class="{% if request.path contains '/faq' %}active{% endif %}">
       FAQ
     </a>
 
-    <a href="/pages/cooperation"
-       class="{% if request.path == '/pages/cooperation' %}active{% endif %}">
+    <a href="{{ pages['cooperation'].url | localized_url }}"
+       class="{% if request.path contains '/cooperation' %}active{% endif %}">
       Cooperation
     </a>
 
-    <a href="/pages/help"
-       class="{% if request.path == '/pages/help' %}active{% endif %}">
+    <a href="{{ pages['help'].url | localized_url }}"
+       class="{% if request.path contains '/help' %}active{% endif %}">
       Help
     </a>
 
-    <a href="/pages/shipping-return"
-       class="{% if request.path == '/pages/shipping-return' %}active{% endif %}">
+    <a href="{{ pages['shipping-return'].url | localized_url }}"
+       class="{% if request.path contains '/shipping-return' or request.path contains 'shipping' %}active{% endif %}">
       Shipping & Return
     </a>
   </div>
