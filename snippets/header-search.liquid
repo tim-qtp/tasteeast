@@ -29,49 +29,56 @@
       {%- endif -%}
       <form action="{{ routes.search_url }}" method="get" role="search" class="search">
         <div class="field">
-          <input
-            class="search__input field__input"
-            id="{{ input_id }}"
-            type="search"
-            name="q"
-            value="{{ search.terms | escape }}"
-            placeholder="Search for product"
-            {%- if settings.predictive_search_enabled -%}
-              role="combobox"
-              aria-expanded="false"
-              aria-owns="predictive-search-results"
-              aria-controls="predictive-search-results"
-              aria-haspopup="listbox"
-              aria-autocomplete="list"
-              autocorrect="off"
-              autocomplete="off"
-              autocapitalize="off"
-              spellcheck="false"
-            {%- endif -%}
-          >
-          <label class="field__label" for="{{ input_id }}">Search for product</label>
-          <input type="hidden" name="options[prefix]" value="last">
+  <input
+    class="search__input field__input"
+    id="{{ input_id }}"
+    type="search"
+    name="q"
+    value="{{ search.terms | escape }}"
+    placeholder="Search for product"
+    {%- if settings.predictive_search_enabled -%}
+      role="combobox"
+      aria-expanded="false"
+      aria-owns="predictive-search-results"
+      aria-controls="predictive-search-results"
+      aria-haspopup="listbox"
+      aria-autocomplete="list"
+      autocorrect="off"
+      autocomplete="off"
+      autocapitalize="off"
+      spellcheck="false"
+    {%- endif -%}
+  >
 
-          {# ✅ 只保留这个 X 按钮 #}
-          <button
-            type="reset"
-            class="reset__button field__button header__search-close{% if search.terms == blank %} hidden{% endif %}"
-            aria-label="{{ 'general.search.reset' | t }}"
-          >
-            <span class="svg-wrapper">
-              {{- 'icon-close.svg' | inline_asset_content -}}
-            </span>
-          </button>
+  {# 这行是 Twig 写法，在 Shopify 会当文字渲染，直接删掉就好 #}
+  {%- comment -%} 只保留右边这个 X 按钮 {%- endcomment -%}
 
-          {%- comment -%}
-            ❌ 去掉输入框里的 search 图标按钮（小放大镜）
-          <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
-            <span class="svg-wrapper">
-              {{- 'icon-search.svg' | inline_asset_content -}}
-            </span>
-          </button>
-          {%- endcomment -%}
-        </div>
+  {%- comment -%} 不再使用浮动 label，避免和 placeholder 重叠 {%- endcomment -%}
+  {# <label class="field__label" for="{{ input_id }}">Search for product</label> #}
+
+  <input type="hidden" name="options[prefix]" value="last">
+
+  {%- comment -%} ✅ 只保留这个 X 按钮 {%- endcomment -%}
+  <button
+    type="reset"
+    class="reset__button field__button header__search-close{% if search.terms == blank %} hidden{% endif %}"
+    aria-label="{{ 'general.search.reset' | t }}"
+  >
+    <span class="svg-wrapper">
+      {{- 'icon-close.svg' | inline_asset_content -}}
+    </span>
+  </button>
+
+  {%- comment -%}
+    ❌ 去掉输入框里的 search 图标按钮（小放大镜）
+    <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+      <span class="svg-wrapper">
+        {{- 'icon-search.svg' | inline_asset_content -}}
+      </span>
+    </button>
+  {%- endcomment -%}
+</div>
+
 
         {%- if settings.predictive_search_enabled -%}
           <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
