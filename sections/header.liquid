@@ -1021,6 +1021,17 @@
     max-width: 100% !important;
     width: 100% !important;
   }
+  /* 2. 调整 SUGGESTIONS / PRODUCTS 两栏的比例 */
+  .predictive-search__results-list--with-products {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr); /* 右侧产品列更宽一点 */
+    column-gap: 32px;
+  }
+
+  /* 防止产品标题太窄导致一行一个字 */
+  .predictive-search__item-heading {
+    white-space: normal !important;
+  }
 
 
 </style>
