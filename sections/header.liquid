@@ -418,30 +418,128 @@
                   <span class="mega-menu__caret">▾</span>
                 </button>
 
-                <div class="mega-menu" data-mega-menu>
-                  <div class="mega-menu__inner">
-                    <div class="mega-menu__columns">
-                      {% for childlink in link.links %}
-                        <div class="mega-menu__column">
-                          <h3 class="mega-menu__heading">
-                            <a href="{{ childlink.url }}">{{ childlink.title }}</a>
-                          </h3>
-                          {% if childlink.links.size > 0 %}
-                            <ul class="mega-menu__list" role="list">
-                              {% for sublink in childlink.links %}
-                                <li class="mega-menu__item">
-                                  <a href="{{ sublink.url }}" class="mega-menu__link">
-                                    {{ sublink.title }}
-                                  </a>
-                                </li>
-                              {% endfor %}
-                            </ul>
-                          {% endif %}
-                        </div>
-                      {% endfor %}
-                    </div>
-                  </div>
-                </div>
+                    <div class="mega-menu" data-mega-menu>
+      <div class="mega-menu__inner">
+        <div class="mega-menu__layout">
+          <!-- 左边：4 个文字栏目 -->
+          <div class="mega-menu__nav">
+            <!-- Kitchen -->
+            <div class="mega-menu__column">
+              <h3 class="mega-menu__heading">Kitchen</h3>
+              <ul class="mega-menu__list" role="list">
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Kitchen Tools</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Organization</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Pots &amp; Pans</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Cookbooks</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Food &amp; Drink</a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Bar -->
+            <div class="mega-menu__column">
+              <h3 class="mega-menu__heading">Bar</h3>
+              <ul class="mega-menu__list" role="list">
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Glassware</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Bar Tools</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Wine Gifts</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Storage Racks</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Serveware</a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Home Goods -->
+            <div class="mega-menu__column">
+              <h3 class="mega-menu__heading">Home Goods</h3>
+              <ul class="mega-menu__list" role="list">
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Bed &amp; Bath</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Home Decor</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Art &amp; Posters</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Office</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Textiles</a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Kids -->
+            <div class="mega-menu__column">
+              <h3 class="mega-menu__heading">Kids</h3>
+              <ul class="mega-menu__list" role="list">
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Books</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Apparel</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Arts &amp; Crafts</a>
+                </li>
+                <li class="mega-menu__item">
+                  <a href="#" class="mega-menu__link">Toys &amp; Games</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- 右边：两张大图 + 文案 -->
+          <div class="mega-menu__promo">
+            <a href="#" class="mega-menu__promo-card">
+              {%- comment -%}
+                把 'mega-kitchen.jpg' 换成你在「设置 → 文件」里上传的图片文件名
+              {%- endcomment -%}
+              <img
+                src="{{ 'mega-kitchen.jpg' | file_url }}"
+                alt="Get 15% with code COOK15"
+                class="mega-menu__promo-image"
+              >
+              <p class="mega-menu__promo-text">
+                Get 15% with code "COOK15"
+              </p>
+            </a>
+
+            <a href="#" class="mega-menu__promo-card">
+              <img
+                src="{{ 'mega-bed-bath.jpg' | file_url }}"
+                alt="Browse our new bed &amp; bath arrivals"
+                class="mega-menu__promo-image"
+              >
+              <p class="mega-menu__promo-text">
+                Browse our new bed &amp; bath arrivals
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
               </li>
             {% else %}
               <li class="list-menu__item header__inline-menu-item">
