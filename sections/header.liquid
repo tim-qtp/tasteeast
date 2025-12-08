@@ -381,6 +381,36 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .header {
+    /* 上下内边距：上保留一点，下设为 0 */
+    padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem 0 3rem;
+  }
+
+  .header-wrapper .header.page-width {
+    max-width: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  /* 取消 Header section 自己底部的间距 */
+  .section-header {
+    position: sticky;
+    margin-bottom: 0 !important;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-header {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .header {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: 0 !important;   /* ⭐ 关键：把底部 padding 改成 0 */
+    }
+  }
 {%- endstyle -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
