@@ -162,15 +162,21 @@
 </div>
 
 
-    {%- form 'localization', class: 'language-switcher' -%}
+        {%- form 'localization', class: 'language-switcher' -%}
       <select name="locale_code" onchange="this.form.submit()">
-        {%- for language in localization.available_languages -%}
-          <option value="{{ language.iso_code }}"
-            {% if language.iso_code == localization.language.iso_code %}selected{% endif %}>
-            {{ language.endonym_name }}
-          </option>
-        {%- endfor -%}
+        <!-- English -->
+        <option value="en"
+          {% if localization.language.iso_code == 'en' %}selected{% endif %}>
+          English
+        </option>
+
+        <!-- Spanish -->
+        <option value="es"
+          {% if localization.language.iso_code == 'es' %}selected{% endif %}>
+          Español
+        </option>
       </select>
     {%- endform -%}
+
   </div>
 </div>
