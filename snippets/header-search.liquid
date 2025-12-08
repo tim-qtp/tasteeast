@@ -168,20 +168,7 @@
     });
   });
 </script>
-{% if template.name == 'search' and search.performed %}
-  {% if search.results_count == 0 %}
-    <div class="search-no-results">
-      <h1 class="search-no-results__title">
-        No results
-      </h1>
-      <p class="search-no-results__text">
-        No results for "<strong>{{ search.terms | escape }}</strong>".
-        <br>
-        未找到与 “<strong>{{ search.terms | escape }}</strong>” 匹配的商品，请尝试更换关键词。
-      </p>
-    </div>
-  {% endif %}
-{% endif %}
+
 <style>
   .search-no-results {
     max-width: 800px;
