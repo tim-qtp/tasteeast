@@ -958,6 +958,66 @@
   </script>
 {%- endif -%}
 
+<style>
+/* ========== 弹出搜索框：细线 + 绿色边框 + 去掉放大镜按钮 ========== */
+
+/* 整个搜索表单稍微收窄并居中 */
+.search-modal__form {
+  max-width: 840px;       /* 想再长就调这里，比如 960 */
+  margin: 0 auto;
+}
+
+/* 宽度占满 */
+.search-modal__form .field {
+  width: 100%;
+}
+
+/* 取消 Dawn 默认的粗边框阴影（就是你现在看到那一圈厚边框） */
+.search-modal__form .field::before,
+.search-modal__form .field::after {
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* 输入框：细绿色边框 + 白底 */
+.search-modal__form .search__input,
+.search-modal__form .field__input {
+  border: 1px solid #216D81 !important;  /* 绿色色号可以换成你想要的 */
+  border-radius: 4px !important;
+  background: #FFFFFF !important;
+  color: #222222 !important;
+  padding: 8px 14px !important;
+  box-shadow: none !important;
+}
+
+/* placeholder 文字颜色 */
+.search-modal__form .search__input::placeholder,
+.search-modal__form .field__input::placeholder {
+  color: #888888 !important;
+}
+
+/* 聚焦时也不要粗边框 */
+.search-modal__form .search__input:focus,
+.search-modal__form .field__input:focus {
+  outline: none !important;
+  border-color: #216D81 !important;
+  box-shadow: none !important;
+}
+
+/* 去掉输入框里的放大镜按钮，只保留右上角大 X */
+.search-modal__form .search__button,
+.search-modal__form .field__button {
+  display: none !important;
+}
+
+/* 防止出现“白字看不见”的情况 */
+.search-modal__content,
+.search-modal__content * {
+  color: #222222 !important;
+}
+</style>
+
+
 {% schema %}
 {
   "name": "t:sections.header.name",
