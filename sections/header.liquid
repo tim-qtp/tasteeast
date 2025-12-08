@@ -959,80 +959,66 @@
 {%- endif -%}
 
 <style>
-  /* =========================
-     Search 弹窗样式重置（只管弹出的这一层）
+    /* =========================
+     Search 弹窗样式重置（只管弹出的搜索层）
      ========================= */
 
-  /* 整个表单更长一点并居中 */
-  .header__search .search-modal__form {
-    max-width: 2400px;        /* 想再长改这里，比如 960 */
-    margin: 0 auto;
-  }
-
-  .header__search .search-modal__form .field {
-    width: 100%;
-  }
-
-  /* 去掉 Dawn 自带的粗边框 / 阴影 */
-  .header__search .search-modal__form .field::before,
-  .header__search .search-modal__form .field::after {
-    box-shadow: none !important;
-    border: none !important;
-  }
-
-  /* 输入框：细绿色边框 + 白底 */
-  .header__search .search__input.field__input {
-    border: 1px solid #216D81 !important;   /* 绿色色号你可以自己换 */
-    border-radius: 4px !important;
-    background: #ffffff !important;
-    box-shadow: none !important;
-    padding: 10px 16px !important;
-    color: #222222 !important;
-  }
-
-  .header__search .search__input.field__input::placeholder {
-    color: #888888 !important;
-  }
-
-  .header__search .search__input.field__input:focus {
-    outline: none !important;
-    border-color: #216D81 !important;
-    box-shadow: none !important;
-  }
-
-  /* 去掉输入框里面的放大镜按钮，只保留右上角大 X */
-  .header__search .search__button,
-  .header__search .field__button {
-    display: none !important;
-  }
-
-  /* 防止出现白字看不见 */
-  .search-modal__content,
-  .search-modal__content * {
-    color: #222222 !important;
-  }
-
-    /* 1. 让弹出层里的搜索框占满可用宽度 */
-  .search-modal__form {
+  /* 让弹出层里的搜索区域不再被限制宽度 */
+  .search-modal__content {
     max-width: 100% !important;
   }
 
-  .search-modal__form .field {
+  .search-modal__form {
     max-width: 100% !important;
     width: 100% !important;
   }
-  /* 2. 调整 SUGGESTIONS / PRODUCTS 两栏的比例 */
-  .predictive-search__results-list--with-products {
-    display: grid !important;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr); /* 右侧产品列更宽一点 */
-    column-gap: 32px;
+
+  /* 输入框外层，必须 100% 宽度 */
+  .search-modal__form .field {
+    width: 100% !important;
+    max-width: 100% !important;
   }
 
-  /* 防止产品标题太窄导致一行一个字 */
-  .predictive-search__item-heading {
+  /* 输入框本身：细线边框、绿色边框色你后面可以改成指定色号 */
+  .search-modal__form .field__input,
+  .search-modal__form .search__input {
+    width: 100% !important;
+    border: 1px solid #D6D6D6;  /* 细线 */
+    border-radius: 4px;
+    box-shadow: none;
+    padding-left: 14px;          /* 左边留一点内边距 */
+  }
+
+  .search-modal__form .field__input:focus,
+  .search-modal__form .search__input:focus {
+    outline: none;
+    border-color: #216D81;       /* 这里换成你要的绿色色号 */
+    box-shadow: none;
+  }
+
+  /* 去掉输入框右侧的放大镜按钮，只保留右上角的大 X 关闭按钮 */
+  .search-modal__form .search__button,
+  .search-modal__form .field__button.search__button,
+  .search-modal__form .icon-search {
+    display: none !important;
+  }
+
+  /* =========================
+     搜索结果：Suggestions / Products 两栏布局
+     ========================= */
+
+  /* 控制左边 Suggestions 和右边 Products 的列宽比例 */
+  .predictive-search__results-groups-wrapper {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr) !important;
+    column-gap: 32px !important;
+  }
+
+  /* 防止产品标题太窄变成一列一列竖排 */
+  .predictive-search__item-heading,
+  .predictive-search__item .full-unstyled-link {
     white-space: normal !important;
   }
-
 
 </style>
 
