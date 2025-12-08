@@ -138,58 +138,40 @@
 
   <!-- 右侧：社媒图标 + 语言切换 -->
   <div class="top-right">
-    <div class="header-social-icons">
-      {%- if settings.contact_email != blank -%}
-        <a href="mailto:{{ settings.contact_email }}" aria-label="Email">
-          <svg viewBox="0 0 24 24">
-            <rect x="3" y="5" width="18" height="14" />
-            <path d="M3 5l9 7 9-7" />
-          </svg>
-        </a>
-      {%- endif -%}
+<div class="header-social-icons">
+  <a href="#" aria-label="Facebook">
+    <svg viewBox="0 0 24 24">
+      <path d="M14 3h-2c-2.2 0-4 1.8-4 4v2H6v4h2v8h4v-8h3l1-4h-4V7c0-.6.4-1 1-1h3V3z" />
+    </svg>
+  </a>
 
-      {%- if settings.social_facebook_link != blank -%}
-        <a href="{{ settings.social_facebook_link }}" target="_blank" aria-label="Facebook">
-          <svg viewBox="0 0 24 24">
-            <path d="M14 3h-2c-2.2 0-4 1.8-4 4v2H6v4h2v8h4v-8h3l1-4h-4V7c0-.6.4-1 1-1h3V3z" />
-          </svg>
-        </a>
-      {%- endif -%}
+  <a href="#" aria-label="Instagram">
+    <svg viewBox="0 0 24 24">
+      <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17" cy="7" r="1" />
+    </svg>
+  </a>
 
-      {%- if settings.social_instagram_link != blank -%}
-        <a href="{{ settings.social_instagram_link }}" target="_blank" aria-label="Instagram">
-          <svg viewBox="0 0 24 24">
-            <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
-            <circle cx="12" cy="12" r="4" />
-            <circle cx="17" cy="7" r="1" />
-          </svg>
-        </a>
-      {%- endif -%}
+  <a href="#" aria-label="Pinterest">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 3a7 7 0 0 0-3 13.3l1-3.8a2.6 2.6 0 0 1-.3-1.1 3.5 3.5 0 0 1 3.6-3.6c1.7 0 2.9 1.1 2.9 2.9 0 2-1.1 3.4-2.5 3.4-.5 0-1-.3-1-.8l.4-1.7c.2-.7.3-1.1.3-1.4 0-.4-.2-.8-.8-.8-1 0-1.6 1.3-1.6 2.7 0 .7.2 1.2.2 1.2l-1.7 7A7 7 0 1 0 12 3z"/>
+    </svg>
+  </a>
 
-      {%- if settings.social_pinterest_link != blank -%}
-        <a href="{{ settings.social_pinterest_link }}" target="_blank" aria-label="Pinterest">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 3a7 7 0 0 0-3 13.3l1-3.8a2.6 2.6 0 0 1-.3-1.1 3.5 3.5 0 0 1 3.6-3.6c1.7 0 2.9 1.1 2.9 2.9 0 2-1.1 3.4-2.5 3.4-.5 0-1-.3-1-.8l.4-1.7c.2-.7.3-1.1.3-1.4 0-.4-.2-.8-.8-.8-1 0-1.6 1.3-1.6 2.7 0 .7.2 1.2.2 1.2l-1.7 7A7 7 0 1 0 12 3z"/>
-          </svg>
-        </a>
-      {%- endif -%}
+  <a href="#" aria-label="Snapchat">
+    <svg viewBox="0 0 24 24">
+      <path d="M12 3c-2.7 0-4.7 2-4.7 4.7v1.3c0 1.8-.4 2.4-.9 2.9-.4.4-.8.7-1.5.8-.4.1-.7.4-.7.8 0 .5.4.8.9 1 1 .4 1.4.7 1.6.9-.1.7.4 1.4.8 1.9A4.9 4.9 0 0 0 12 20a4.9 4.9 0 0 0 4.5-2.4c.4-.5.9-1.2.8-1.9.2-.2.6-.5 1.6-.9.5-.2.9-.5.9-1 0-.4-.3-.7-.7-.8-.7-.1-1.1-.4-1.5-.8-.5-.5-.9-1.1-.9-2.9V7.7C16.7 5 14.7 3 12 3z"/>
+    </svg>
+  </a>
 
-      {%- if settings.social_snapchat_link != blank -%}
-        <a href="{{ settings.social_snapchat_link }}" target="_blank" aria-label="Snapchat">
-          <svg viewBox="0 0 24 24">
-            <path d="M12 3c-2.7 0-4.7 2-4.7 4.7v1.3c0 1.8-.4 2.4-.9 2.9-.4.4-.8.7-1.5.8-.4.1-.7.4-.7.8 0 .5.4.8.9 1 1 .4 1.4.7 1.6.9-.1.7.4 1.4.8 1.9A4.9 4.9 0 0 0 12 20a4.9 4.9 0 0 0 4.5-2.4c.4-.5.9-1.2.8-1.9.2-.2.6-.5 1.6-.9.5-.2.9-.5.9-1 0-.4-.3-.7-.7-.8-.7-.1-1.1-.4-1.5-.8-.5-.5-.9-1.1-.9-2.9V7.7C16.7 5 14.7 3 12 3z"/>
-          </svg>
-        </a>
-      {%- endif -%}
+  <a href="#" aria-label="TikTok">
+    <svg viewBox="0 0 24 24">
+      <path d="M16 3h-3v11a2.5 2.5 0 1 1-2-2.4V8.5a5 5 0 1 0 4 8.4V9.2c.8.7 1.9 1.2 3 1.2V7.5c-.9 0-1.8-.4-2.4-1A3.8 3.8 0 0 1 16 3z"/>
+    </svg>
+  </a>
+</div>
 
-      {%- if settings.social_tiktok_link != blank -%}
-        <a href="{{ settings.social_tiktok_link }}" target="_blank" aria-label="TikTok">
-          <svg viewBox="0 0 24 24">
-            <path d="M16 3h-3v11a2.5 2.5 0 1 1-2-2.4V8.5a5 5 0 1 0 4 8.4V9.2c.8.7 1.9 1.2 3 1.2V7.5c-.9 0-1.8-.4-2.4-1A3.8 3.8 0 0 1 16 3z"/>
-          </svg>
-        </a>
-      {%- endif -%}
-    </div>
 
     {%- form 'localization', class: 'language-switcher' -%}
       <select name="locale_code" onchange="this.form.submit()">
