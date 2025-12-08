@@ -41,6 +41,90 @@
   .search__button .icon {
     height: 1.8rem;
   }
+
+  /* ============================
+     自定义：搜索结果页的搜索框样式
+     ============================ */
+
+  .template-search__search .field {
+    width: 100%;
+  }
+
+  .template-search__search .field__input,
+  .template-search__search .search__input {
+    width: 100%;
+    border: 1px solid #216D81;      /* 绿色边框 */
+    border-radius: 4px;
+    background: #FFFFFF;
+    color: #222222;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-shadow: none;
+  }
+
+  .template-search__search .field__input:focus,
+  .template-search__search .search__input:focus {
+    outline: none;
+    border-color: #216D81;
+    box-shadow: none;
+  }
+
+  /* 隐藏搜索结果页输入框里的 X 和 小放大镜按钮 */
+  .template-search__search .reset__button,
+  .template-search__search .search__button {
+    display: none !important;
+  }
+
+  /* 隐藏 label 文本，只保留给屏幕阅读器用 */
+  .template-search__search .field__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  /* ============================
+     顶部统计文案 & 无结果提示
+     ============================ */
+
+  .template-search__count {
+    margin-top: 0.5rem;
+    text-align: center;
+    font-size: 16px;
+    color: #222222;
+  }
+
+  .template-search__empty-box {
+    max-width: 800px;
+    margin: 32px auto 8px;
+    padding: 32px 24px;
+    text-align: center;
+    background: #0B1C2D;   /* 深色底 */
+    color: #FFFFFF;
+    border-radius: 8px;
+  }
+
+  .template-search__empty-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .template-search__empty-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .template-search__empty-text {
+    font-size: 16px;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
 </style>
 
 {%- liquid
@@ -74,9 +158,9 @@
         {%- endif -%}
       </h1>
       <div class="template-search__search">
-        {%- if settings.predictive_search_enabled -%}
-          <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}">
-        {%- endif -%}
+        {%- comment -%}
+          结果页不需要下拉联想，不再包在 <predictive-search> 里
+        {%- endcomment -%}
         <main-search>
           <form action="{{ routes.search_url }}" method="get" role="search" class="search">
             <div class="field">
@@ -88,12 +172,6 @@
                 value="{{ search.terms | escape }}"
                 placeholder="{{ 'general.search.search' | t }}"
                 {%- if settings.predictive_search_enabled -%}
-                  role="combobox"
-                  aria-expanded="false"
-                  aria-owns="predictive-search-results"
-                  aria-controls="predictive-search-results"
-                  aria-haspopup="listbox"
-                  aria-autocomplete="list"
                   autocorrect="off"
                   autocomplete="off"
                   autocapitalize="off"
@@ -103,14 +181,20 @@
               <label class="field__label" for="Search-In-Template">{{ 'general.search.search' | t }}</label>
               <input name="options[prefix]" type="hidden" value="last">
 
+              {%- comment -%}
+                结果页不需要 predictive-search 下拉和按钮，这里整块不用
+              {%- endcomment -%}
+              {%- comment -%}
               {%- if settings.predictive_search_enabled -%}
                 <div class="predictive-search predictive-search--search-template" tabindex="-1" data-predictive-search>
                   {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
                 </div>
-
                 <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
               {%- endif -%}
+              {%- endcomment -%}
 
+              {%- comment -%}
+                这些按钮在 CSS 中已经隐藏，只靠回车提交
               <button
                 type="reset"
                 class="reset__button field__button{% if search.terms == blank %} hidden{% endif %}"
@@ -125,26 +209,31 @@
                   {{- 'icon-search.svg' | inline_asset_content -}}
                 </span>
               </button>
+              {%- endcomment -%}
             </div>
           </form>
         </main-search>
-        {%- if settings.predictive_search_enabled -%}
-          </predictive-search>
-        {%- endif -%}
       </div>
+
       {%- if search.performed -%}
-        {%- unless section.settings.enable_filtering or section.settings.enable_sorting -%}
-          {%- if search.results_count > 0 -%}
-            <p role="status">
-              {{ 'templates.search.results_with_count_and_term' | t: terms: search.terms, count: search.results_count }}
+        {%- if search.results_count > 0 -%}
+          <p class="template-search__count" role="status">
+            {{ search.results_count }} results for “{{ search.terms }}”
+          </p>
+        {%- elsif search.results_count == 0 and search.filters == empty -%}
+          <div class="template-search__empty-box" role="status">
+            <span class="template-search__empty-icon">🔍</span>
+            <div class="template-search__empty-title">
+              No results for “{{ search.terms }}”
+            </div>
+            <p class="template-search__empty-text">
+              未找到与 “{{ search.terms }}” 匹配的商品，请尝试更换关键词。
             </p>
-          {%- endif -%}
-        {%- endunless -%}
-        {%- if search.results_count == 0 and search.filters == empty -%}
-          <p role="status">{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
+          </div>
         {%- endif -%}
       {%- endif -%}
     </div>
+
     {%- if search.performed -%}
       {%- if section.settings.enable_sorting
         and section.settings.filter_type == 'vertical'
@@ -203,6 +292,7 @@
           </form>
         </facet-filters-form>
       {%- endif -%}
+
       <div
         {% if section.settings.filter_type == 'vertical' %}
           class="facets-vertical page-width"
