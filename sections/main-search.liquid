@@ -3,155 +3,84 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-search.css' | asset_url | stylesheet_tag }}
 
-{%- if section.settings.enable_filtering or section.settings.enable_sorting -%}
-  {{ 'component-facets.css' | asset_url | stylesheet_tag }}
-  <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
-{%- endif -%}
-
-{% if section.settings.image_shape == 'blob' %}
-  {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
-{%- endif -%}
-
-<script src="{{ 'main-search.js' | asset_url }}" defer="defer"></script>
+{% paginate search.results by 24 %}
 
 <style>
-/* ===== 整体区域：统一背景为 #12344A ===== */
+/* 页面背景恢复正常 */
 .template-search {
-  background-color: #12344A !important;
-  padding: 70px 0 100px;
-}
-
-/* ===== 顶部标题 ===== */
-.template-search__header {
-  max-width: 960px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.template-search__header h1 {
-  color: #FFFFFF;
-  font-size: 42px;
-  font-weight: 700;
-  margin: 0 0 12px;
-}
-
-/* ===== 结果数量文案 ===== */
-.template-search__count {
-  margin: 18px auto 0;
-  font-size: 18px;
-  text-align: center;
-  color: #FFFFFF;
-  opacity: 0.9;
-}
-
-/* ===== 无结果提示盒子 ===== */
-.template-search__empty-box {
-  max-width: 520px;
-  margin: 50px auto;
-  padding: 38px 28px;
-  background: rgba(0,0,0,0.25);
-  border-radius: 14px;
-  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.35);
-  text-align: center;
-  color: #FFFFFF;
-}
-
-.template-search__empty-icon {
-  font-size: 42px;
-  display: block;
-  margin-bottom: 18px;
-}
-
-.template-search__empty-title {
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.template-search__empty-text {
-  font-size: 15px;
-  opacity: 0.9;
-  line-height: 1.6;
-}
-
-/* 产品卡标题颜色适配深色背景 */
-.card__heading a,
-.article-card-wrapper .card__heading a {
-  color: #FFFFFF !important;
-}
-/* === 把 search 内容缩成一个「深色块」 === */
-
-.template-search {
-  background-color: transparent !important; /* 不再撑满整页 */
+  background: transparent !important;
   padding: 0 !important;
 }
 
-.search-wrapper-box {
-  background-color: #12344A;
-  max-width: 1200px; /* 可自行改：960px、1000px、1400px */
-  margin: 0 auto; /* 居中 */
-  padding: 80px 40px 120px;
-  border-radius: 0; /* 想要圆角改这里 */
-  position: relative;
+/* 保留的唯一内容区域 */
+.search-result-box {
+  max-width: 720px;
+  margin: 80px auto 140px;
+  padding: 50px 40px;
+  background: linear-gradient(180deg, #12344A 0%, #071624 100%);
+  border-radius: 26px;
+  text-align: center;
+  color: #FFFFFF;
+  box-shadow: 0 26px 70px rgba(0,0,0,0.45);
 }
 
-/* 结果数量 & 产品区域在块内也居中 */
-.search-wrapper-box .template-search__count,
-.search-wrapper-box .product-grid-container {
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
+/* 图标 */
+.search-result-box .template-search__empty-icon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 22px;
 }
 
+/* 主文案 */
+.search-result-box .template-search__empty-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+/* 副文案 */
+.search-result-box .template-search__empty-text {
+  font-size: 16px;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+/* 如果有商品结果时不显示这个卡片 */
+{% if search.results_count > 0 %}
+.search-result-box {
+  display: none !important;
+}
+{% endif %}
 </style>
 
-
-{% paginate search.results by 24 %}
-  <div class="template-search section-{{ section.id }}-padding">
-  <div class="search-wrapper-box">
-
-    <!-- ========= 标题保留 ========= -->
-    <div class="template-search__header page-width">
-      <h1 class="h2 center">{{ 'templates.search.title' | t }}</h1>
-    </div>
-
-    <!-- ========= 显示结果数量 / 无结果提示 ========= -->
-    {%- if search.performed -%}
-      {%- if search.results_count > 0 -%}
-        <p class="template-search__count">
-          {{ search.results_count }} results for “{{ search.terms }}”
-        </p>
-      {%- else -%}
-        <div class="template-search__empty-box">
-          <span class="template-search__empty-icon">🔍</span>
-          <div class="template-search__empty-title">
-            No results for “{{ search.terms }}”
-          </div>
-          <p class="template-search__empty-text">
-            No results found. Try another keyword.
-          </p>
-        </div>
-      {%- endif -%}
-    {%- endif -%}
-
-    <!-- ========= 渲染结果商品区域 ========= -->
-    {%- if search.results.size > 0 -%}
-      <div class="product-grid-container page-width">
-        <ul class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop" role="list">
-          {%- for item in search.results -%}
-            <li class="grid__item">
-              {%- case item.object_type -%}
-                {%- when 'product' -%}
-                  {% render 'card-product', card_product: item %}
-                {%- when 'article' -%}
-                  {% render 'article-card', article: item %}
-              {%- endcase -%}
-            </li>
-          {%- endfor -%}
-        </ul>
-        {% render 'pagination', paginate: paginate %}
+<div class="template-search">
+  <div class="search-result-box">
+      <span class="template-search__empty-icon">🔍</span>
+      <div class="template-search__empty-title">
+        No results for “{{ search.terms }}”
       </div>
-    {%- endif -%}
-    </div>
+      <p class="template-search__empty-text">
+        No results found. Try another keyword.
+      </p>
   </div>
+
+  {%- if search.results.size > 0 -%}
+    <div class="page-width" style="margin-top:80px;">
+      <ul class="grid product-grid grid--2-col-tablet-down grid--4-col-desktop" role="list">
+        {%- for item in search.results -%}
+          <li class="grid__item">
+            {%- case item.object_type -%}
+              {%- when 'product' -%}
+                {% render 'card-product', card_product: item %}
+              {%- when 'article' -%}
+                {% render 'article-card', article: item %}
+            {%- endcase -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+      {% render 'pagination', paginate: paginate %}
+    </div>
+  {%- endif -%}
+</div>
+
 {% endpaginate %}
