@@ -32,6 +32,31 @@
     margin-top: 16px;
   }
 
+  /* ========= 下拉动画效果 ========== */
+
+  /* 答案区域默认收起：高度 0 + 透明 */
+  .faq-accordion__answer {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+  }
+
+  /* details 展开时（有 open 属性） */
+  .faq-accordion__item[open] .faq-accordion__answer {
+    max-height: 600px;   /* 根据你答案长度调，可以 400~800 之间 */
+    opacity: 1;
+  }
+
+  /* 小箭头旋转动画 */
+  .faq-accordion__icon {
+    transition: transform 0.3s ease;
+  }
+
+  .faq-accordion__item[open] .faq-accordion__icon {
+    transform: rotate(180deg);
+  }
+
   @media (max-width: 767px) {
     .faq-categories {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -128,11 +153,9 @@
 
     <!-- FAQ Content Sections -->
     {%- for category in categories -%}
-      {%- comment -%} Find questions that belong to this category {%- endcomment -%}
       {%- assign category_title_normalized = category.settings.title | strip | downcase -%}
       {%- assign question_count = 0 -%}
       
-      {%- comment -%} Count matching questions first {%- endcomment -%}
       {%- for question in questions -%}
         {%- if question.settings.category_title != blank -%}
           {%- assign question_category = question.settings.category_title | strip | downcase -%}
@@ -246,46 +269,16 @@
           "label": "Icon",
           "info": "Select an icon to display on the category card",
           "options": [
-            {
-              "value": "orders",
-              "label": "Orders"
-            },
-            {
-              "value": "shipping",
-              "label": "Shipping"
-            },
-            {
-              "value": "returns",
-              "label": "Returns"
-            },
-            {
-              "value": "warranty",
-              "label": "Warranty"
-            },
-            {
-              "value": "wholesale",
-              "label": "Wholesale"
-            },
-            {
-              "value": "giftcard",
-              "label": "Gift Cards"
-            },
-            {
-              "value": "payment",
-              "label": "Payment"
-            },
-            {
-              "value": "account",
-              "label": "Account"
-            },
-            {
-              "value": "product",
-              "label": "Product"
-            },
-            {
-              "value": "general",
-              "label": "General"
-            }
+            { "value": "orders",   "label": "Orders" },
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "returns",  "label": "Returns" },
+            { "value": "warranty", "label": "Warranty" },
+            { "value": "wholesale","label": "Wholesale" },
+            { "value": "giftcard", "label": "Gift Cards" },
+            { "value": "payment",  "label": "Payment" },
+            { "value": "account",  "label": "Account" },
+            { "value": "product",  "label": "Product" },
+            { "value": "general",  "label": "General" }
           ],
           "default": "orders"
         }
