@@ -152,8 +152,10 @@
   /* =========================
      Category Mega Menu 样式
      ========================= */
-  .header__inline-menu {
+ .header__inline-menu {
     margin-left: 3rem;
+    display: flex;
+    align-items: center;
   }
 
   .header__inline-menu-item--mega {
@@ -195,15 +197,24 @@
   }
 
   .mega-menu__inner {
-    max-width: var(--page-width, 1200px);
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1.5rem;
+    padding: 0 50px;  /* 和 top bar / header 左右对齐 */
   }
 
-  .mega-menu__columns {
+  /* 整体布局：左边文字，右边图片 */
+  .mega-menu__layout {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2.5rem;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1.6fr);
+    gap: 48px;
+    align-items: flex-start;
+  }
+
+  /* 左侧 4 组栏目：2 列 */
+  .mega-menu__nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 48px;
   }
 
   .mega-menu__column {
@@ -211,9 +222,9 @@
   }
 
   .mega-menu__heading {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 600;
-    margin: 0 0 0.75rem;
+    margin: 0 0 12px;
   }
 
   .mega-menu__heading a {
@@ -228,17 +239,41 @@
   }
 
   .mega-menu__item + .mega-menu__item {
-    margin-top: 0.45rem;
+    margin-top: 8px;
   }
 
   .mega-menu__link {
     text-decoration: none;
-    color: #555555;
-    font-size: 14px;
+    color: #444;
+    font-size: 16px;
   }
 
   .mega-menu__link:hover {
-    color: #000000;
+    color: #000;
+  }
+
+  /* 右侧两张大图区域 */
+  .mega-menu__promo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .mega-menu__promo-card {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .mega-menu__promo-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .mega-menu__promo-text {
+    margin-top: 8px;
+    font-size: 16px;
   }
 
   @media screen and (max-width: 989px) {
