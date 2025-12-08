@@ -8,17 +8,7 @@
   {% render 'header-search', input_id: 'My-Id'%}
 {% endcomment %}
 
-<div class="header__search header__search--dropdown">
-  <button
-    class="header__icon header__icon--search header__search-toggle link focus-inset"
-    type="button"
-    aria-label="{{ 'general.search.search' | t }}"
-    aria-expanded="false"
-  >
-    <span class="svg-wrapper">
-      {{- 'icon-search.svg' | inline_asset_content -}}
-    </span>
-  </button>
+
   
   <div class="header__search-dropdown" style="display: none;">
     <div class="header__search-dropdown-content">
