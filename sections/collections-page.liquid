@@ -1,846 +1,128 @@
-<link rel="stylesheet" href="{{ 'component-list-menu.css' | asset_url }}" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'component-header-navigation.css' | asset_url }}" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'component-search.css' | asset_url }}" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'component-account-dropdown.css' | asset_url }}" media="print" onload="this.media='all'">
-<link rel="stylesheet" href="{{ 'component-menu-drawer.css' | asset_url }}" media="print" onload="this.media='all'">
-<link
-  rel="stylesheet"
-  href="{{ 'component-cart-notification.css' | asset_url }}"
-  media="print"
-  onload="this.media='all'"
->
-
-{%- if settings.predictive_search_enabled -%}
-  <link rel="stylesheet" href="{{ 'component-price.css' | asset_url }}" media="print" onload="this.media='all'">
-{%- endif -%}
-
-{%- if section.settings.menu_type_desktop == 'mega' -%}
-  <link rel="stylesheet" href="{{ 'component-mega-menu.css' | asset_url }}" media="print" onload="this.media='all'">
-{%- endif -%}
-
-/* 引入 Collections Page 的样式，让下拉里复用同一套布局 */
 {{ 'section-collections-page.css' | asset_url | stylesheet_tag }}
 
-<style>
-  header-drawer {
-    justify-self: start;
-    margin-left: -1.2rem;
-  }
-
-  {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
-    .scrolled-past-header .header__heading-logo-wrapper {
-      width: 75%;
-    }
-  {%- endif -%}
-
-  {%- if section.settings.menu_type_desktop != "drawer" -%}
-    @media screen and (min-width: 990px) {
-      header-drawer {
-        display: none;
-      }
-    }
-  {%- endif -%}
-
-  .menu-drawer-container {
-    display: flex;
-  }
-
-  .list-menu {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .list-menu--inline {
-    display: inline-flex;
-    flex-wrap: wrap;
-  }
-
-  summary.list-menu__item {
-    padding-right: 2.7rem;
-  }
-
-  .list-menu__item {
-    display: flex;
-    align-items: center;
-    line-height: calc(1 + 0.3 / var(--font-body-scale));
-  }
-
-  .list-menu__item--link {
-    text-decoration: none;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
-    line-height: calc(1 + 0.8 / var(--font-body-scale));
-  }
-
-  @media screen and (min-width: 750px) {
-    .list-menu__item--link {
-      padding-bottom: 0.5rem;
-      padding-top: 0.5rem;
-    }
-  }
-
-  /* -------- Category mega dropdown 面板样式 -------- */
-
-  .header {
-    position: relative;
-  }
-
-  .header-category-panel {
-    position: absolute;
-    left: 0;
-    top: 100%;
-    width: 100%;
-    background: #ffffff;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-    display: none;
-    z-index: 30;
-  }
-
-  .header-category-panel--open {
-    display: block;
-  }
-
-  .header-category-panel .collections-page {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-  }
-
-  @media screen and (max-width: 989px) {
-    .header-category-panel {
-      display: none !important;
-    }
-  }
-</style>
-
-{%- style -%}
-  .header {
-    padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
-  }
-
-  .section-header {
-    position: sticky; /* This is for fixing a Safari z-index issue. PR #2147 */
-    margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-header {
-      margin-bottom: {{ section.settings.margin_bottom }}px;
-    }
-  }
-
-  @media screen and (min-width: 990px) {
-    .header {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-{%- endstyle -%}
-
-<script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
-
-{%- liquid
-  for block in section.blocks
-    if block.type == '@app'
-      assign has_app_block = true
-    endif
-  endfor
--%}
-
-{% liquid
-  assign header_tag = 'div'
-
-  if section.settings.sticky_header_type != 'none'
-    assign header_tag = 'sticky-header'
-  endif
-%}
-
-<{{ header_tag }}
-  {% if header_tag == 'sticky-header' %}
-    data-sticky-type="{{ section.settings.sticky_header_type }}"
-  {% endif %}
-  class="header-wrapper color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
->
-  {%- liquid
-    assign social_links = false
-    assign localization_forms = false
-
-    if settings.social_twitter_link != blank or settings.social_facebook_link != blank or settings.social_pinterest_link != blank or settings.social_instagram_link != blank or settings.social_youtube_link != blank or settings.social_vimeo_link != blank or settings.social_tiktok_link != blank or settings.social_tumblr_link != blank or settings.social_snapchat_link != blank
-      assign social_links = true
-    endif
-
-    if localization.available_countries.size > 1 and section.settings.enable_country_selector or section.settings.enable_language_selector and localization.available_languages.size > 1
-      assign localization_forms = true
-    endif
-  -%}
-  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if localization_forms %} header--has-localizations{% endif %}">
-    {%- liquid
-      if section.settings.menu != blank
-        render 'header-drawer'
-      endif
-
-      if section.settings.logo_position == 'top-center' or section.settings.menu == blank
-        render 'header-search', input_id: 'Search-In-Modal-1'
-      endif
-    -%}
-
-    {%- if section.settings.logo_position != 'middle-center' -%}
-      <div class="header__heading-wrapper">
-        {%- if request.page_type == 'index' -%}
-          <h1 class="header__heading">
-        {%- else -%}
-          <div class="header__heading">
-        {%- endif -%}
-        <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-          {%- if settings.logo != blank -%}
-            <div class="header__heading-logo-wrapper">
-              {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-              {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
-              {% capture sizes %}(max-width: {{ settings.logo_width | times: 2 }}px) 50vw, {{ settings.logo_width }}px{% endcapture %}
-              {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
-              {{
-                settings.logo
-                | image_url: width: 600
-                | image_tag:
-                  class: 'header__heading-logo motion-reduce',
-                  widths: widths,
-                  height: logo_height,
-                  width: settings.logo_width,
-                  alt: logo_alt,
-                  sizes: sizes,
-                  preload: true
-              }}
-            </div>
-          {%- else -%}
-            <span class="h2">{{ shop.name }}</span>
-          {%- endif -%}
-        </a>
-        {%- if request.page_type == 'index' -%}
-          </h1>
-        {%- else -%}
-          </div>
-        {%- endif -%}
-      </div>
-    {%- endif -%}
-
-    {%- liquid
-      if section.settings.menu != blank
-        if section.settings.menu_type_desktop == 'dropdown'
-          render 'header-dropdown-menu'
-        elsif section.settings.menu_type_desktop != 'drawer'
-          render 'header-mega-menu'
-        endif
-      endif
-    %}
-
-    {%- if section.settings.logo_position == 'middle-center' -%}
-      {%- if request.page_type == 'index' -%}
-        <h1 class="header__heading">
-      {%- endif -%}
-      <a href="{{ routes.root_url }}" class="header__heading-link link link--text focus-inset">
-        {%- if settings.logo != blank -%}
-          <div class="header__heading-logo-wrapper">
-            {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-            {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
-            {% capture sizes %}(min-width: 750px) {{ settings.logo_width }}px, 50vw{% endcapture %}
-            {% capture widths %}{{ settings.logo_width }}, {{ settings.logo_width | times: 1.5 | round }}, {{ settings.logo_width | times: 2 }}{% endcapture %}
-            {{
-              settings.logo
-              | image_url: width: 600
-              | image_tag:
-                class: 'header__heading-logo',
-                widths: widths,
-                height: logo_height,
-                width: settings.logo_width,
-                alt: logo_alt,
-                sizes: sizes,
-                preload: true
-            }}
-          </div>
-        {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
-        {%- endif -%}
-      </a>
-      {%- if request.page_type == 'index' -%}
-        </h1>
-      {%- endif -%}
-    {%- endif -%}
-
-    <div class="header__icons{% if section.settings.enable_country_selector or section.settings.enable_language_selector %} header__icons--localization header-localization{% endif %}">
-      <div class="desktop-localization-wrapper">
-        {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
-          <localization-form class="small-hide medium-hide" data-prevent-hide>
-            {%- form 'localization', id: 'HeaderCountryForm', class: 'localization-form' -%}
-              <div>
-                <h2 class="visually-hidden" id="HeaderCountryLabel">{{ 'localization.country_label' | t }}</h2>
-                {%- render 'country-localization', localPosition: 'HeaderCountry' -%}
-              </div>
-            {%- endform -%}
-          </localization-form>
-        {% endif %}
-
-        {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
-          <localization-form class="small-hide medium-hide" data-prevent-hide>
-            {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
-              <div>
-                <h2 class="visually-hidden" id="HeaderLanguageLabel">{{ 'localization.language_label' | t }}</h2>
-                {%- render 'language-localization', localPosition: 'HeaderLanguage' -%}
-              </div>
-            {%- endform -%}
-          </localization-form>
-        {%- endif -%}
-      </div>
-      {% render 'header-search', input_id: 'Search-In-Modal' %}
-
-      {%- if shop.customer_accounts_enabled -%}
-        {%- if customer -%}
-          <div class="header__account-dropdown{% if section.settings.menu != blank %} small-hide{% endif %}">
-            <button 
-              class="header__account-toggle" 
-              onclick="toggleAccountDropdown()"
-              aria-expanded="false"
-              aria-controls="account-dropdown-menu"
-            >
-              <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-              <span>My Account</span>
-              <svg class="icon-caret" width="10" height="6" viewBox="0 0 10 6" fill="none">
-                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </button>
-            <div class="header__account-menu" id="account-dropdown-menu" style="display: none;">
-              <a href="{{ routes.account_url }}" class="header__account-menu-item">
-                My Account
-              </a>
-              <a href="{{ routes.account_logout_url }}" class="header__account-menu-item">
-                Log out
-              </a>
-            </div>
-          </div>
-        {%- else -%}
-          <a
-            href="#"
-            onclick="openAccountModal('login'); return false;"
-            class="header__login-link link{% if section.settings.menu != blank %} small-hide{% endif %}"
-            rel="nofollow"
-          >
-            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-            <span>Login</span>
-          </a>
-        {%- endif -%}
-      {%- endif -%}
-
-      {%- for block in section.blocks -%}
-        {%- case block.type -%}
-          {%- when '@app' -%}
-            {% render block %}
-        {%- endcase -%}
-      {%- endfor -%}
-
-      <a href="{{ routes.cart_url }}" class="header__icon header__icon--cart link focus-inset" id="cart-icon-bubble">
-        {% if cart == empty %}
-          <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
-        {% else %}
-          <span class="svg-wrapper">{{ 'icon-cart.svg' | inline_asset_content }}</span>
-        {% endif %}
-        <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
-        {%- if cart != empty -%}
-          <div class="cart-count-bubble">
-            {%- if cart.item_count < 100 -%}
-              <span aria-hidden="true">{{ cart.item_count }}</span>
-            {%- endif -%}
-            <span class="visually-hidden">{{ 'sections.header.cart_count' | t: count: cart.item_count }}</span>
-          </div>
-        {%- endif -%}
-      </a>
-    </div>
-
-    {%- comment -%} Category mega dropdown 内容，复用 Collections Page section 布局 {%- endcomment -%}
-    {%- assign parent_category_blocks = section.blocks | where: 'type', 'parent_category' -%}
-    {%- assign single_category_blocks = section.blocks | where: 'type', 'single_category' -%}
-    {%- assign featured_blocks = section.blocks | where: 'type', 'featured_collection' -%}
-
-    {%- if parent_category_blocks.size > 0 or single_category_blocks.size > 0 or featured_blocks.size > 0 -%}
-      <div class="header-category-panel" id="HeaderCategoryPanel">
-        <div class="collections-page page-width">
-          <div class="collections-page__container">
-            <!-- 左侧 Category 列表 -->
-            <aside class="collections-page__sidebar">
-              <nav class="collections-nav">
-                <ul class="collections-nav__list">
-                  {%- for block in section.blocks -%}
-                    {%- case block.type -%}
-                      {%- when 'parent_category' -%}
-                        <li class="collections-nav__item collections-nav__item--parent" {{ block.shopify_attributes }}>
-                          {%- if block.settings.collection_handle != blank -%}
-                            <a href="/collections/{{ block.settings.collection_handle }}" class="collections-nav__parent-title collections-nav__parent-title--link">
-                              {{ block.settings.title }}
-                            </a>
-                          {%- else -%}
-                            <div class="collections-nav__parent-title">
-                              {{ block.settings.title }}
-                            </div>
+<div class="collections-page page-width">
+  <div class="collections-page__container">
+    <!-- Left Side: Category Menu -->
+    <aside class="collections-page__sidebar">
+      {%- if section.blocks.size > 0 -%}
+        <nav class="collections-nav">
+          <ul class="collections-nav__list">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when 'parent_category' -%}
+                  <li class="collections-nav__item collections-nav__item--parent" {{ block.shopify_attributes }}>
+                    {%- if block.settings.collection_handle != blank -%}
+                      <a href="/collections/{{ block.settings.collection_handle }}" class="collections-nav__parent-title collections-nav__parent-title--link">
+                        {{ block.settings.title }}
+                      </a>
+                    {%- else -%}
+                      <div class="collections-nav__parent-title">
+                        {{ block.settings.title }}
+                      </div>
+                    {%- endif -%}
+                    
+                    {%- assign parent_id = block.id -%}
+                    {%- assign has_children = false -%}
+                    
+                    {%- for child_block in section.blocks -%}
+                      {%- if child_block.type == 'child_category' and child_block.settings.parent_id == parent_id -%}
+                        {%- assign has_children = true -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                    
+                    {%- if has_children -%}
+                      <ul class="collections-nav__sublist">
+                        {%- for child_block in section.blocks -%}
+                          {%- if child_block.type == 'child_category' and child_block.settings.parent_id == parent_id -%}
+                            <li class="collections-nav__item collections-nav__item--child" {{ child_block.shopify_attributes }}>
+                              <a 
+                                href="/collections/{{ child_block.settings.collection_handle }}" 
+                                class="collections-nav__link collections-nav__link--child"
+                              >
+                                {{ child_block.settings.title }}
+                              </a>
+                            </li>
                           {%- endif -%}
-
-                          {%- assign parent_id = block.id -%}
-                          {%- assign has_children = false -%}
-
-                          {%- for child_block in section.blocks -%}
-                            {%- if child_block.type == 'child_category' and child_block.settings.parent_id == parent_id -%}
-                              {%- assign has_children = true -%}
-                              {%- break -%}
-                            {%- endif -%}
-                          {%- endfor -%}
-
-                          {%- if has_children -%}
-                            <ul class="collections-nav__sublist">
-                              {%- for child_block in section.blocks -%}
-                                {%- if child_block.type == 'child_category' and child_block.settings.parent_id == parent_id -%}
-                                  <li class="collections-nav__item collections-nav__item--child" {{ child_block.shopify_attributes }}>
-                                    <a 
-                                      href="/collections/{{ child_block.settings.collection_handle }}" 
-                                      class="collections-nav__link collections-nav__link--child"
-                                    >
-                                      {{ child_block.settings.title }}
-                                    </a>
-                                  </li>
-                                {%- endif -%}
-                              {%- endfor -%}
-                            </ul>
-                          {%- endif -%}
-                        </li>
-
-                      {%- when 'single_category' -%}
-                        <li class="collections-nav__item collections-nav__item--single" {{ block.shopify_attributes }}>
-                          <a 
-                            href="/collections/{{ block.settings.collection_handle }}" 
-                            class="collections-nav__link"
-                          >
-                            {{ block.settings.title }}
-                          </a>
-                        </li>
-                    {%- endcase -%}
-                  {%- endfor -%}
-                </ul>
-              </nav>
-            </aside>
-
-            <!-- 右侧 Featured Collections 卡片 -->
-            <div class="collections-page__featured">
-              {%- if featured_blocks.size > 0 -%}
-                <div class="featured-collections">
-                  {%- for block in featured_blocks -%}
+                        {%- endfor -%}
+                      </ul>
+                    {%- endif -%}
+                  </li>
+                  
+                {%- when 'single_category' -%}
+                  <li class="collections-nav__item collections-nav__item--single" {{ block.shopify_attributes }}>
                     <a 
-                      href="{{ block.settings.link }}" 
-                      class="featured-collection__card"
-                      {{ block.shopify_attributes }}
+                      href="/collections/{{ block.settings.collection_handle }}" 
+                      class="collections-nav__link"
                     >
-                      {%- if block.settings.image != blank -%}
-                        <div class="featured-collection__image-wrapper">
-                          {{
-                            block.settings.image
-                            | image_url: width: 600
-                            | image_tag: 
-                              loading: 'lazy',
-                              class: 'featured-collection__image',
-                              widths: '300, 400, 500, 600',
-                              alt: block.settings.image.alt | default: block.settings.title
-                          }}
-                        </div>
-                      {%- else -%}
-                        <div class="featured-collection__image-wrapper featured-collection__image-wrapper--placeholder">
-                          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                        </div>
-                      {%- endif -%}
-                      
-                      {%- if block.settings.title != blank -%}
-                        <div class="featured-collection__content">
-                          <h3 class="featured-collection__title">{{ block.settings.title }}</h3>
-                        </div>
-                      {%- endif -%}
+                      {{ block.settings.title }}
                     </a>
-                  {%- endfor -%}
+                  </li>
+              {%- endcase -%}
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+    </aside>
+
+    <!-- Right Side: Featured Collections -->
+    <div class="collections-page__featured">
+      {%- assign featured_blocks = section.blocks | where: 'type', 'featured_collection' -%}
+      
+      {%- if featured_blocks.size > 0 -%}
+        <div class="featured-collections">
+          {%- for block in featured_blocks -%}
+            <a 
+              href="{{ block.settings.link }}" 
+              class="featured-collection__card"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.image != blank -%}
+                <div class="featured-collection__image-wrapper">
+                  {{
+                    block.settings.image
+                    | image_url: width: 600
+                    | image_tag: 
+                      loading: 'lazy',
+                      class: 'featured-collection__image',
+                      widths: '300, 400, 500, 600',
+                      alt: block.settings.image.alt | default: block.settings.title
+                  }}
+                </div>
+              {%- else -%}
+                <div class="featured-collection__image-wrapper featured-collection__image-wrapper--placeholder">
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
                 </div>
               {%- endif -%}
-            </div>
-          </div>
+              
+              {%- if block.settings.title != blank -%}
+                <div class="featured-collection__content">
+                  <h3 class="featured-collection__title">{{ block.settings.title }}</h3>
+                </div>
+              {%- endif -%}
+            </a>
+          {%- endfor -%}
         </div>
-      </div>
-    {%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
 
-  </header>
-</{{ header_tag }}>
-
-{%- if shop.customer_accounts_enabled -%}
-  {% render 'account-modal' %}
-{%- endif -%}
-
-{%- if settings.cart_type == 'notification' -%}
-  {%- render 'cart-notification',
-    color_scheme: section.settings.color_scheme,
-    desktop_menu_type: section.settings.menu_type_desktop
-  -%}
-{%- endif -%}
-
-{% javascript %}
-  class StickyHeader extends HTMLElement {
-    constructor() {
-      super();
-    }
-
-    connectedCallback() {
-      this.header = document.querySelector('.section-header');
-      this.headerIsAlwaysSticky =
-        this.getAttribute('data-sticky-type') === 'always' ||
-        this.getAttribute('data-sticky-type') === 'reduce-logo-size';
-      this.headerBounds = {};
-
-      this.setHeaderHeight();
-
-      window.matchMedia('(max-width: 990px)').addEventListener('change', this.setHeaderHeight.bind(this));
-
-      if (this.headerIsAlwaysSticky) {
-        this.header.classList.add('shopify-section-header-sticky');
-      }
-
-      this.currentScrollTop = 0;
-      this.preventReveal = false;
-      this.predictiveSearch = this.querySelector('predictive-search');
-
-      this.onScrollHandler = this.onScroll.bind(this);
-      this.hideHeaderOnScrollUp = () => (this.preventReveal = true);
-
-      this.addEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
-      window.addEventListener('scroll', this.onScrollHandler, false);
-
-      this.createObserver();
-    }
-
-    setHeaderHeight() {
-      document.documentElement.style.setProperty('--header-height', `${this.header.offsetHeight}px`);
-    }
-
-    disconnectedCallback() {
-      this.removeEventListener('preventHeaderReveal', this.hideHeaderOnScrollUp);
-      window.removeEventListener('scroll', this.onScrollHandler);
-    }
-
-    createObserver() {
-      let observer = new IntersectionObserver((entries, observer) => {
-        this.headerBounds = entries[0].intersectionRect;
-        observer.disconnect();
-      });
-
-      observer.observe(this.header);
-    }
-
-    onScroll() {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-      if (this.predictiveSearch && this.predictiveSearch.isOpen) return;
-
-      if (scrollTop > this.currentScrollTop && scrollTop > this.headerBounds.bottom) {
-        this.header.classList.add('scrolled-past-header');
-        if (this.preventHide) return;
-        requestAnimationFrame(this.hide.bind(this));
-      } else if (scrollTop < this.currentScrollTop && scrollTop > this.headerBounds.bottom) {
-        this.header.classList.add('scrolled-past-header');
-        if (!this.preventReveal) {
-          requestAnimationFrame(this.reveal.bind(this));
-        } else {
-          window.clearTimeout(this.isScrolling);
-
-          this.isScrolling = setTimeout(() => {
-            this.preventReveal = false;
-          }, 66);
-
-          requestAnimationFrame(this.hide.bind(this));
-        }
-      } else if (scrollTop <= this.headerBounds.top) {
-        this.header.classList.remove('scrolled-past-header');
-        requestAnimationFrame(this.reset.bind(this));
-      }
-
-      this.currentScrollTop = scrollTop;
-    }
-
-    hide() {
-      if (this.headerIsAlwaysSticky) return;
-      this.header.classList.add('shopify-section-header-hidden', 'shopify-section-header-sticky');
-      this.closeMenuDisclosure();
-      this.closeSearchModal();
-    }
-
-    reveal() {
-      if (this.headerIsAlwaysSticky) return;
-      this.header.classList.add('shopify-section-header-sticky', 'animate');
-      this.header.classList.remove('shopify-section-header-hidden');
-    }
-
-    reset() {
-      if (this.headerIsAlwaysSticky) return;
-      this.header.classList.remove('shopify-section-header-hidden', 'shopify-section-header-sticky', 'animate');
-    }
-
-    closeMenuDisclosure() {
-      this.disclosures = this.disclosures || this.header.querySelectorAll('header-menu');
-      this.disclosures.forEach((disclosure) => disclosure.close());
-    }
-
-    closeSearchModal() {
-      this.searchModal = this.searchModal || this.header.querySelector('details-modal');
-      this.searchModal.close(false);
-    }
-  }
-
-  customElements.define('sticky-header', StickyHeader);
-{% endjavascript %}
-
-<!-- hover / 鼠标移入 Category 时显示 mega dropdown -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var panel = document.getElementById('HeaderCategoryPanel');
-    if (!panel) return;
-
-    // 假设导航中“Category”的链接是 /collections 或 /collections/all
-    var triggers = document.querySelectorAll('.header a[href="/collections"], .header a[href="/collections/all"]');
-    if (!triggers.length) return;
-
-    var hideTimer;
-
-    function showPanel() {
-      clearTimeout(hideTimer);
-      panel.classList.add('header-category-panel--open');
-    }
-
-    function hidePanel() {
-      hideTimer = setTimeout(function() {
-        panel.classList.remove('header-category-panel--open');
-      }, 150);
-    }
-
-    triggers.forEach(function(trigger) {
-      trigger.addEventListener('mouseenter', showPanel);
-      trigger.addEventListener('mouseleave', hidePanel);
-    });
-
-    panel.addEventListener('mouseenter', showPanel);
-    panel.addEventListener('mouseleave', hidePanel);
-  });
-
-  function toggleAccountDropdown() {
-    const menu = document.getElementById('account-dropdown-menu');
-    const toggle = document.querySelector('.header__account-toggle');
-    const isOpen = menu.style.display === 'block';
-    
-    if (isOpen) {
-      menu.style.display = 'none';
-      toggle.setAttribute('aria-expanded', 'false');
-    } else {
-      menu.style.display = 'block';
-      toggle.setAttribute('aria-expanded', 'true');
-    }
-  }
-  
-  // Close dropdown when clicking outside
-  document.addEventListener('click', function(event) {
-    const dropdown = document.querySelector('.header__account-dropdown');
-    const menu = document.getElementById('account-dropdown-menu');
-    const toggle = document.querySelector('.header__account-toggle');
-    
-    if (dropdown && menu && !dropdown.contains(event.target)) {
-      menu.style.display = 'none';
-      if (toggle) toggle.setAttribute('aria-expanded', 'false');
-    }
-  });
-</script>
 
 {% schema %}
 {
-  "name": "t:sections.header.name",
-  "class": "section-header",
-  "max_blocks": 40,
+  "name": "Collections Page",
+  "tag": "section",
+  "class": "section-collections-page",
   "settings": [
     {
-      "type": "select",
-      "id": "logo_position",
-      "options": [
-        {
-          "value": "top-left",
-          "label": "t:sections.header.settings.logo_position.options__2.label"
-        },
-        {
-          "value": "top-center",
-          "label": "t:sections.header.settings.logo_position.options__3.label"
-        },
-        {
-          "value": "middle-left",
-          "label": "t:sections.header.settings.logo_position.options__1.label"
-        },
-        {
-          "value": "middle-center",
-          "label": "t:sections.header.settings.logo_position.options__4.label"
-        }
-      ],
-      "default": "middle-left",
-      "label": "t:sections.header.settings.logo_position.label",
-      "info": "t:sections.header.settings.logo_help.content"
-    },
-    {
-      "type": "select",
-      "id": "mobile_logo_position",
-      "options": [
-        {
-          "value": "center",
-          "label": "t:sections.header.settings.mobile_logo_position.options__1.label"
-        },
-        {
-          "value": "left",
-          "label": "t:sections.header.settings.mobile_logo_position.options__2.label"
-        }
-      ],
-      "default": "center",
-      "label": "t:sections.header.settings.mobile_logo_position.label"
-    },
-    {
-      "type": "link_list",
-      "id": "menu",
-      "default": "main-menu",
-      "label": "t:sections.header.settings.menu.label"
-    },
-    {
-      "type": "select",
-      "id": "menu_type_desktop",
-      "options": [
-        {
-          "value": "dropdown",
-          "label": "t:sections.header.settings.menu_type_desktop.options__1.label"
-        },
-        {
-          "value": "mega",
-          "label": "t:sections.header.settings.menu_type_desktop.options__2.label"
-        },
-        {
-          "value": "drawer",
-          "label": "t:sections.header.settings.menu_type_desktop.options__3.label"
-        }
-      ],
-      "default": "dropdown",
-      "label": "t:sections.header.settings.menu_type_desktop.label"
-    },
-    {
-      "type": "select",
-      "id": "sticky_header_type",
-      "options": [
-        {
-          "value": "none",
-          "label": "t:sections.header.settings.sticky_header_type.options__1.label"
-        },
-        {
-          "value": "on-scroll-up",
-          "label": "t:sections.header.settings.sticky_header_type.options__2.label"
-        },
-        {
-          "value": "always",
-          "label": "t:sections.header.settings.sticky_header_type.options__3.label"
-        },
-        {
-          "value": "reduce-logo-size",
-          "label": "t:sections.header.settings.sticky_header_type.options__4.label"
-        }
-      ],
-      "default": "on-scroll-up",
-      "label": "t:sections.header.settings.sticky_header_type.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_line_separator",
-      "default": true,
-      "label": "t:sections.header.settings.show_line_separator.label"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.header.settings.header__1.content"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
-    {
-      "type": "color_scheme",
-      "id": "menu_color_scheme",
-      "label": "t:sections.header.settings.menu_color_scheme.label",
-      "default": "scheme-1"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.header.settings.header__utilities.content"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_country_selector",
-      "default": true,
-      "label": "t:sections.header.settings.enable_country_selector.label",
-      "info": "t:sections.header.settings.enable_country_selector.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_language_selector",
-      "default": true,
-      "label": "t:sections.header.settings.enable_language_selector.label",
-      "info": "t:sections.header.settings.enable_language_selector.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_customer_avatar",
-      "default": true,
-      "label": "t:sections.header.settings.enable_customer_avatar.label",
-      "info": "t:sections.header.settings.enable_customer_avatar.info"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.spacing"
-    },
-    {
-      "type": "range",
-      "id": "margin_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.header.settings.margin_bottom.label",
-      "default": 0
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 36,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 20
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 36,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 20
+      "type": "text",
+      "id": "heading",
+      "label": "Page Heading",
+      "default": "Shop by Category"
     }
   ],
   "blocks": [
-    {
-      "type": "@app"
-    },
     {
       "type": "parent_category",
       "name": "Parent Category",
@@ -925,6 +207,74 @@
         }
       ]
     }
+  ],
+  "presets": [
+    {
+      "name": "Collections Page",
+      "blocks": [
+        {
+          "type": "parent_category",
+          "settings": {
+            "title": "Wine"
+          }
+        },
+        {
+          "type": "child_category",
+          "settings": {
+            "title": "Red Wine",
+            "collection_handle": "red-wine"
+          }
+        },
+        {
+          "type": "child_category",
+          "settings": {
+            "title": "White Wine",
+            "collection_handle": "white-wine"
+          }
+        },
+        {
+          "type": "child_category",
+          "settings": {
+            "title": "Beer",
+            "collection_handle": "beer"
+          }
+        },
+        {
+          "type": "single_category",
+          "settings": {
+            "title": "Beverage",
+            "collection_handle": "beverage"
+          }
+        },
+        {
+          "type": "single_category",
+          "settings": {
+            "title": "Chinese Cookie",
+            "collection_handle": "chinese-cookie"
+          }
+        },
+        {
+          "type": "single_category",
+          "settings": {
+            "title": "Gift",
+            "collection_handle": "gift"
+          }
+        },
+        {
+          "type": "featured_collection",
+          "settings": {
+            "title": "New Arrivals"
+          }
+        },
+        {
+          "type": "featured_collection",
+          "settings": {
+            "title": "Best Seller"
+          }
+        }
+      ]
+    }
   ]
 }
 {% endschema %}
+
