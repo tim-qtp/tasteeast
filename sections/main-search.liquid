@@ -79,11 +79,36 @@
 .article-card-wrapper .card__heading a {
   color: #FFFFFF !important;
 }
+/* === 把 search 内容缩成一个「深色块」 === */
+
+.template-search {
+  background-color: transparent !important; /* 不再撑满整页 */
+  padding: 0 !important;
+}
+
+.search-wrapper-box {
+  background-color: #12344A;
+  max-width: 1200px; /* 可自行改：960px、1000px、1400px */
+  margin: 0 auto; /* 居中 */
+  padding: 80px 40px 120px;
+  border-radius: 0; /* 想要圆角改这里 */
+  position: relative;
+}
+
+/* 结果数量 & 产品区域在块内也居中 */
+.search-wrapper-box .template-search__count,
+.search-wrapper-box .product-grid-container {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 </style>
 
 
 {% paginate search.results by 24 %}
   <div class="template-search section-{{ section.id }}-padding">
+  <div class="search-wrapper-box">
 
     <!-- ========= 标题保留 ========= -->
     <div class="template-search__header page-width">
@@ -127,6 +152,6 @@
         {% render 'pagination', paginate: paginate %}
       </div>
     {%- endif -%}
-    
+    </div>
   </div>
 {% endpaginate %}
