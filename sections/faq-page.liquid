@@ -22,14 +22,71 @@
     padding: 24px 20px;
   }
 
+  /* 卡片上的标题（Orders / Shipping 等）稍微小一点 */
+  .faq-category-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 12px;
+  }
+
   /* 下方问题区域与上面卡片左右对齐 */
   .faq-category-section {
     max-width: 960px;
     margin: 40px auto 0;
   }
 
+  /* 下方每块“Orders / Shipping …”标题字号调小一点 */
+  .faq-category-section__title {
+    font-size: 18px;        /* 比默认小两号左右 */
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
   .faq-accordion {
     margin-top: 16px;
+  }
+
+  /* ====== 问题 & 回答 统一样式 ====== */
+
+  /* 问题行（summary）样式：字体加粗，颜色统一 */
+  .faq-accordion__question {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;       /* 问题加粗 */
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+  }
+
+  /* 去掉 summary 默认的小三角 */
+  .faq-accordion__question::-webkit-details-marker {
+    display: none;
+  }
+
+  /* 回答内容：同一字体字号颜色，正常字重 */
+  .faq-accordion__answer {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 8px;
+  }
+
+  .faq-accordion__answer p {
+    margin: 0 0 8px;
+  }
+
+  /* 每个问题之间分隔线稍微深一点 */
+  .faq-accordion__item {
+    border-top: 1px solid #ddd;   /* 比默认稍深 */
+    padding: 12px 0;
+  }
+
+  .faq-accordion__item:last-child {
+    border-bottom: 1px solid #ddd;
   }
 
   /* ========= 下拉动画效果 ========== */
@@ -51,6 +108,8 @@
   /* 小箭头旋转动画 */
   .faq-accordion__icon {
     transition: transform 0.3s ease;
+    margin-left: 12px;
+    flex-shrink: 0;
   }
 
   .faq-accordion__item[open] .faq-accordion__icon {
