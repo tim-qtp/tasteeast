@@ -15,121 +15,125 @@
 <script src="{{ 'main-search.js' | asset_url }}" defer="defer"></script>
 
 <style>
-  .template-search__header {
-    margin-bottom: 3rem;
-  }
+/* ===== 全局深色背景 ===== */
+.template-search {
+  background-color: #0B1C2D !important;
+}
 
-  .template-search__search {
-    margin: 0 auto 3.5rem;
-    max-width: 74.1rem;
-  }
+/* ===== 顶部标题样式 ===== */
+.template-search__header h1 {
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 32px;
+}
 
-  .template-search__search .search {
-    margin-top: 3rem;
-  }
+/* ===== 搜索框容器 ===== */
+.template-search__search {
+  max-width: 950px;
+  margin: 0 auto 32px;
+}
 
-  .template-search--empty {
-    padding-bottom: 18rem;
-  }
+/* ===== 输入框样式 ===== */
+.template-search__search .search__input {
+  width: 100%;
+  border: 2px solid #216D81;
+  background: #FFFFFF;
+  border-radius: 6px;
+  color: #222;
+  height: 56px;
+  font-size: 18px;
+  padding: 0 16px;
+}
 
-  @media screen and (min-width: 750px) {
-    .template-search__header {
-      margin-bottom: 5rem;
-    }
-  }
+.template-search__search .search__input:focus {
+  border-color: #2793A8;
+  outline: none;
+}
 
-  .search__button .icon {
-    height: 1.8rem;
-  }
+/* 隐藏 label 与搜索按钮 */
+.template-search__search .field__label,
+.template-search__search .search__button,
+.template-search__search .reset__button {
+  display: none !important;
+}
 
-  /* ============================
-     自定义：搜索结果页的搜索框样式
-     ============================ */
+/* ===== 结果数量文案 ===== */
+.template-search__count {
+  margin-top: 6px;
+  font-size: 18px;
+  text-align: center;
+  color: #FFFFFF;
+  opacity: 0.92;
+}
 
-  .template-search__search .field {
-    width: 100%;
-  }
+/* ===== 无结果容器 ===== */
+.template-search__empty-box {
+  max-width: 950px;
+  margin: 0 auto 60px;
+  padding: 48px 30px;
+  background: #0F2A3B;
+  border-radius: 12px;
+  text-align: center;
+  color: #FFFFFF;
+}
 
-  .template-search__search .field__input,
-  .template-search__search .search__input {
-    width: 100%;
-    border: 1px solid #216D81;      /* 绿色边框 */
-    border-radius: 4px;
-    background: #FFFFFF;
-    color: #222222;
-    padding-left: 16px;
-    padding-right: 16px;
-    box-shadow: none;
-  }
+.template-search__empty-icon {
+  font-size: 54px;
+  margin-bottom: 20px;
+}
 
-  .template-search__search .field__input:focus,
-  .template-search__search .search__input:focus {
-    outline: none;
-    border-color: #216D81;
-    box-shadow: none;
-  }
+.template-search__empty-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
 
-  /* 隐藏搜索结果页输入框里的 X 和 小放大镜按钮 */
-  .template-search__search .reset__button,
-  .template-search__search .search__button {
-    display: none !important;
-  }
+.template-search__empty-text {
+  font-size: 18px;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
 
-  /* 隐藏 label 文本，只保留给屏幕阅读器用 */
-  .template-search__search .field__label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    border: 0;
-  }
+/* ===== 修正商品展示区域背景 ===== */
+.template-search .product-grid-container,
+.template-search .collection {
+  background: transparent !important;
+}
 
-  /* ============================
-     顶部统计文案 & 无结果提示
-     ============================ */
+/* 产品标题颜色适配深色背景 */
+.card__heading a {
+  color: #FFFFFF !important;
+}
 
-  .template-search__count {
-    margin-top: 0.5rem;
-    text-align: center;
-    font-size: 16px;
-    color: #222222;
-  }
-
-   .template-search__empty-box {
-    max-width: 74.1rem;
-    margin: 32px auto 8px;
-    padding: 32px 24px;
-    text-align: center;
-    background: #0B1C2D;   /* 深色底 */
-    color: #FFFFFF;
-    border-radius: 8px;
-  }
-
-
-  .template-search__empty-icon {
-    font-size: 40px;
-    margin-bottom: 12px;
-    display: block;
-  }
-
-  .template-search__empty-title {
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-
-  .template-search__empty-text {
-    font-size: 16px;
-    line-height: 1.6;
-    opacity: 0.92;
-  }
-  .template-search__header h1 {
-  color: #183A4A;
+/* 文章/页面卡片也适配 */
+.article-card-wrapper .card__heading a {
+  color: #FFFFFF !important;
 }
 </style>
+
+
+{%- if search.performed -%}
+{% if search.results_count > 0 %}
+  <p class="template-search__count">
+    {{ search.results_count }} results for “{{ search.terms }}”
+  </p>
+{% elsif search.results_count == 0 and search.filters == empty %}
+  <div class="template-search__empty-box">
+    <span class="template-search__empty-icon">🔍</span>
+    <div class="template-search__empty-title">
+      No results for “{{ search.terms }}”
+    </div>
+    <p class="template-search__empty-text">
+      No results found for “{{ search.terms }}”. Please try another keyword.
+    </p>
+  </div>
+{% endif %}
+{%- endif -%}
+
 
 {%- liquid
   assign sort_by = search.sort_by | default: search.default_sort_by
