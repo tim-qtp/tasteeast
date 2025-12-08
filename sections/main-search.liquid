@@ -15,38 +15,59 @@
 <script src="{{ 'main-search.js' | asset_url }}" defer="defer"></script>
 
 <style>
-/* ===== 全局深色背景 ===== */
+/* ===== 整体区域 ===== */
 .template-search {
-  background-color: #0B1C2D !important;
+  background-color: #061829;        /* 更深一点的蓝，整体更沉稳 */
+  padding: 80px 0 100px;
 }
 
-/* ===== 顶部标题样式 ===== */
-.template-search__header h1 {
-  color: #FFFFFF;
+/* ===== 顶部标题 ===== */
+.template-search__header {
+  max-width: 960px;
+  margin: 0 auto 32px;
   text-align: center;
-  font-size: 42px;
-  font-weight: 700;
-  margin-bottom: 32px;
 }
 
-/* ===== 搜索框样式 ===== */
+.template-search__header h1 {
+  color: #F9F4EC;
+  font-size: 40px;
+  letter-spacing: 0.03em;
+  font-weight: 700;
+  margin: 0 0 28px;
+}
+
+/* ===== 搜索框容器 ===== */
+.template-search__search {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ===== 搜索输入框 ===== */
 .template-search__search .search__input {
   width: 100%;
-  border: 2px solid #216D81;
+  height: 60px;
+  border-radius: 999px;
+  border: 2px solid #1F6D81;
   background: #FFFFFF;
-  border-radius: 6px;
   color: #222;
-  height: 56px;
-  font-size: 18px;
-  padding: 0 16px;
+  font-size: 17px;
+  padding: 0 22px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.template-search__search .search__input::placeholder {
+  color: #7A8A94;
 }
 
 .template-search__search .search__input:focus {
-  border-color: #2793A8;
+  border-color: #35A3BC;
   outline: none;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
 }
 
-/* 隐藏 label 与搜索按钮 */
+/* 隐藏 label / 按钮，只保留回车搜索 */
 .template-search__search .field__label,
 .template-search__search .search__button,
 .template-search__search .reset__button {
@@ -55,23 +76,102 @@
 
 /* ===== 结果数量文案 ===== */
 .template-search__count {
-  margin-top: 6px;
-  font-size: 18px;
+  margin: 20px auto 0;
+  font-size: 16px;
+  text-align: center;
+  color: #EDE4D4;
+  opacity: 0.9;
+}
+
+/* ===== 无结果提示盒子 ===== */
+.template-search__empty-box {
+  max-width: 520px;
+  margin: 40px auto 0;
+  padding: 32px 28px 30px;
+  background: radial-gradient(circle at top, #12344A 0%, #071624 80%);
+  border-radius: 18px;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.45);
   text-align: center;
   color: #FFFFFF;
 }
 
-/* ===== 无结果容器 ===== */
-.template-search__empty-box {
-  max-width: 950px;
-  margin: 0 auto 60px;
-  padding: 48px 30px;
-  background: #0F2A3B;
-  border-radius: 12px;
-  text-align: center;
-  color: #FFFFFF;
+.template-search__empty-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 24px;
+  margin-bottom: 18px;
+}
+
+.template-search__empty-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.template-search__empty-text {
+  font-size: 15px;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+/* ===== 产品区域背景透明，和深色底融合 ===== */
+.template-search .product-grid-container,
+.template-search .collection {
+  background: transparent !important;
+}
+
+/* 产品/文章标题颜色适配深色背景 */
+.card__heading a {
+  color: #F9F4EC !important;
+}
+
+/* 文章卡片标题 */
+.article-card-wrapper .card__heading a {
+  color: #F9F4EC !important;
+}
+
+/* ===== 手机端优化 ===== */
+@media (max-width: 749px) {
+  .template-search {
+    padding: 56px 0 72px;
+  }
+
+  .template-search__header h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .template-search__search {
+    max-width: 90%;
+  }
+
+  .template-search__search .search__input {
+    height: 52px;
+    font-size: 15px;
+    padding: 0 18px;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+  }
+
+  .template-search__empty-box {
+    margin-top: 28px;
+    padding: 24px 18px 22px;
+  }
+
+  .template-search__empty-title {
+    font-size: 18px;
+  }
+
+  .template-search__empty-text {
+    font-size: 14px;
+  }
 }
 </style>
+
 
 {%- liquid
   assign sort_by = search.sort_by | default: search.default_sort_by
