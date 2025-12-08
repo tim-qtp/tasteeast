@@ -142,6 +142,40 @@
     line-height: calc(1 + 0.8 / var(--font-body-scale));
   }
 
+    /* =========================
+     Search 弹窗样式重置
+     ========================= */
+
+  /* 让搜索框更长一些 */
+  .search-modal__form .field {
+    max-width: 640px;      /* 想再长就改这个数字，比如 720 */
+    width: 100%;
+  }
+
+  /* 细线边框 + 去掉粗阴影 */
+  .search-modal__form .field__input,
+  .search-modal__form .search__input {
+    border: 1px solid #D6D6D6;  /* 细线 */
+    border-radius: 4px;
+    box-shadow: none;
+    padding-left: 14px;         /* 左边留一点文字内边距 */
+  }
+
+  .search-modal__form .field__input:focus,
+  .search-modal__form .search__input:focus {
+    outline: none;
+    border-color: #999;
+    box-shadow: none;
+  }
+
+  /* 去掉输入框里面的放大镜按钮，只保留右上角 X 关闭按钮 */
+  .search-modal__form .search__button,
+  .search-modal__form .field__button,
+  .search-modal__form .icon-search {
+    display: none;
+  }
+
+
   @media screen and (min-width: 750px) {
     .list-menu__item--link {
       padding-bottom: 0.5rem;
