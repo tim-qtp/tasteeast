@@ -241,15 +241,7 @@
     color: #000000;
   }
 
-  @media screen and (max-width: 989px) {
-    .mega-menu {
-      display: none !important; /* 桌面 mega menu 不在移动端显示 */
-    }
-  }
-</style>
-
-{%- style -%}
-/* 让 Logo+菜单 靠左，Icons 靠右，两边对齐 Top Bar */
+  /* 让 Logo+菜单 靠左，Icons 靠右，两边对齐 Top Bar */
 .header {
   display: flex;
   align-items: center;
@@ -264,6 +256,15 @@
   align-items: center;
   gap: 2rem; /* 菜单和 Logo 之间间距，可自己调 */
 }
+
+  @media screen and (max-width: 989px) {
+    .mega-menu {
+      display: none !important; /* 桌面 mega menu 不在移动端显示 */
+    }
+  }
+</style>
+
+{%- style -%}
 
   .header {
     padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
