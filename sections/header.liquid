@@ -241,22 +241,6 @@
     color: #000000;
   }
 
-  /* 让 Logo+菜单 靠左，Icons 靠右，两边对齐 Top Bar */
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-}
-
-/* 使 Logo 和导航贴左排列 */
-.header__heading-wrapper,
-.header__inline-menu {
-  display: flex;
-  align-items: center;
-  gap: 2rem; /* 菜单和 Logo 之间间距，可自己调 */
-}
-
   @media screen and (max-width: 989px) {
     .mega-menu {
       display: none !important; /* 桌面 mega menu 不在移动端显示 */
@@ -268,6 +252,18 @@
 
   .header {
     padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
+  }
+
+  /* 让 Header 跟 top bar 一样从左/右顶到 50px */
+  .header-wrapper .header.page-width {
+    max-width: 100%;      /* 取消居中限制 */
+    padding-left: 50px;   /* 和 top bar 的 0 50px 对齐 */
+    padding-right: 50px;
+  }
+
+  .section-header {
+    position: sticky;
+    margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
   }
 
   .section-header {
