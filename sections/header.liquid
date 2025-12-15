@@ -705,42 +705,47 @@
       </div>
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
-      {%- if shop.customer_accounts_enabled -%}
-        {%- if customer -%}
-          <div class="header__account-dropdown{% if section.settings.menu != blank %} small-hide{% endif %}">
-            <button 
-              class="header__account-toggle" 
-              onclick="toggleAccountDropdown()"
-              aria-expanded="false"
-              aria-controls="account-dropdown-menu"
-            >
-              <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-              <span>Login</span>
-              <svg class="icon-caret" width="10" height="6" viewBox="0 0 10 6" fill="none">
-                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </button>
-            <div class="header__account-menu" id="account-dropdown-menu" style="display: none;">
-              <a href="{{ routes.account_url }}" class="header__account-menu-item">
-                My Account
-              </a>
-              <a href="{{ routes.account_logout_url }}" class="header__account-menu-item">
-                Log out
-              </a>
-            </div>
-          </div>
-        {%- else -%}
-          <a
-            href="#"
-            onclick="openAccountModal('login'); return false;"
-            class="header__login-link link{% if section.settings.menu != blank %} small-hide{% endif %}"
-            rel="nofollow"
-          >
-            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-            <span>Login</span>
-          </a>
-        {%- endif -%}
-      {%- endif -%}
+     {%- if shop.customer_accounts_enabled -%}
+  {%- if customer -%}
+    <div class="header__account-dropdown{% if section.settings.menu != blank %} small-hide{% endif %}">
+      <button 
+        class="header__account-toggle" 
+        onclick="toggleAccountDropdown()"
+        aria-expanded="false"
+        aria-controls="account-dropdown-menu"
+      >
+        <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+        <span>My Account</span>
+        <svg class="icon-caret" width="10" height="6" viewBox="0 0 10 6" fill="none">
+          <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <div class="header__account-menu" id="account-dropdown-menu" style="display: none;">
+        <a href="{{ routes.account_url }}" class="header__account-menu-item">
+          My Account
+        </a>
+        <a href="{{ routes.account_logout_url }}" class="header__account-menu-item">
+          Log out
+        </a>
+      </div>
+    </div>
+  {%- else -%}
+    {%- comment -%}
+      ✅ 优化：未登录时不再弹窗提交登录，而是跳 Shopify 原生登录页（最稳）
+      登录后会自动回到 /account
+    {%- endcomment -%}
+    <a
+      href="{{ routes.account_login_url }}?return_url={{ routes.account_url }}"
+      class="header__login-link link{% if section.settings.menu != blank %} small-hide{% endif %}"
+      rel="nofollow"
+    >
+      <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+      <span>Login</span>
+    </a>
+  {%- endif -%}
+{%- endif -%}
+
 
       {%- for block in section.blocks -%}
         {%- case block.type -%}
