@@ -1,560 +1,148 @@
-<div id="account-modal" class="account-modal" style="display: none;">
-  <div class="account-modal__overlay" onclick="closeAccountModal()"></div>
-  <div class="account-modal__content">
-    <div class="account-modal__header">
-      <h2 class="account-modal__title">Login</h2>
-      <button class="account-modal__close" onclick="closeAccountModal()" aria-label="Close">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="22" height="22" viewBox="0 0 18 17">
-          <path fill="currentColor" d="M.865 15.978a.5.5 0 0 0 .707.707l7.433-7.431 7.579 7.282a.501.501 0 0 0 .846-.37.5.5 0 0 0-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 1 0-.707-.708L8.991 7.853 1.413.573a.5.5 0 1 0-.693.72l7.563 7.268z"></path>
-        </svg>
-      </button>
-    </div>
+<div id="accountModal" class="account-modal" aria-hidden="true">
+  <div class="account-modal__backdrop" onclick="closeAccountModal()"></div>
 
-    {/* Login Form */}
-    <div id="account-modal-login" class="account-modal__form">
-      {%- form 'customer_login', id: 'CustomerLoginForm', novalidate: 'novalidate' -%}
-        <input type="hidden" name="return_to" value="{{ request.path }}">
-        <div id="login-error" class="account-modal__error" style="display: none;"></div>
-        
+  <div class="account-modal__panel" role="dialog" aria-modal="true" aria-labelledby="accountModalTitle">
+    <button type="button" class="account-modal__close" aria-label="Close" onclick="closeAccountModal()">×</button>
+
+    <!-- LOGIN -->
+    <div class="account-modal__view" data-view="login">
+      <h2 id="accountModalTitle" class="account-modal__title">Login</h2>
+
+      {% form 'customer_login', novalidate: 'novalidate' %}
+        {% if form.errors %}
+          <div class="account-modal__error" role="alert">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
         <div class="account-modal__field">
-          <label class="account-modal__label" for="ModalCustomerEmail">Email</label>
+          <label class="account-modal__label" for="CustomerEmail">Email</label>
           <input
+            id="CustomerEmail"
+            class="account-modal__input"
             type="email"
             name="customer[email]"
-            id="ModalCustomerEmail"
-            class="account-modal__input"
             autocomplete="email"
-            autocorrect="off"
-            autocapitalize="off"
             placeholder="Email"
             required
           >
         </div>
 
         <div class="account-modal__field">
-          <label class="account-modal__label" for="ModalCustomerPassword">Password</label>
+          <label class="account-modal__label" for="CustomerPassword">Password</label>
           <input
+            id="CustomerPassword"
+            class="account-modal__input"
             type="password"
             name="customer[password]"
-            id="ModalCustomerPassword"
-            class="account-modal__input"
             autocomplete="current-password"
             placeholder="Password"
             required
           >
         </div>
 
-        <div class="account-modal__actions">
-          <button type="submit" class="account-modal__button account-modal__button--small">
-            Sign in
-          </button>
-          <div class="account-modal__links">
-            <div class="account-modal__link-item">
-              <span>New Customer?</span>
-              <a href="#" onclick="showRegisterForm(); return false;" class="account-modal__link">Create account</a>
-            </div>
-            <div class="account-modal__link-item">
-              <a href="#" onclick="showResetPasswordForm(); return false;" class="account-modal__link">Forgot your password?</a>
-            </div>
-          </div>
+        <button type="submit" class="account-modal__btn">Sign in</button>
+
+        <div class="account-modal__links">
+          <a href="#" onclick="switchAccountModal('recover'); return false;">Forgot password?</a>
+          <span class="account-modal__sep">·</span>
+          <a href="{{ routes.account_register_url }}">Create account</a>
         </div>
-      {%- endform -%}
+      {% endform %}
     </div>
 
-    {/* Register Form */}
-    <div id="account-modal-register" class="account-modal__form" style="display: none;">
-      {%- form 'create_customer', id: 'CustomerRegisterForm', novalidate: 'novalidate' -%}
-        <div id="register-error" class="account-modal__error" style="display: none;"></div>
-        
-        <div class="account-modal__row">
-          <div class="account-modal__field">
-            <label class="account-modal__label" for="ModalRegisterFirstName">First name</label>
-            <input
-              type="text"
-              name="customer[first_name]"
-              id="ModalRegisterFirstName"
-              class="account-modal__input"
-              autocomplete="given-name"
-              placeholder="First name"
-              required
-            >
-          </div>
+    <!-- RECOVER -->
+    <div class="account-modal__view" data-view="recover" hidden>
+      <h2 class="account-modal__title">Reset password</h2>
 
-          <div class="account-modal__field">
-            <label class="account-modal__label" for="ModalRegisterLastName">Last name</label>
-            <input
-              type="text"
-              name="customer[last_name]"
-              id="ModalRegisterLastName"
-              class="account-modal__input"
-              autocomplete="family-name"
-              placeholder="Last name"
-              required
-            >
+      {% form 'recover_customer_password' %}
+        {% if form.posted_successfully? %}
+          <div class="account-modal__success" role="status">
+            We&#39;ve sent you an email with a link to update your password.
           </div>
-        </div>
+        {% endif %}
+
+        {% if form.errors %}
+          <div class="account-modal__error" role="alert">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
 
         <div class="account-modal__field">
-          <label class="account-modal__label" for="ModalRegisterEmail">Email</label>
+          <label class="account-modal__label" for="RecoverEmail">Email</label>
           <input
-            type="email"
-            name="customer[email]"
-            id="ModalRegisterEmail"
+            id="RecoverEmail"
             class="account-modal__input"
-            autocomplete="email"
-            autocorrect="off"
-            autocapitalize="off"
-            placeholder="Email"
-            required
-          >
-        </div>
-
-        <div class="account-modal__field">
-          <label class="account-modal__label" for="ModalRegisterPassword">Password</label>
-          <input
-            type="password"
-            name="customer[password]"
-            id="ModalRegisterPassword"
-            class="account-modal__input"
-            autocomplete="new-password"
-            placeholder="Password"
-            required
-          >
-        </div>
-
-        <div class="account-modal__actions">
-          <button type="submit" class="account-modal__button account-modal__button--small">
-            Create
-          </button>
-          <div class="account-modal__links">
-            <div class="account-modal__link-item">
-              <span>Returning customer?</span>
-              <a href="#" onclick="showLoginForm(); return false;" class="account-modal__link">Sign in</a>
-            </div>
-          </div>
-        </div>
-      {%- endform -%}
-    </div>
-
-    {/* Reset Password Form */}
-    <div id="account-modal-reset" class="account-modal__form" style="display: none;">
-      <p class="account-modal__description">
-        We will send you an email to reset your password.
-      </p>
-      
-      {%- form 'recover_customer_password', id: 'RecoverPasswordForm' -%}
-        <div id="reset-error" class="account-modal__error" style="display: none;"></div>
-        <div id="reset-success" class="account-modal__success" style="display: none;"></div>
-        
-        <div class="account-modal__field">
-          <label class="account-modal__label" for="ModalRecoverEmail">Email</label>
-          <input
             type="email"
             name="email"
-            id="ModalRecoverEmail"
-            class="account-modal__input"
             autocomplete="email"
-            autocorrect="off"
-            autocapitalize="off"
             placeholder="Email"
             required
           >
         </div>
 
-        <div class="account-modal__actions">
-          <div style="display: flex; gap: 12px;">
-            <button type="submit" class="account-modal__button account-modal__button--small" style="flex: 1;">
-              Submit
-            </button>
-            <button type="button" onclick="showLoginForm()" class="account-modal__button account-modal__button--secondary account-modal__button--small" style="flex: 1;">
-              Cancel
-            </button>
-          </div>
+        <button type="submit" class="account-modal__btn">Send reset link</button>
+
+        <div class="account-modal__links">
+          <a href="#" onclick="switchAccountModal('login'); return false;">Back to login</a>
         </div>
-      {%- endform -%}
+      {% endform %}
     </div>
   </div>
 </div>
 
 <style>
-.account-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.account-modal__overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  z-index: 0;
-}
-
-.account-modal__content {
-  position: relative;
-  background: #fff;
-  border-radius: 12px;
-  padding: 0;
-  max-width: 500px;
-  width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: modalSlideIn 0.3s ease-out;
-  z-index: 1;
-}
-
-.account-modal__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 32px 40px 24px;
-  border-bottom: 1px solid rgba(18, 18, 18, 0.1);
-  min-height: 60px;
-}
-
-@keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-30px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-.account-modal__close {
-  position: relative;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 6px;
-  color: rgba(18, 18, 18, 0.5);
-  transition: color 0.3s ease;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.account-modal__close svg {
-  width: 22px;
-  height: 22px;
-}
-
-.account-modal__close:hover {
-  color: #121212;
-}
-
-.account-modal__title {
-  font-size: 28px;
-  font-weight: 700;
-  margin: 0;
-  color: #121212;
-  flex: 1;
-  letter-spacing: -0.02em;
-}
-
-.account-modal__description {
-  margin-bottom: 20px;
-  color: rgba(18, 18, 18, 0.7);
-  font-size: 14px;
-  text-align: center;
-}
-
-.account-modal__form {
-  width: 100%;
-  padding: 24px 40px 32px;
-}
-
-.account-modal__field {
-  margin-bottom: 16px;
-}
-
-.account-modal__row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.account-modal__row .account-modal__field {
-  margin-bottom: 18px;
-}
-
-.account-modal__label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  color: rgba(18, 18, 18, 0.7);
-}
-
-.account-modal__input {
-  width: 100%;
-  padding: 12px 14px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 6px;
-  font-size: 15px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  box-sizing: border-box;
-  font-family: inherit;
-  background: #fff;
-}
-
-.account-modal__input:focus {
-  border-color: #0a7084;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(10, 112, 132, 0.1);
-}
-
-.account-modal__actions {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 24px;
-  margin-top: 24px;
-  flex-wrap: wrap;
-}
-
-.account-modal__button {
-  padding: 10px 24px;
-  background: #f04f36;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-family: inherit;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-
-.account-modal__button--small {
-  padding: 10px 24px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.account-modal__button:hover {
-  background: #e03d23;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(240, 79, 54, 0.3);
-}
-
-.account-modal__button--secondary {
-  background: transparent;
-  border: 1px solid rgba(18, 18, 18, 0.3);
-  color: #121212;
-}
-
-.account-modal__button--secondary:hover {
-  background: rgba(18, 18, 18, 0.05);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.account-modal__links {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
-  font-size: 13px;
-  line-height: 1.5;
-  color: rgba(18, 18, 18, 0.8);
-  flex: 1;
-  text-align: right;
-}
-
-.account-modal__link-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  white-space: nowrap;
-  justify-content: flex-end;
-}
-
-.account-modal__link-item span {
-  display: inline-block;
-  color: rgba(18, 18, 18, 0.9);
-  font-weight: 400;
-  margin-right: 4px;
-}
-
-.account-modal__links--left {
-  align-items: flex-start;
-  text-align: left;
-}
-
-.account-modal__links--left .account-modal__link-item {
-  justify-content: flex-start;
-}
-
-.account-modal__link {
-  color: #0a7084;
-  text-decoration: none;
-  transition: opacity 0.3s ease;
-  font-weight: 500;
-}
-
-.account-modal__link:hover {
-  opacity: 0.7;
-  text-decoration: underline;
-}
-
-.account-modal__error {
-  background: #fee;
-  border: 1px solid #fcc;
-  color: #c33;
-  padding: 12px 16px;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  font-size: 14px;
-}
-
-.account-modal__success {
-  background: #e8f5e9;
-  border: 1px solid #4caf50;
-  color: #2e7d32;
-  padding: 12px 16px;
-  border-radius: 6px;
-  margin-bottom: 20px;
-  font-size: 14px;
-}
-
-@media screen and (max-width: 749px) {
-  .account-modal__content {
-    padding: 30px 20px;
+  /* Modal 容器 */
+  .account-modal { position: fixed; inset: 0; display: none; z-index: 9999; }
+  .account-modal.is-open { display: block; }
+  .account-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.45); }
+  .account-modal__panel {
+    position: relative;
+    width: min(520px, calc(100% - 40px));
+    margin: 10vh auto 0;
+    background: #fff;
+    padding: 24px;
+    box-shadow: 0 18px 40px rgba(0,0,0,.12);
   }
 
-  .account-modal__row {
-    grid-template-columns: 1fr;
+  .account-modal__close {
+    position: absolute; top: 10px; right: 12px;
+    border: 0; background: transparent; font-size: 24px; line-height: 1; cursor: pointer;
   }
 
-  .account-modal__actions {
-    flex-direction: column;
-    align-items: stretch;
-  }
+  .account-modal__title { margin: 0 0 16px; font-size: 22px; font-weight: 600; }
+  .account-modal__field { margin-bottom: 14px; }
 
-  .account-modal__links {
-    align-items: flex-start;
+  /* ✅ 按你要求：不需要上方重复提示（隐藏 label，只保留 placeholder 暗文） */
+  .account-modal__label { display: none !important; }
+
+  /* ✅ 按你要求：输入框无圆角、统一风格 */
+  .account-modal__input {
     width: 100%;
+    border: 1px solid #D6D6D6;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 12px 12px;
+    background: #fff;
+    color: #222;
   }
+  .account-modal__input:focus { outline: none; border-color: #216D81; }
 
-  .account-modal__button {
+  .account-modal__btn {
     width: 100%;
+    border: 1px solid #222;
+    border-radius: 0 !important;
+    padding: 12px 12px;
+    cursor: pointer;
+    background: #222;
+    color: #fff;
+    margin-top: 6px;
   }
 
-  .account-modal__header {
-    padding: 24px 24px 20px;
-  }
+  .account-modal__links { margin-top: 12px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .account-modal__links a { text-decoration: underline; }
+  .account-modal__sep { opacity: .6; }
 
-  .account-modal__form {
-    padding: 24px 24px 32px;
-  }
-}
+  .account-modal__error { margin: 10px 0; padding: 10px; border: 1px solid #d33; }
+  .account-modal__success { margin: 10px 0; padding: 10px; border: 1px solid #2a7; }
 </style>
-
-<script>
-  function openAccountModal(formType) {
-    const modal = document.getElementById('account-modal');
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-    
-    if (formType === 'register') {
-      showRegisterForm();
-    } else if (formType === 'reset') {
-      showResetPasswordForm();
-    } else {
-      showLoginForm();
-    }
-  }
-
-  function closeAccountModal() {
-    const modal = document.getElementById('account-modal');
-    modal.style.display = 'none';
-    document.body.style.overflow = '';
-  }
-
-  function updateModalTitle(title) {
-    const titleElement = document.querySelector('.account-modal__title');
-    if (titleElement) {
-      titleElement.textContent = title;
-    }
-  }
-
-  function showLoginForm() {
-    document.getElementById('account-modal-login').style.display = 'block';
-    document.getElementById('account-modal-register').style.display = 'none';
-    document.getElementById('account-modal-reset').style.display = 'none';
-    document.getElementById('login-error').style.display = 'none';
-    document.getElementById('register-error').style.display = 'none';
-    document.getElementById('reset-error').style.display = 'none';
-    document.getElementById('reset-success').style.display = 'none';
-    updateModalTitle('Login');
-  }
-
-  function showRegisterForm() {
-    document.getElementById('account-modal-login').style.display = 'none';
-    document.getElementById('account-modal-register').style.display = 'block';
-    document.getElementById('account-modal-reset').style.display = 'none';
-    document.getElementById('login-error').style.display = 'none';
-    document.getElementById('register-error').style.display = 'none';
-    document.getElementById('reset-error').style.display = 'none';
-    document.getElementById('reset-success').style.display = 'none';
-    updateModalTitle('Create account');
-  }
-
-  function showResetPasswordForm() {
-    document.getElementById('account-modal-login').style.display = 'none';
-    document.getElementById('account-modal-register').style.display = 'none';
-    document.getElementById('account-modal-reset').style.display = 'block';
-    document.getElementById('login-error').style.display = 'none';
-    document.getElementById('register-error').style.display = 'none';
-    document.getElementById('reset-error').style.display = 'none';
-    document.getElementById('reset-success').style.display = 'none';
-    updateModalTitle('Reset your password');
-  }
-
-  // Handle form submissions - allow normal form submission
-  // Shopify will handle redirects and errors
-  document.addEventListener('DOMContentLoaded', function() {
-    // Ensure title is visible on initial load
-    const titleElement = document.querySelector('.account-modal__title');
-    if (titleElement && !titleElement.textContent.trim()) {
-      titleElement.textContent = 'Login';
-    }
-    
-    // Close modal on ESC key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeAccountModal();
-      }
-    });
-
-    // Check for URL parameters to show errors
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('form_type') === 'customer_login' || urlParams.get('form_type') === 'create_customer') {
-      openAccountModal('login');
-      // Show error if login failed
-      if (document.querySelector('.form__message')) {
-        document.getElementById('login-error').textContent = 'Incorrect email or password.';
-        document.getElementById('login-error').style.display = 'block';
-      }
-    }
-  });
-</script>
-
