@@ -9,11 +9,15 @@
       <h2 id="accountModalTitle" class="account-modal__title">Login</h2>
 
       {% form 'customer_login', novalidate: 'novalidate' %}
+        <input type="hidden" name="return_to" value="{{ request.path }}">
         {% if form.errors %}
           <div class="account-modal__error" role="alert">
             {{ form.errors | default_errors }}
           </div>
         {% endif %}
+
+        
+
 
         <div class="account-modal__field">
           <!-- ✅ 不显示上方提示，只用 placeholder（暗文） -->
