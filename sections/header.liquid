@@ -411,6 +411,84 @@
       padding-bottom: 0 !important;   /* ⭐ 关键：把底部 padding 改成 0 */
     }
   }
+
+  /* =========================
+   Header Mobile Responsive
+   ========================= */
+@media screen and (max-width: 749px) {
+  /* 取消桌面 50px padding，改成手机常规 */
+  .header-wrapper .header.page-width{
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Header 主体改成三段：左抽屉/菜单按钮 + 中logo + 右icons */
+  .header{
+    display: grid !important;
+    grid-template-columns: 44px 1fr auto !important;
+    align-items: center !important;
+    column-gap: 10px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* 你的桌面自定义 inline menu：手机端隐藏，避免挤压 */
+  .header__inline-menu{
+    display: none !important;
+  }
+
+  /* Mega menu 手机也别显示（你已有，这里再保险） */
+  .mega-menu{
+    display: none !important;
+  }
+
+  /* Logo 居中 + 不要太大 */
+  .header__heading-wrapper{
+    justify-self: center !important;
+  }
+  .header__heading-logo-wrapper{
+    max-width: 140px;  /* 你想更大就改 160/180 */
+  }
+
+  /* 右侧 icons 变紧凑 */
+  .header__icons{
+    justify-self: end !important;
+    gap: 8px !important;
+  }
+
+  /* 隐藏 “Login / My Account” 文字，只留 icon（更不挤） */
+  .header__login-link span:last-child,
+  .header__account-toggle span:last-child{
+    display: none !important;
+  }
+
+  /* account 下拉按钮别撑宽 */
+  .header__account-toggle{
+    padding: 0 !important;
+    gap: 6px !important;
+  }
+
+  /* 搜索弹窗输入框在手机端不要两列布局（你现在有 grid 两列） */
+  .predictive-search__results-groups-wrapper{
+    grid-template-columns: 1fr !important;
+    row-gap: 18px !important;
+  }
+
+  /* 搜索框高度更舒服 */
+  .search-modal__form .field__input,
+  .search-modal__form .search__input{
+    padding: 12px 14px !important;
+    border-radius: 10px !important;
+  }
+}
+
+/* 750-989 这段是平板：也建议隐藏桌面 inline menu（可选） */
+@media screen and (min-width: 750px) and (max-width: 989px){
+  .header__inline-menu{
+    display: none !important;
+  }
+}
+
 {%- endstyle -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
