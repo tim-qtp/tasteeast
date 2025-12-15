@@ -16,6 +16,7 @@
         {% endif %}
 
         <div class="account-modal__field">
+          <!-- ✅ 不显示上方提示，只用 placeholder（暗文） -->
           <label class="account-modal__label" for="CustomerEmail">Email</label>
           <input
             id="CustomerEmail"
@@ -29,6 +30,7 @@
         </div>
 
         <div class="account-modal__field">
+          <!-- ✅ 不显示上方提示，只用 placeholder（暗文） -->
           <label class="account-modal__label" for="CustomerPassword">Password</label>
           <input
             id="CustomerPassword"
@@ -45,7 +47,6 @@
 
         <div class="account-modal__links">
           <a href="#" onclick="switchAccountModal('recover'); return false;">Forgot password?</a>
-          <span class="account-modal__sep">·</span>
           <a href="{{ routes.account_register_url }}">Create account</a>
         </div>
       {% endform %}
@@ -69,6 +70,7 @@
         {% endif %}
 
         <div class="account-modal__field">
+          <!-- ✅ 不显示上方提示，只用 placeholder（暗文） -->
           <label class="account-modal__label" for="RecoverEmail">Email</label>
           <input
             id="RecoverEmail"
@@ -93,28 +95,13 @@
 
 <style>
 /* =========================
-   Minimal Account Modal
+   Minimal / Premium modal
    ========================= */
+.account-modal { position: fixed; inset: 0; display: none; z-index: 9999; }
+.account-modal.is-open { display: block; }
 
-.account-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: none;
-}
+.account-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.35); }
 
-.account-modal.is-open {
-  display: block;
-}
-
-/* 半透明背景 */
-.account-modal__backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-}
-
-/* 弹窗主体 */
 .account-modal__panel {
   position: relative;
   width: 420px;
@@ -125,93 +112,75 @@
   box-shadow: 0 20px 50px rgba(0,0,0,0.12);
 }
 
-/* 关闭按钮（极简） */
+/* close */
 .account-modal__close {
   position: absolute;
   top: 16px;
   right: 16px;
-  border: none;
-  background: none;
+  border: 0;
+  background: transparent;
   font-size: 20px;
   line-height: 1;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: .6;
 }
-.account-modal__close:hover {
-  opacity: 1;
-}
+.account-modal__close:hover { opacity: 1; }
 
-/* 标题 */
 .account-modal__title {
-  margin: 0 0 20px;
+  margin: 0 0 18px;
   font-size: 22px;
   font-weight: 500;
   letter-spacing: -0.01em;
 }
 
-/* 表单字段 */
-.account-modal__field {
-  margin-bottom: 14px;
-}
+/* field */
+.account-modal__field { margin-bottom: 14px; }
 
-/* ✅ 不显示 label，只用 placeholder */
-.account-modal__label {
-  display: none !important;
-}
+/* ✅ 核心：隐藏上方提示(label)，只留 placeholder 暗文 */
+.account-modal__label { display: none !important; }
 
-/* 输入框：细线 + 无圆角 */
 .account-modal__input {
   width: 100%;
   border: 1px solid #d6d6d6;
-  border-radius: 0;
+  border-radius: 0 !important;   /* ✅ 统一无圆角 */
   padding: 12px 12px;
   font-size: 14px;
-  box-shadow: none;
+  box-shadow: none !important;
   background: #fff;
+  color: #111;
 }
-
 .account-modal__input:focus {
   outline: none;
   border-color: #000;
 }
 
-/* 登录按钮：纯黑块 */
 .account-modal__btn {
   width: 100%;
-  margin-top: 12px;
+  margin-top: 10px;
   padding: 12px;
-  border: none;
-  border-radius: 0;
+  border: 1px solid #000;
+  border-radius: 0 !important;   /* ✅ 统一无圆角 */
   background: #000;
   color: #fff;
   font-size: 14px;
   cursor: pointer;
 }
+.account-modal__btn:hover { opacity: .9; }
 
-.account-modal__btn:hover {
-  opacity: 0.9;
-}
-
-/* 底部链接 */
 .account-modal__links {
   margin-top: 16px;
   display: flex;
   justify-content: space-between;
+  gap: 16px;
   font-size: 13px;
 }
+.account-modal__links a { color: #000; text-decoration: underline; }
 
-.account-modal__links a {
-  text-decoration: underline;
-  color: #000;
-}
-
-/* 错误 & 成功信息 */
 .account-modal__error,
 .account-modal__success {
-  margin-bottom: 12px;
-  font-size: 13px;
+  margin: 0 0 12px;
   padding: 10px;
+  font-size: 13px;
   border: 1px solid #ddd;
 }
 </style>
-
