@@ -3595,3 +3595,49 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+/* =========================
+   Minimal /account/login
+   ========================= */
+.template-customers-login,
+.template-customers-register,
+.template-customers-reset_password,
+.template-customers-activate_account {
+  background: #fff !important;
+}
+
+/* 让登录区更克制一点 */
+.template-customers-login .customer,
+.template-customers-login .page-width {
+  max-width: 520px;
+}
+
+/* 去掉那种“卡片很重”的感觉（不同主题类名可能略有差异） */
+.template-customers-login .customer form,
+.template-customers-login .customer__content,
+.template-customers-login .customer__login,
+.template-customers-login .customer .field {
+  box-shadow: none !important;
+}
+
+/* 输入框：无圆角、细线 */
+.template-customers-login .field__input,
+.template-customers-login input[type="email"],
+.template-customers-login input[type="password"] {
+  border-radius: 0 !important;
+  border: 1px solid #d6d6d6 !important;
+  box-shadow: none !important;
+}
+
+/* 只保留 placeholder：隐藏 label */
+.template-customers-login .field__label {
+  display: none !important;
+}
+
+/* 主按钮：高级黑 */
+.template-customers-login .button,
+.template-customers-login button[type="submit"] {
+  border-radius: 0 !important;
+  background: #000 !important;
+  border: 1px solid #000 !important;
+  color: #fff !important;
+}
