@@ -110,6 +110,75 @@
   .header-social-icons a:hover svg {
     stroke: #216D81;
   }
+  /* =========================
+   Mobile Responsive Top Bar
+   ========================= */
+
+/* 默认：允许换行，防止小屏挤爆 */
+.top-bar{
+  flex-wrap: wrap;
+}
+
+/* 手机：改成两行布局 + 更紧凑 */
+@media screen and (max-width: 749px) {
+  .top-bar{
+    padding: 0 16px;           /* 手机左右留白 */
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  /* 右侧块：社媒 + 语言 在一行 */
+  .top-right{
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  /* 社媒图标缩小一点 */
+  .header-social-icons svg{
+    width: 16px;
+    height: 16px;
+  }
+
+  /* 语言下拉缩小，更高级的“轻量”风格 */
+  .language-switcher select{
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 999px;      /* 胶囊 */
+  }
+
+  /* 左侧导航：改为横向滚动，不换行，不挤压 */
+  .top-links{
+    width: 100%;
+    order: 2;                  /* 放到第二行 */
+    gap: 14px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+    scrollbar-width: none;     /* Firefox 隐藏滚动条 */
+  }
+  .top-links::-webkit-scrollbar{
+    display: none;             /* Chrome/Safari 隐藏滚动条 */
+  }
+
+  /* 导航文字稍微小一点，保持一行 */
+  .top-links a,
+  .top-links a:link,
+  .top-links a:visited{
+    font-size: 14px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+}
+
+/* 超小屏（可选）：进一步紧凑 */
+@media screen and (max-width: 380px){
+  .top-bar{ padding: 0 12px; }
+  .top-links{ gap: 12px; }
+  .top-links a{ font-size: 13px; }
+}
+
 {%- endstyle -%}
 
 <div class="top-bar">
