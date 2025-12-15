@@ -92,57 +92,126 @@
 </div>
 
 <style>
-  /* Modal 容器 */
-  .account-modal { position: fixed; inset: 0; display: none; z-index: 9999; }
-  .account-modal.is-open { display: block; }
-  .account-modal__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.45); }
-  .account-modal__panel {
-    position: relative;
-    width: min(520px, calc(100% - 40px));
-    margin: 10vh auto 0;
-    background: #fff;
-    padding: 24px;
-    box-shadow: 0 18px 40px rgba(0,0,0,.12);
-  }
+/* =========================
+   Minimal Account Modal
+   ========================= */
 
-  .account-modal__close {
-    position: absolute; top: 10px; right: 12px;
-    border: 0; background: transparent; font-size: 24px; line-height: 1; cursor: pointer;
-  }
+.account-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+}
 
-  .account-modal__title { margin: 0 0 16px; font-size: 22px; font-weight: 600; }
-  .account-modal__field { margin-bottom: 14px; }
+.account-modal.is-open {
+  display: block;
+}
 
-  /* ✅ 按你要求：不需要上方重复提示（隐藏 label，只保留 placeholder 暗文） */
-  .account-modal__label { display: none !important; }
+/* 半透明背景 */
+.account-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+}
 
-  /* ✅ 按你要求：输入框无圆角、统一风格 */
-  .account-modal__input {
-    width: 100%;
-    border: 1px solid #D6D6D6;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    padding: 12px 12px;
-    background: #fff;
-    color: #222;
-  }
-  .account-modal__input:focus { outline: none; border-color: #216D81; }
+/* 弹窗主体 */
+.account-modal__panel {
+  position: relative;
+  width: 420px;
+  max-width: calc(100% - 40px);
+  margin: 12vh auto 0;
+  background: #fff;
+  padding: 32px 28px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+}
 
-  .account-modal__btn {
-    width: 100%;
-    border: 1px solid #222;
-    border-radius: 0 !important;
-    padding: 12px 12px;
-    cursor: pointer;
-    background: #222;
-    color: #fff;
-    margin-top: 6px;
-  }
+/* 关闭按钮（极简） */
+.account-modal__close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.6;
+}
+.account-modal__close:hover {
+  opacity: 1;
+}
 
-  .account-modal__links { margin-top: 12px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-  .account-modal__links a { text-decoration: underline; }
-  .account-modal__sep { opacity: .6; }
+/* 标题 */
+.account-modal__title {
+  margin: 0 0 20px;
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
 
-  .account-modal__error { margin: 10px 0; padding: 10px; border: 1px solid #d33; }
-  .account-modal__success { margin: 10px 0; padding: 10px; border: 1px solid #2a7; }
+/* 表单字段 */
+.account-modal__field {
+  margin-bottom: 14px;
+}
+
+/* ✅ 不显示 label，只用 placeholder */
+.account-modal__label {
+  display: none !important;
+}
+
+/* 输入框：细线 + 无圆角 */
+.account-modal__input {
+  width: 100%;
+  border: 1px solid #d6d6d6;
+  border-radius: 0;
+  padding: 12px 12px;
+  font-size: 14px;
+  box-shadow: none;
+  background: #fff;
+}
+
+.account-modal__input:focus {
+  outline: none;
+  border-color: #000;
+}
+
+/* 登录按钮：纯黑块 */
+.account-modal__btn {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px;
+  border: none;
+  border-radius: 0;
+  background: #000;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.account-modal__btn:hover {
+  opacity: 0.9;
+}
+
+/* 底部链接 */
+.account-modal__links {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.account-modal__links a {
+  text-decoration: underline;
+  color: #000;
+}
+
+/* 错误 & 成功信息 */
+.account-modal__error,
+.account-modal__success {
+  margin-bottom: 12px;
+  font-size: 13px;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
 </style>
+
