@@ -235,6 +235,25 @@ body.template-page-auth #MainContent::before{
   width: 100%;
   margin: 0 auto;
 }
+/* ✅ 只在 Auth 模板页：消灭 sticky header 预留的占位空白 + 让导航下方是白色 */
+body.template-page-auth .content-for-layout,
+body.template-page-auth #MainContent{
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+
+/* Dawn 常见：sticky header 会给 content-for-layout 加 padding-top */
+body.template-page-auth .shopify-section-header-sticky ~ .content-for-layout{
+  padding-top: 0 !important;
+}
+
+/* 让 header 自己在 Auth 页也变白（避免看到那块米色纹理） */
+body.template-page-auth .section-header,
+body.template-page-auth .header-wrapper,
+body.template-page-auth .header-wrapper.gradient{
+  background: #fff !important;
+  background-image: none !important;
+}
 
 </style>
 
