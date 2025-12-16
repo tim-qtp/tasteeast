@@ -1,0 +1,225 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "become_partner_hero_zmrA9i": {
+      "type": "become-partner-hero",
+      "name": "Welcome Hero Section",
+      "settings": {
+        "subheading": "LET’S BUILD SOMETHING BEAUTIFUL TOGETHER  BECOME A BRAND PARTNER AT TASTEEAST",
+        "heading": "WELCOME",
+        "subline": "ELEVATE TASTE, CULTURE, AND CRAFT",
+        "button_label": "APPLY NOW",
+        "button_link": "/pages/contact"
+      }
+    },
+    "become_partner_columns_KmhgEp": {
+      "type": "become-partner-columns",
+      "blocks": {
+        "column_9G7iyU": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/left.svg",
+            "heading": "WHY PARTNER WITH US",
+            "text": "Rooted in Silicon Valley, Connected to the World. \nFrom the heart of America’s innovation and culture hub, we help bring refined Eastern craftsmanship to homes across North America, one meaningful product at a time."
+          }
+        },
+        "column_3R7rGn": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/center.svg",
+            "heading": "HOW DOES IT WORK",
+            "text": "A letter, a meeting, a shared journey. \nSubmit your product proposal. Our curation team will reach out for further discussion. Once selected, you’ll receive tailored creative support to help your brand truly shine."
+          }
+        },
+        "column_TXUzg6": {
+          "type": "column",
+          "settings": {
+            "icon": "shopify://shop_images/right.svg",
+            "heading": "WHO WE ARE LOOKING FOR",
+            "text": "Quality is the foundation; compassion is the soul.\nWe seek brands that uphold originality and meticulous craftsmanship—yet what touches us most is the warmth behind the work: a human-centered spirit, and a heart that cares."
+          }
+        }
+      },
+      "block_order": [
+        "column_9G7iyU",
+        "column_3R7rGn",
+        "column_TXUzg6"
+      ],
+      "name": "Partner Three Columns",
+      "settings": {}
+    },
+    "become_who_looking_kLEjYh": {
+      "type": "become-who-looking",
+      "blocks": {
+        "category_giN6Qi": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/wine.jpg",
+            "title": "Wine & Spirits",
+            "description": "Boutique wineries, Asian-style spirits"
+          }
+        },
+        "category_LUtWzK": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/tea_163f5a10-dcb5-4acb-8003-e3c4d9bb6b28.jpg",
+            "title": "Wine & Spirits",
+            "description": "Boutique wineries, Asian-style spirits"
+          }
+        },
+        "category_XRmtyF": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/food_951a8c66-06e6-4691-8734-0bfe0c2a368a.jpg",
+            "title": "Wine & Spirits",
+            "description": "Boutique wineries, Asian-style spirits"
+          }
+        },
+        "category_pyxEza": {
+          "type": "category",
+          "settings": {
+            "image": "shopify://shop_images/culture.jpg",
+            "title": "Wine & Spirits",
+            "description": "Boutique wineries, Asian-style spirits"
+          }
+        }
+      },
+      "block_order": [
+        "category_giN6Qi",
+        "category_LUtWzK",
+        "category_XRmtyF",
+        "category_pyxEza"
+      ],
+      "name": "What We're Looking For",
+      "settings": {
+        "heading": "WHAT WE’RE LOOKING FOR",
+        "subheading": "We collaborate with wine producers, tea makers, artisan food brands, and cultural creators who share our values: authenticity, excellence, and aesthetics."
+      }
+    },
+    "testimonials_section_w6fWGi": {
+      "type": "testimonials-section",
+      "blocks": {
+        "testimonial_rr9cTL": {
+          "type": "testimonial",
+          "settings": {
+            "stars": 5,
+            "title": "Professional massage",
+            "text": "Amazing experience! The therapist was attentive and the space was so clean and relaxing.",
+            "author": "- Chloe. A"
+          }
+        },
+        "testimonial_LnWxQ9": {
+          "type": "testimonial",
+          "settings": {
+            "stars": 5,
+            "title": "Professional massage",
+            "text": "Amazing experience! The therapist was attentive and the space was so clean and relaxing.",
+            "author": "- Chloe. A"
+          }
+        },
+        "testimonial_UQy7jE": {
+          "type": "testimonial",
+          "settings": {
+            "stars": 5,
+            "title": "Professional massage",
+            "text": "Amazing experience! The therapist was attentive and the space was so clean and relaxing.",
+            "author": "- Chloe. A"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_rr9cTL",
+        "testimonial_LnWxQ9",
+        "testimonial_UQy7jE"
+      ],
+      "name": "Testimonials Section",
+      "settings": {
+        "heading": "OUR CLIENTS SAY"
+      }
+    },
+    "become_partner_workprocess_TmkXJR": {
+      "type": "become-partner-workprocess",
+      "blocks": {
+        "step_z6jptc": {
+          "type": "step",
+          "settings": {
+            "step_number": "1 Submit",
+            "description": "Share your partnership intent and product information"
+          }
+        },
+        "step_AnYFb8": {
+          "type": "step",
+          "settings": {
+            "step_number": "2 Selection",
+            "description": "Initial product review by our team"
+          }
+        },
+        "step_p8CAVL": {
+          "type": "step",
+          "settings": {
+            "step_number": "3 Approval",
+            "description": "In-depth discussion & product sample testing"
+          }
+        },
+        "step_A6KKV8": {
+          "type": "step",
+          "settings": {
+            "step_number": "4 Align Details",
+            "description": "Define shared goals and partnership scope"
+          }
+        },
+        "step_9aRBYB": {
+          "type": "step",
+          "settings": {
+            "step_number": "5 Sign Agreement",
+            "description": "Finalize marketing and sales strategy"
+          }
+        },
+        "step_n7VKik": {
+          "type": "step",
+          "settings": {
+            "step_number": "6 Launch Products",
+            "description": "Go live on our platform / Begin distribution"
+          }
+        }
+      },
+      "block_order": [
+        "step_z6jptc",
+        "step_AnYFb8",
+        "step_p8CAVL",
+        "step_A6KKV8",
+        "step_9aRBYB",
+        "step_n7VKik"
+      ],
+      "name": "Work Process Section",
+      "settings": {
+        "background_image": "shopify://shop_images/back.jpg",
+        "heading": "HOW DOES IT WORK"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "become_partner_hero_zmrA9i",
+    "become_partner_columns_KmhgEp",
+    "become_who_looking_kLEjYh",
+    "testimonials_section_w6fWGi",
+    "become_partner_workprocess_TmkXJR"
+  ]
+}
