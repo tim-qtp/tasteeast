@@ -1,0 +1,235 @@
+<section class="auth-page" data-auth-page>
+  <div class="page-width auth-page__inner">
+    <header class="auth-page__header">
+      <h1 class="auth-page__title" data-auth-title>Create account</h1>
+    </header>
+
+    <div class="auth-page__grid">
+      <!-- Register -->
+      <div class="auth-card auth-card--register" data-auth-panel="register">
+        <div class="auth-card__body">
+          {% form 'create_customer', novalidate: 'novalidate', class: 'auth-form', id: 'AuthRegisterForm' %}
+
+            <!-- ✅ 最关键：回跳地址（避免注册后乱跳/二次跳） -->
+            <input type="hidden" name="return_to" value="/account" />
+
+            {% if form.errors %}
+              <div class="auth-errors">
+                {{ form.errors | default_errors }}
+              </div>
+            {% endif %}
+
+            <div class="auth-row auth-row--2">
+              <div class="auth-field">
+                <input type="text" name="customer[first_name]" autocomplete="given-name" placeholder="First name" class="auth-input">
+              </div>
+              <div class="auth-field">
+                <input type="text" name="customer[last_name]" autocomplete="family-name" placeholder="Last name" class="auth-input">
+              </div>
+            </div>
+
+            <div class="auth-field">
+              <input type="email" name="customer[email]" autocomplete="email" placeholder="Email" class="auth-input" required>
+            </div>
+
+            <div class="auth-field">
+              <input type="password" name="customer[password]" autocomplete="new-password" placeholder="Password" class="auth-input" required>
+            </div>
+
+            {% assign reg_submit = 'customer.register.submit' | t %}
+            {% if reg_submit contains 'Translation missing' %}{% assign reg_submit = 'Create' %}{% endif %}
+
+            <button class="auth-btn" type="submit" data-auth-submit>{{ reg_submit }}</button>
+
+            <p class="auth-note">
+              Returning customer?
+              <a class="auth-link" href="#login" data-auth-switch="login">Sign in</a>
+            </p>
+          {% endform %}
+        </div>
+      </div>
+
+      <!-- Login -->
+      <div class="auth-card auth-card--login" data-auth-panel="login">
+        <div class="auth-card__body">
+          {% form 'customer_login', novalidate: 'novalidate', class: 'auth-form', id: 'AuthLoginForm' %}
+
+            <!-- ✅ 最关键：回跳地址 -->
+            <input type="hidden" name="return_to" value="/account" />
+
+            {% if form.errors %}
+              <div class="auth-errors">
+                {{ form.errors | default_errors }}
+              </div>
+            {% endif %}
+
+            <div class="auth-field">
+              <input type="email" name="customer[email]" autocomplete="email" placeholder="Email" class="auth-input" required>
+            </div>
+
+            <div class="auth-field">
+              <input type="password" name="customer[password]" autocomplete="current-password" placeholder="Password" class="auth-input" required>
+            </div>
+
+            {% assign sign_in = 'customer.login.sign_in' | t %}
+            {% if sign_in contains 'Translation missing' %}{% assign sign_in = 'Sign in' %}{% endif %}
+
+            <button class="auth-btn" type="submit" data-auth-submit>{{ sign_in }}</button>
+
+            <p class="auth-note">
+              <a class="auth-link" href="{{ routes.account_recover_url }}">Forgot password?</a>
+              <span style="margin:0 8px;">·</span>
+              <a class="auth-link" href="#register" data-auth-switch="register">Create account</a>
+            </p>
+          {% endform %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  /* 白底：只作用在这个 section 内，不去动 header 结构，避免和主题 sticky 逻辑打架 */
+  .auth-page{
+    background:#fff;
+    padding: 28px 0 90px;
+    height：1080px;
+  }
+
+  .auth-page__header{
+    text-align:center;
+    margin-bottom: 26px;
+  }
+
+  .auth-page__title{
+    margin: 0;
+    font-size: 44px;
+    line-height: 1.1;
+    font-weight: 700;
+    color:#111;
+  }
+
+  /* ✅ 永远单列 + 居中（你现在想先跑通逻辑最稳） */
+  .auth-page__grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 22px;
+  }
+
+  .auth-card{
+    width: 100%;
+    max-width: 420px;
+    background:#fff;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+  }
+
+  .auth-form{ display:grid; gap: 14px; }
+  .auth-row--2{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .auth-input{
+    width:100%;
+    border: 1px solid #e3e3e3;
+    border-radius: 8px;
+    padding: 12px 14px;
+    background:#fff;
+    color:#111;
+  }
+  .auth-input:focus{ outline:none; border-color:#111; }
+
+  .auth-btn{
+    width: 140px;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    cursor: pointer;
+    background:#e85b4f;
+    color:#fff;
+    font-weight: 600;
+  }
+
+  .auth-note{ margin: 6px 0 0; color:#666; }
+  .auth-link{ color:#1f7ea0; text-decoration: underline; }
+
+  .auth-errors{
+    background:#fff6f6;
+    border:1px solid #ffd5d5;
+    padding:10px 12px;
+    border-radius:10px;
+  }
+
+  /* 默认隐藏登录面板，由 JS 控制显示 */
+  .auth-card--login{ display:none; }
+</style>
+
+<script>
+  (function () {
+    var root = document.querySelector('[data-auth-page]');
+    if (!root) return;
+
+    var titleEl = root.querySelector('[data-auth-title]');
+    var panelRegister = root.querySelector('[data-auth-panel="register"]');
+    var panelLogin = root.querySelector('[data-auth-panel="login"]');
+
+    function show(panel) {
+      if (!panelRegister || !panelLogin) return;
+
+      var isLogin = (panel === 'login');
+      panelRegister.style.display = isLogin ? 'none' : 'block';
+      panelLogin.style.display = isLogin ? 'block' : 'none';
+
+      if (titleEl) titleEl.textContent = isLogin ? 'Sign in' : 'Create account';
+
+      // 更新 hash（不刷新页面）
+      var newHash = isLogin ? '#login' : '#register';
+      if (window.location.hash !== newHash) history.replaceState(null, '', window.location.pathname + newHash);
+    }
+
+    function applyHash() {
+      var h = (window.location.hash || '').toLowerCase();
+      if (h === '#login' || h === '#auth-login') show('login');
+      else show('register');
+    }
+
+    // 点击切换
+    root.addEventListener('click', function (e) {
+      var a = e.target.closest('[data-auth-switch]');
+      if (!a) return;
+      e.preventDefault();
+      show(a.getAttribute('data-auth-switch'));
+    });
+
+    // 防止重复提交（注册/登录都生效）
+    root.addEventListener('submit', function (e) {
+      var form = e.target.closest('form');
+      if (!form) return;
+
+      if (form.dataset.submitting === '1') {
+        e.preventDefault();
+        return;
+      }
+      form.dataset.submitting = '1';
+
+      var btn = form.querySelector('[data-auth-submit]');
+      if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+        btn.textContent = 'Please wait...';
+      }
+    }, true);
+
+    window.addEventListener('hashchange', applyHash);
+    applyHash();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Auth Page",
+  "settings": []
+}
+{% endschema %}

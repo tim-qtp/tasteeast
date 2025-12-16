@@ -1,5 +1,137 @@
 {{ 'section-faq-page.css' | asset_url | stylesheet_tag }}
 
+{%- style -%}
+  /* 整体 FAQ 区域收窄并居中，对齐上下内容 */
+  .faq-page.page-width {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* 上方分类卡片区域：三列网格布局 */
+  .faq-categories {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    justify-items: center;
+    margin-top: 24px;
+  }
+
+  .faq-category-card {
+    max-width: 260px;
+    width: 100%;
+    padding: 24px 20px;
+  }
+
+  /* 卡片上的标题（Orders / Shipping 等）稍微小一点 */
+  .faq-category-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 12px;
+  }
+
+  /* 下方问题区域与上面卡片左右对齐 */
+  .faq-category-section {
+    max-width: 960px;
+    margin: 40px auto 0;
+  }
+
+  /* 下方每块“Orders / Shipping …”标题字号调小一点 */
+  .faq-category-section__title {
+    font-size: 18px;        /* 比默认小两号左右 */
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .faq-accordion {
+    margin-top: 16px;
+  }
+
+  /* ====== 问题 & 回答 统一样式 ====== */
+
+  /* 问题行（summary）样式：字体加粗，颜色统一 */
+  .faq-accordion__question {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;       /* 问题加粗 */
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+  }
+
+  /* 去掉 summary 默认的小三角 */
+  .faq-accordion__question::-webkit-details-marker {
+    display: none;
+  }
+
+  /* 回答内容：同一字体字号颜色，正常字重 */
+  .faq-accordion__answer {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 8px;
+  }
+
+  .faq-accordion__answer p {
+    margin: 0 0 8px;
+  }
+
+  /* 每个问题之间分隔线稍微深一点 */
+  .faq-accordion__item {
+    border-top: 1px solid #ddd;   /* 比默认稍深 */
+    padding: 12px 0;
+  }
+
+  .faq-accordion__item:last-child {
+    border-bottom: 1px solid #ddd;
+  }
+
+  /* ========= 下拉动画效果 ========== */
+
+  /* 答案区域默认收起：高度 0 + 透明 */
+  .faq-accordion__answer {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+  }
+
+  /* details 展开时（有 open 属性） */
+  .faq-accordion__item[open] .faq-accordion__answer {
+    max-height: 600px;   /* 根据你答案长度调，可以 400~800 之间 */
+    opacity: 1;
+  }
+
+  /* 小箭头旋转动画 */
+  .faq-accordion__icon {
+    transition: transform 0.3s ease;
+    margin-left: 12px;
+    flex-shrink: 0;
+  }
+
+  .faq-accordion__item[open] .faq-accordion__icon {
+    transform: rotate(180deg);
+  }
+
+  @media (max-width: 767px) {
+    .faq-categories {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .faq-category-card {
+      max-width: 100%;
+    }
+
+    .faq-category-section {
+      margin-top: 32px;
+    }
+  }
+{%- endstyle -%}
+
 <div class="faq-page page-width">
   {%- if section.settings.heading != blank -%}
     <h1 class="faq-page__heading">{{ section.settings.heading }}</h1>
@@ -16,8 +148,10 @@
         <div class="faq-category-card" data-target="#category-{{ category.id }}" {{ category.shopify_attributes }}>
           <div class="faq-category-icon">
             {%- if category.settings.icon == 'orders' -%}
+              <!-- Orders 图标：订单清单样式 -->
               <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 10h20v20h-20z M15 15h10v10h-10z M20 10v5 M25 15h5 M25 20h5 M20 25v5 M15 20h-5 M15 15h-5" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <rect x="12" y="10" width="16" height="20" rx="2" ry="2" stroke="#333" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M15 15h10M15 19h8M15 23h6" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
             {%- elsif category.settings.icon == 'shipping' -%}
               <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -32,8 +166,16 @@
                 <path d="M12 12h16v12l-8 6-8-6v-12z M16 16h8 M16 20h8 M16 24h8" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             {%- elsif category.settings.icon == 'wholesale' -%}
+              <!-- Wholesale 图标：叠放的箱子/货物 -->
               <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 18h16v12h-16z M16 14h8v4h-8z M16 22h3 M16 26h3 M23 22h3 M23 26h3" stroke="#333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- 上层箱子 -->
+                <rect x="16" y="8" width="8" height="8" stroke="#333" stroke-width="1.5" stroke-linejoin="round"/>
+                <!-- 下层左箱子 -->
+                <rect x="10" y="18" width="8" height="8" stroke="#333" stroke-width="1.5" stroke-linejoin="round"/>
+                <!-- 下层右箱子 -->
+                <rect x="22" y="18" width="8" height="8" stroke="#333" stroke-width="1.5" stroke-linejoin="round"/>
+                <!-- 仓库地面 -->
+                <path d="M10 28h20" stroke="#333" stroke-width="1.5" stroke-linecap="round"/>
               </svg>
             {%- elsif category.settings.icon == 'giftcard' -%}
               <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -70,11 +212,9 @@
 
     <!-- FAQ Content Sections -->
     {%- for category in categories -%}
-      {%- comment -%} Find questions that belong to this category {%- endcomment -%}
       {%- assign category_title_normalized = category.settings.title | strip | downcase -%}
       {%- assign question_count = 0 -%}
       
-      {%- comment -%} Count matching questions first {%- endcomment -%}
       {%- for question in questions -%}
         {%- if question.settings.category_title != blank -%}
           {%- assign question_category = question.settings.category_title | strip | downcase -%}
@@ -188,46 +328,16 @@
           "label": "Icon",
           "info": "Select an icon to display on the category card",
           "options": [
-            {
-              "value": "orders",
-              "label": "Orders"
-            },
-            {
-              "value": "shipping",
-              "label": "Shipping"
-            },
-            {
-              "value": "returns",
-              "label": "Returns"
-            },
-            {
-              "value": "warranty",
-              "label": "Warranty"
-            },
-            {
-              "value": "wholesale",
-              "label": "Wholesale"
-            },
-            {
-              "value": "giftcard",
-              "label": "Gift Cards"
-            },
-            {
-              "value": "payment",
-              "label": "Payment"
-            },
-            {
-              "value": "account",
-              "label": "Account"
-            },
-            {
-              "value": "product",
-              "label": "Product"
-            },
-            {
-              "value": "general",
-              "label": "General"
-            }
+            { "value": "orders",   "label": "Orders" },
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "returns",  "label": "Returns" },
+            { "value": "warranty", "label": "Warranty" },
+            { "value": "wholesale","label": "Wholesale" },
+            { "value": "giftcard", "label": "Gift Cards" },
+            { "value": "payment",  "label": "Payment" },
+            { "value": "account",  "label": "Account" },
+            { "value": "product",  "label": "Product" },
+            { "value": "general",  "label": "General" }
           ],
           "default": "orders"
         }

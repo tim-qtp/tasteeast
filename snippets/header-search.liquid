@@ -60,11 +60,7 @@
               {{- 'icon-close.svg' | inline_asset_content -}}
             </span>
           </button>
-          <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
-            <span class="svg-wrapper">
-              {{- 'icon-search.svg' | inline_asset_content -}}
-            </span>
-          </button>
+
         </div>
 
         {%- if settings.predictive_search_enabled -%}
@@ -172,3 +168,23 @@
     });
   });
 </script>
+
+<style>
+  .search-no-results {
+    max-width: 800px;
+    margin: 40px auto 20px;
+    padding: 24px 20px;
+    text-align: left;
+  }
+
+  .search-no-results__title {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .search-no-results__text {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+</style>
+

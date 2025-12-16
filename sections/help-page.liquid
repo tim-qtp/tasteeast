@@ -1,3 +1,48 @@
+{%- style -%}
+  /* 整个 Help Page 文字使用 Carlito */
+  .help-page-container,
+  .help-page-container * {
+    font-family: 'Carlito', sans-serif !important;
+  }
+
+  /* 居中整个内容 */
+  .help-page-inner {
+    max-width: 800px;
+    margin: 0 auto; /* ← 居中核心代码 */
+  }
+  
+
+  /* 表单每一项标签 & 输入框靠左对齐（可选） */
+  .form-row,
+  .form-field {
+    text-align: left;
+  }
+
+  /* 让表单元素宽度更协调 */
+  .form-field input,
+  .form-field textarea {
+    width: 100%;
+  }
+
+  /* 按钮居中 + 调整样式 */
+.submit-btn {
+  display: inline-block;
+  margin: 20px 0 0 0; /* 顶部间距，可以调整 */
+  background: #d2232a;
+  color: #fff;
+  padding: 14px 32px; /* 稍微更精致的尺寸 */
+  font-family: 'Carlito', sans-serif !important;
+  font-size: 16px;
+  border-radius: 0px !important; /* ← 圆角重点 */
+  border: none;
+  cursor: pointer;
+}
+
+  .submit-btn:hover {
+    background: #a1191f;
+  }
+{%- endstyle -%}
+
 {{ 'section-help-page.css' | asset_url | stylesheet_tag }}
 
 <div class="help-page-container">
@@ -31,22 +76,22 @@
 
           <div class="form-row">
             <div class="form-field">
-              <label>Name</label>
+              <label></label>
               <input type="text" name="contact[Name]" placeholder="Enter your name" required>
             </div>
             <div class="form-field">
-              <label>Email</label>
+              <label></label>
               <input type="email" name="contact[email]" placeholder="your@email.com" required>
             </div>
           </div>
 
           <div class="form-field">
-            <label>Phone Number</label>
+            <label></label>
             <input type="tel" name="contact[Phone Number]" placeholder="(123) 456-7890">
           </div>
 
           <div class="form-field">
-            <label>Message</label>
+            <label></label>
             <textarea name="contact[Message]" rows="6" placeholder="How can we help you?" required></textarea>
           </div>
 

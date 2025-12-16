@@ -14,16 +14,16 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
-        "announcement_aXmrbC": {
+        "announcement_X9gjmX": {
           "type": "announcement",
           "settings": {
-            "text": "Now Offering Free Shipping For Pre-Order, No Matter What You Choose",
+            "text": "We offer free shipping on all orders！",
             "link": ""
           }
         }
       },
       "block_order": [
-        "announcement_aXmrbC"
+        "announcement_X9gjmX"
       ],
       "settings": {
         "auto_rotate": false,
@@ -40,10 +40,10 @@
       "custom_css": [],
       "name": "t:sections.custom-liquid.presets.name",
       "settings": {
-        "custom_liquid": "<style>\n.custom-top-bar {display: flex; justify-content: space-between; align-items: center; padding: 8px 20px; border-bottom: 1px solid #eee; background: white; font-size: 14px;}\n.custom-top-bar a {margin-right: 20px; color: #333; text-decoration: none; position: relative; padding-bottom: 2px; transition: all 0.3s ease;}\n.custom-top-bar a:hover {color: #0a7084; font-weight: 500;}\n.custom-top-bar a:after {content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background-color: #0a7084; transition: width 0.3s ease;}\n.custom-top-bar a:hover:after {width: 100%;}\n.top-icons a i {font-size: 18px; margin-right: 12px;}\n</style>\n<div class=\"custom-top-bar\">\n  <div class=\"top-links\">\n    <a href=\"/pages/faq\">FAQ</a>\n    <a href=\"/pages/cooperation\">Cooperation</a>\n    <a href=\"/pages/help\">Help</a>\n    <a href=\"/pages/shipping-return\">Shipping & Return</a>\n  </div>",
+        "custom_liquid": "<style>\n.section-{{ section.id }}-padding,\n  .section-{{ section.id }}-padding * {\n    font-family: 'Carlito', sans-serif !important;\n  }\n\n  /* 链接：去掉下划线，只用颜色区分 */\n  .section-{{ section.id }}-padding a {\n    text-decoration: none !important;\n    color: inherit;\n  }\n\n  .section-{{ section.id }}-padding a:hover,\n  .section-{{ section.id }}-padding a:focus {\n    text-decoration: none;\n    color: #d2232a; /* 这里换成你想要的高亮颜色 */\n  }\n\n  .section-{{ section.id }}-padding a:active {\n    text-decoration: none;\n    color: #a1191f; /* 点击按住时的颜色（可选） */\n  }\n\n  .section-{{ section.id }}-padding {\n    padding-top: calc({{ section.settings.padding_top }}px * 0.75);\n    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.75);\n  }\n</style>",
         "color_scheme": "scheme-2",
         "padding_top": 0,
-        "padding_bottom": 8
+        "padding_bottom": 0
       }
     },
     "header": {

@@ -76,11 +76,292 @@
       padding-top: 0.5rem;
     }
   }
+
+  /* 新增：让 HOME / Category / About / Contact 之间有间距 */
+  .header__inline-menu {
+    margin-left: 3rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .header__inline-menu .header__inline-menu-item {
+    margin-right: 2.4rem;   /* 调大 or 调小可以自己改 */
+  }
+
+  .header__inline-menu .header__inline-menu-item:last-child {
+    margin-right: 0;
+  }
+  header-drawer {
+    justify-self: start;
+    margin-left: -1.2rem;
+  }
+
+  {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
+    .scrolled-past-header .header__heading-logo-wrapper {
+      width: 75%;
+    }
+  {%- endif -%}
+
+  {%- if section.settings.menu_type_desktop != "drawer" -%}
+    @media screen and (min-width: 990px) {
+      header-drawer {
+        display: none;
+      }
+    }
+  {%- endif -%}
+
+  .menu-drawer-container {
+    display: flex;
+  }
+
+  .list-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .list-menu--inline {
+    display: inline-flex;
+    flex-wrap: wrap;
+  }
+
+  summary.list-menu__item {
+    padding-right: 2.7rem;
+  }
+
+  .list-menu__item {
+    display: flex;
+    align-items: center;
+    line-height: calc(1 + 0.3 / var(--font-body-scale));
+  }
+
+  .list-menu__item--link {
+    text-decoration: none;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    line-height: calc(1 + 0.8 / var(--font-body-scale));
+  }
+
+     /* =========================
+     Search 弹窗样式重置（Header 里的弹窗）
+     ========================= */
+
+  /* 整个表单区域：居中 + 更长 */
+  .search-modal__form {
+    max-width: 960px;           /* 想更长就改这里，比如 960 */
+    margin: 0 auto;
+  }
+
+  .search-modal__form .field {
+    width: 100%;
+  }
+
+  /* 细线 + 绿色边框 + 白色底色 */
+  .search-modal__form .field__input,
+  .search-modal__form .search__input {
+    border: 1px solid #216D81;  /* 绿色，按你原需求色号，可替换 */
+    border-radius: 4px;
+    box-shadow: none;
+    padding-left: 14px;
+    padding-right: 14px;
+    background: #FFFFFF;
+    color: #222222;             /* 防止出现“白字看不见”的情况 */
+  }
+
+  .search-modal__form .field__input::placeholder,
+  .search-modal__form .search__input::placeholder {
+    color: #888888;
+  }
+
+  .search-modal__form .field__input:focus,
+  .search-modal__form .search__input:focus {
+    outline: none;
+    border-color: #216D81;
+    box-shadow: none;
+  }
+
+  /* 去掉输入框里边的放大镜按钮（只保留弹窗右上角 X） */
+  .search-modal__form .search__button,
+  .search-modal__form .field__button,
+  .search-modal__form .icon-search {
+    display: none !important;
+  }
+
+  /* 彻底隐藏 Shopify 默认的放大镜图标 */
+.search__form .icon-search,
+.field__input + .icon-search {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+
+  /* 预测搜索结果区域，统一文字颜色，避免“白字中文” */
+  .predictive-search,
+  .predictive-search * {
+    color: #222222;
+  }
+
+
+
+  @media screen and (min-width: 750px) {
+    .list-menu__item--link {
+      padding-bottom: 0.5rem;
+      padding-top: 0.5rem;
+    }
+  }
+
+  /* =========================
+     Category Mega Menu 样式
+     ========================= */
+ .header__inline-menu {
+    margin-left: 3rem;
+    display: flex;
+    align-items: center;
+  }
+
+  .header__inline-menu-item--mega {
+    position: relative;
+  }
+
+  .mega-menu__toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font: inherit;
+    color: inherit;
+  }
+
+  .mega-menu__caret {
+    font-size: 0.85em;
+  }
+
+  .mega-menu {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 100vw;
+    transform: translateX(calc(-50vw + 50%));
+    background: #ffffff;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+    padding: 28px 0 32px;
+    display: none;
+    z-index: 30;
+  }
+
+  .header__inline-menu-item--mega.is-open .mega-menu,
+  .header__inline-menu-item--mega:hover .mega-menu,
+  .header__inline-menu-item--mega:focus-within .mega-menu {
+    display: block;
+  }
+
+  .mega-menu__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 50px;  /* 和 top bar / header 左右对齐 */
+  }
+
+  /* 整体布局：左边文字，右边图片 */
+  .mega-menu__layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1.6fr);
+    gap: 48px;
+    align-items: flex-start;
+  }
+
+  /* 左侧 4 组栏目：2 列 */
+  .mega-menu__nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px 48px;
+  }
+
+  .mega-menu__column {
+    min-width: 0;
+  }
+
+  .mega-menu__heading {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 12px;
+  }
+
+  .mega-menu__heading a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .mega-menu__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mega-menu__item + .mega-menu__item {
+    margin-top: 8px;
+  }
+
+  .mega-menu__link {
+    text-decoration: none;
+    color: #444;
+    font-size: 16px;
+  }
+
+  .mega-menu__link:hover {
+    color: #000;
+  }
+
+  /* 右侧两张大图区域 */
+  .mega-menu__promo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .mega-menu__promo-card {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .mega-menu__promo-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .mega-menu__promo-text {
+    margin-top: 8px;
+    font-size: 16px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .mega-menu {
+      display: none !important; /* 桌面 mega menu 不在移动端显示 */
+    }
+  }
 </style>
 
 {%- style -%}
+
   .header {
     padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
+  }
+
+  /* 让 Header 跟 top bar 一样从左/右顶到 50px */
+  .header-wrapper .header.page-width {
+    max-width: 100%;      /* 取消居中限制 */
+    padding-left: 50px;   /* 和 top bar 的 0 50px 对齐 */
+    padding-right: 50px;
+  }
+
+  .section-header {
+    position: sticky;
+    margin-bottom: {{ section.settings.margin_bottom | times: 0.75 | round: 0 }}px;
   }
 
   .section-header {
@@ -100,6 +381,114 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .header {
+    /* 上下内边距：上保留一点，下设为 0 */
+    padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem 0 3rem;
+  }
+
+  .header-wrapper .header.page-width {
+    max-width: 100%;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  /* 取消 Header section 自己底部的间距 */
+  .section-header {
+    position: sticky;
+    margin-bottom: 0 !important;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-header {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .header {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: 0 !important;   /* ⭐ 关键：把底部 padding 改成 0 */
+    }
+  }
+
+  /* =========================
+   Header Mobile Responsive
+   ========================= */
+@media screen and (max-width: 749px) {
+  /* 取消桌面 50px padding，改成手机常规 */
+  .header-wrapper .header.page-width{
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  /* Header 主体改成三段：左抽屉/菜单按钮 + 中logo + 右icons */
+  .header{
+    display: grid !important;
+    grid-template-columns: 44px 1fr auto !important;
+    align-items: center !important;
+    column-gap: 10px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  /* 你的桌面自定义 inline menu：手机端隐藏，避免挤压 */
+  .header__inline-menu{
+    display: none !important;
+  }
+
+  /* Mega menu 手机也别显示（你已有，这里再保险） */
+  .mega-menu{
+    display: none !important;
+  }
+
+  /* Logo 居中 + 不要太大 */
+  .header__heading-wrapper{
+    justify-self: center !important;
+  }
+  .header__heading-logo-wrapper{
+    max-width: 140px;  /* 你想更大就改 160/180 */
+  }
+
+  /* 右侧 icons 变紧凑 */
+  .header__icons{
+    justify-self: end !important;
+    gap: 8px !important;
+  }
+
+  /* 隐藏 “Login / My Account” 文字，只留 icon（更不挤） */
+  .header__login-link span:last-child,
+  .header__account-toggle span:last-child{
+    display: none !important;
+  }
+
+  /* account 下拉按钮别撑宽 */
+  .header__account-toggle{
+    padding: 0 !important;
+    gap: 6px !important;
+  }
+
+  /* 搜索弹窗输入框在手机端不要两列布局（你现在有 grid 两列） */
+  .predictive-search__results-groups-wrapper{
+    grid-template-columns: 1fr !important;
+    row-gap: 18px !important;
+  }
+
+  /* 搜索框高度更舒服 */
+  .search-modal__form .field__input,
+  .search-modal__form .search__input{
+    padding: 12px 14px !important;
+    border-radius: 10px !important;
+  }
+}
+
+/* 750-989 这段是平板：也建议隐藏桌面 inline menu（可选） */
+@media screen and (min-width: 750px) and (max-width: 989px){
+  .header__inline-menu{
+    display: none !important;
+  }
+}
+
 {%- endstyle -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>
@@ -188,15 +577,99 @@
       </div>
     {%- endif -%}
 
-    {%- liquid
-      if section.settings.menu != blank
-        if section.settings.menu_type_desktop == 'dropdown'
-          render 'header-dropdown-menu'
-        elsif section.settings.menu_type_desktop != 'drawer'
-          render 'header-mega-menu'
-        endif
-      endif
-    %}
+    {%- if section.settings.menu != blank -%}
+      <!-- 自定义桌面导航 + Category Mega Menu -->
+      <nav class="header__inline-menu">
+        <ul class="list-menu list-menu--inline" role="list">
+          {% for link in section.settings.menu.links %}
+{% if link.title == 'Category' %}
+  <li class="list-menu__item header__inline-menu-item header__inline-menu-item--mega">
+    <button class="list-menu__item list-menu__item--link mega-menu__toggle" type="button">
+      {{ link.title }}
+      <span class="mega-menu__caret">▾</span>
+    </button>
+
+    <div class="mega-menu" data-mega-menu>
+      <div class="mega-menu__inner">
+        <div class="mega-menu__layout">
+
+          <div class="mega-menu__nav">
+            <div class="mega-menu__column">
+              <h3 class="mega-menu__heading">Kitchen</h3>
+              <ul class="mega-menu__list" role="list">
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Kitchen Tools</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Organization</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Pots &amp; Pans</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Cookbooks</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Food &amp; Drink</a></li>
+              </ul>
+            </div>
+
+            <div class="mega-menu__column">
+              <h3 class="mega-menu__heading">Bar</h3>
+              <ul class="mega-menu__list" role="list">
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Glassware</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Bar Tools</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Wine Gifts</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Storage Racks</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Serveware</a></li>
+              </ul>
+            </div>
+
+            <div class="mega-menu__column">
+              <h3 class="mega-menu__heading">Home Goods</h3>
+              <ul class="mega-menu__list" role="list">
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Bed &amp; Bath</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Home Decor</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Art &amp; Posters</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Office</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Textiles</a></li>
+              </ul>
+            </div>
+
+            <div class="mega-menu__column">
+              <h3 class="mega-menu__heading">Kids</h3>
+              <ul class="mega-menu__list" role="list">
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Books</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Apparel</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Arts &amp; Crafts</a></li>
+                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Toys &amp; Games</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mega-menu__promo">
+            <a href="#" class="mega-menu__promo-card">
+              <img src="{{ 'mega-kitchen.jpg' | file_url }}" alt="" class="mega-menu__promo-image">
+              <p class="mega-menu__promo-text">Get 15% with code "COOK15"</p>
+            </a>
+
+            <a href="#" class="mega-menu__promo-card">
+              <img src="{{ 'mega-bed-bath.jpg' | file_url }}" alt="" class="mega-menu__promo-image">
+              <p class="mega-menu__promo-text">Browse our new bed &amp; bath arrivals</p>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </li>
+{% else %}
+  <li class="list-menu__item header__inline-menu-item">
+    <a href="{{ link.url }}" class="list-menu__item list-menu__item--link link">
+      {{ link.title }}
+    </a>
+  </li>
+{% endif %}
+
+
+
+
+
+          {% endfor %}
+        </ul>
+      </nav>
+    {%- endif -%}
 
     {%- if section.settings.logo_position == 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
@@ -257,42 +730,52 @@
       </div>
       {% render 'header-search', input_id: 'Search-In-Modal' %}
 
-      {%- if shop.customer_accounts_enabled -%}
-        {%- if customer -%}
-          <div class="header__account-dropdown{% if section.settings.menu != blank %} small-hide{% endif %}">
-            <button 
-              class="header__account-toggle" 
-              onclick="toggleAccountDropdown()"
-              aria-expanded="false"
-              aria-controls="account-dropdown-menu"
-            >
-              <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-              <span>My Account</span>
-              <svg class="icon-caret" width="10" height="6" viewBox="0 0 10 6" fill="none">
-                <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-              </svg>
-            </button>
-            <div class="header__account-menu" id="account-dropdown-menu" style="display: none;">
-              <a href="{{ routes.account_url }}" class="header__account-menu-item">
-                My Account
-              </a>
-              <a href="{{ routes.account_logout_url }}" class="header__account-menu-item">
-                Log out
-              </a>
-            </div>
-          </div>
-        {%- else -%}
-          <a
-            href="#"
-            onclick="openAccountModal('login'); return false;"
-            class="header__login-link link{% if section.settings.menu != blank %} small-hide{% endif %}"
-            rel="nofollow"
-          >
-            <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-            <span>Login</span>
-          </a>
-        {%- endif -%}
-      {%- endif -%}
+     {%- if shop.customer_accounts_enabled -%}
+  {%- if customer -%}
+    <div class="header__account-dropdown{% if section.settings.menu != blank %} small-hide{% endif %}">
+      <button 
+        class="header__account-toggle" 
+        onclick="toggleAccountDropdown()"
+        aria-expanded="false"
+        aria-controls="account-dropdown-menu"
+      >
+        <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+        <span>My Account</span>
+        <svg class="icon-caret" width="10" height="6" viewBox="0 0 10 6" fill="none">
+          <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      <div class="header__account-menu" id="account-dropdown-menu" style="display: none;">
+        <a href="{{ routes.account_url }}" class="header__account-menu-item">
+          My Account
+        </a>
+        <a href="{{ routes.account_logout_url }}" class="header__account-menu-item">
+          Log out
+        </a>
+      </div>
+    </div>
+  {%- else -%}
+    {%- comment -%}
+      ✅ 优化：未登录时不再弹窗提交登录，而是跳 Shopify 原生登录页（最稳）
+      登录后会自动回到 /account
+    {%- endcomment -%}
+   {%- assign auth_page = pages['auth'] -%}
+
+<a
+  href="/pages/auth"
+  class="header__login-link link{% if section.settings.menu != blank %} small-hide{% endif %}"
+  rel="nofollow"
+>
+  <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
+  <span>Login</span>
+</a>
+
+
+
+  {%- endif -%}
+{%- endif -%}
+
 
       {%- for block in section.blocks -%}
         {%- case block.type -%}
@@ -321,9 +804,6 @@
   </header>
 </{{ header_tag }}>
 
-{%- if shop.customer_accounts_enabled -%}
-  {% render 'account-modal' %}
-{%- endif -%}
 
 {%- if settings.cart_type == 'notification' -%}
   {%- render 'cart-notification',
@@ -446,6 +926,70 @@
   customElements.define('sticky-header', StickyHeader);
 {% endjavascript %}
 
+<script>
+  /* Category mega menu 点击展开 / 点击外面关闭 */
+  document.addEventListener('DOMContentLoaded', function() {
+    var megaItems = document.querySelectorAll('.header__inline-menu-item--mega');
+
+    megaItems.forEach(function(item) {
+      var toggle = item.querySelector('.mega-menu__toggle');
+      if (!toggle) return;
+
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        var isOpen = item.classList.contains('is-open');
+
+        document.querySelectorAll('.header__inline-menu-item--mega.is-open').forEach(function(openItem) {
+          if (openItem !== item) {
+            openItem.classList.remove('is-open');
+          }
+        });
+
+        if (!isOpen) {
+          item.classList.add('is-open');
+        } else {
+          item.classList.remove('is-open');
+        }
+      });
+    });
+
+    document.addEventListener('click', function(e) {
+      var insideMega = e.target.closest('.header__inline-menu-item--mega');
+      if (!insideMega) {
+        document.querySelectorAll('.header__inline-menu-item--mega.is-open').forEach(function(openItem) {
+          openItem.classList.remove('is-open');
+        });
+      }
+    });
+  });
+
+  function toggleAccountDropdown() {
+    const menu = document.getElementById('account-dropdown-menu');
+    const toggle = document.querySelector('.header__account-toggle');
+    if (!menu || !toggle) return;
+
+    const isOpen = menu.style.display === 'block';
+    if (isOpen) {
+      menu.style.display = 'none';
+      toggle.setAttribute('aria-expanded', 'false');
+    } else {
+      menu.style.display = 'block';
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+  }
+
+  document.addEventListener('click', function(event) {
+    const dropdown = document.querySelector('.header__account-dropdown');
+    const menu = document.getElementById('account-dropdown-menu');
+    const toggle = document.querySelector('.header__account-toggle');
+
+    if (dropdown && menu && !dropdown.contains(event.target)) {
+      menu.style.display = 'none';
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
+
 <script type="application/ld+json">
   {
     "@context": "http://schema.org",
@@ -483,8 +1027,85 @@
       },
       "url": {{ request.origin | append: page.url | json }}
     }
+
+
   </script>
 {%- endif -%}
+
+<style>
+    /* =========================
+     Search 弹窗样式重置（只管弹出的搜索层）
+     ========================= */
+
+  /* 让弹出层里的搜索区域不再被限制宽度 */
+  .search-modal__content {
+    max-width: 100% !important;
+  }
+
+  .search-modal__form {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+
+  /* 输入框外层，必须 100% 宽度 */
+  .search-modal__form .field {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* 输入框本身：细线边框、绿色边框色你后面可以改成指定色号 */
+  .search-modal__form .field__input,
+  .search-modal__form .search__input {
+    width: 100% !important;
+    border: 1px solid #D6D6D6;  /* 细线 */
+    border-radius: 4px;
+    box-shadow: none;
+    padding-left: 14px;          /* 左边留一点内边距 */
+  }
+
+  .search-modal__form .field__input:focus,
+  .search-modal__form .search__input:focus {
+    outline: none;
+    border-color: #216D81;       /* 这里换成你要的绿色色号 */
+    box-shadow: none;
+  }
+
+  /* 去掉输入框右侧的放大镜按钮，只保留右上角的大 X 关闭按钮 */
+  .search-modal__form .search__button,
+  .search-modal__form .field__button.search__button,
+  .search-modal__form .icon-search {
+    display: none !important;
+  }
+
+  /* =========================
+     搜索结果：Suggestions / Products 两栏布局
+     ========================= */
+
+  /* 控制左边 Suggestions 和右边 Products 的列宽比例 */
+  .predictive-search__results-groups-wrapper {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.6fr) !important;
+    column-gap: 32px !important;
+  }
+
+  /* 防止产品标题太窄变成一列一列竖排 */
+  .predictive-search__item-heading,
+  .predictive-search__item .full-unstyled-link {
+    white-space: normal !important;
+  }
+.cart-count-bubble {
+  background: #e53935 !important;
+  color: #fff !important;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  font-size: 11px;
+  line-height: 18px;
+  padding: 0 5px;
+}
+
+</style>
+
 
 {% schema %}
 {
@@ -675,32 +1296,7 @@
     }
   ]
 }
-{% endschema %}
 
-<script>
-  function toggleAccountDropdown() {
-    const menu = document.getElementById('account-dropdown-menu');
-    const toggle = document.querySelector('.header__account-toggle');
-    const isOpen = menu.style.display === 'block';
-    
-    if (isOpen) {
-      menu.style.display = 'none';
-      toggle.setAttribute('aria-expanded', 'false');
-    } else {
-      menu.style.display = 'block';
-      toggle.setAttribute('aria-expanded', 'true');
-    }
-  }
+
+{% endschema %}
   
-  // Close dropdown when clicking outside
-  document.addEventListener('click', function(event) {
-    const dropdown = document.querySelector('.header__account-dropdown');
-    const menu = document.getElementById('account-dropdown-menu');
-    const toggle = document.querySelector('.header__account-toggle');
-    
-    if (dropdown && menu && !dropdown.contains(event.target)) {
-      menu.style.display = 'none';
-      if (toggle) toggle.setAttribute('aria-expanded', 'false');
-    }
-  });
-</script>
