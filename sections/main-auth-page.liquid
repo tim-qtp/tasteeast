@@ -177,6 +177,17 @@
     padding:10px 12px;
     border-radius:10px;
   }
+  /* 只在 page.auth 这个模板强制白底（不影响其它页面） */
+.template-page-auth,
+.template-page-auth body,
+.template-page-auth .gradient,
+.template-page-auth #MainContent,
+.template-page-auth .content-for-layout,
+.template-page-auth .shopify-section,
+.template-page-auth .auth-page{
+  background:#fff !important;
+}
+
 </style>
 
 {% schema %}
