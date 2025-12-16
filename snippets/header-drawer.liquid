@@ -145,10 +145,10 @@
                   rel="nofollow"
                 >
               {%- else -%}
-                {%- comment -%}未登录：打开登录弹窗{%- endcomment -%}
+                {%- comment -%}未登录：跳转到登录页面{%- endcomment -%}
                 <a
-                  href="#"
-                  onclick="closeMenuDrawer(); openAccountModal('login'); return false;"
+                  href="/pages/auth#login"
+                  onclick="closeMenuDrawer(); return true;"
                   class="menu-drawer__account link focus-inset h5 medium-hide large-up-hide"
                   rel="nofollow"
                 >

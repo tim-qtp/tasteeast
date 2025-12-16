@@ -12,12 +12,12 @@
   <button
     class="header__icon header__icon--search header__search-toggle link focus-inset"
     type="button"
-    aria-label="{{ 'general.search.search' | t }}"
+      aria-label="{{ 'general.search.search' | t }}"
     aria-expanded="false"
-  >
-    <span class="svg-wrapper">
-      {{- 'icon-search.svg' | inline_asset_content -}}
-    </span>
+    >
+        <span class="svg-wrapper">
+          {{- 'icon-search.svg' | inline_asset_content -}}
+        </span>
   </button>
   
   <div class="header__search-dropdown" style="display: none;">
@@ -60,22 +60,26 @@
               {{- 'icon-close.svg' | inline_asset_content -}}
             </span>
           </button>
-
+          <button class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+            <span class="svg-wrapper">
+              {{- 'icon-search.svg' | inline_asset_content -}}
+            </span>
+          </button>
         </div>
 
-        {%- if settings.predictive_search_enabled -%}
-          <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
-            {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
-          </div>
+          {%- if settings.predictive_search_enabled -%}
+            <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search>
+              {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+            </div>
 
-          <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+            <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+          {%- endif -%}
+        </form>
+        {%- if settings.predictive_search_enabled -%}
+          </predictive-search>
+        {%- else -%}
+          </search-form>
         {%- endif -%}
-      </form>
-      {%- if settings.predictive_search_enabled -%}
-        </predictive-search>
-      {%- else -%}
-        </search-form>
-      {%- endif -%}
     </div>
   </div>
 </div>
