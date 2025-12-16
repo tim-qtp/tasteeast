@@ -47,7 +47,8 @@
       </div>
 
       <!-- RIGHT: Login -->
-      <div class="auth-card" id="auth-login">
+      <div class="auth-card auth-card--login" id="auth-login">
+
         <div class="auth-card__body">
           {% form 'customer_login', novalidate: 'novalidate', class: 'auth-form' %}
             {% if form.errors %}
@@ -199,6 +200,10 @@ body.template-page-auth #MainContent::before{
   display:none !important;
   content:none !important;
 }
+/* 默认：只显示注册 */
+.auth-card--login{
+  display: none;
+}
 
 </style>
 
@@ -208,3 +213,19 @@ body.template-page-auth #MainContent::before{
   "settings": []
 }
 {% endschema %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const signInLink = document.querySelector('.auth-link[href="#auth-login"]');
+    const loginCard = document.querySelector('.auth-card--login');
+    const registerCard = document.querySelector('.auth-card:not(.auth-card--login)');
+
+    if (!signInLink || !loginCard || !registerCard) return;
+
+    signInLink.addEventListener('click', function (e) {
+      e.preventDefault();
+      registerCard.style.display = 'none';
+      loginCard.style.display = 'block';
+      loginCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+</script>
