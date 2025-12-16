@@ -91,15 +91,32 @@
 
 <style>
   /* 白底：只作用在这个 section 内，不去动 header 结构，避免和主题 sticky 逻辑打架 */
+  section.auth-page,
   .auth-page{
     background:#fff;
-    padding: 0 0 90px;
+    padding: 0 !important;
+    padding-bottom: 90px !important;
     min-height: 100vh;
+    margin-top: 0 !important;
+  }
+
+  /* 移除 section 之间的间距 */
+  .section + .section.auth-page,
+  .section-header ~ .auth-page,
+  .section-header ~ section.auth-page {
+    margin-top: 0 !important;
+  }
+
+  .auth-page__inner {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
   }
 
   .auth-page__header{
     text-align:center;
     margin-bottom: 26px;
+    margin-top: 0;
+    padding-top: 20px;
   }
 
   .auth-page__title{
