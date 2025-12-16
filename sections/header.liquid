@@ -814,7 +814,7 @@
       登录后会自动回到 /account
     {%- endcomment -%}
 <a
-  href="#"
+  href="#/pages/account"
   onclick="openAccountModal('login'); return false;"
   class="header__login-link link{% if section.settings.menu != blank %} small-hide{% endif %}"
   rel="nofollow"
@@ -854,9 +854,6 @@
   </header>
 </{{ header_tag }}>
 
-{%- if shop.customer_accounts_enabled -%}
-  {% render 'account-modal' %}
-{%- endif -%}
 
 {%- if settings.cart_type == 'notification' -%}
   {%- render 'cart-notification',
@@ -1352,42 +1349,4 @@
 
 
 {% endschema %}
-    <script>
-  function openAccountModal(view) {
-    var modal = document.getElementById('accountModal');
-    if (!modal) return;
-
-    modal.classList.add('is-open');
-    modal.setAttribute('aria-hidden', 'false');
-
-    switchAccountModal(view || 'login');
-
-    // ESC 关闭
-    document.addEventListener('keydown', accountModalEscHandler);
-  }
-
-  function closeAccountModal() {
-    var modal = document.getElementById('accountModal');
-    if (!modal) return;
-
-    modal.classList.remove('is-open');
-    modal.setAttribute('aria-hidden', 'true');
-
-    document.removeEventListener('keydown', accountModalEscHandler);
-  }
-
-  function accountModalEscHandler(e) {
-    if (e.key === 'Escape') closeAccountModal();
-  }
-
-  function switchAccountModal(view) {
-    var modal = document.getElementById('accountModal');
-    if (!modal) return;
-
-    var views = modal.querySelectorAll('.account-modal__view');
-    views.forEach(function(v) {
-      var isTarget = v.getAttribute('data-view') === view;
-      v.hidden = !isTarget;
-    });
-  }
-</script>
+  
