@@ -762,14 +762,16 @@
     {%- endcomment -%}
    {%- assign auth_page = pages['auth'] -%}
 
-<a
-  href="/pages/auth"
-  class="header__login-link link{% if section.settings.menu != blank %} small-hide{% endif %}"
-  rel="nofollow"
->
-  <span class="svg-wrapper">{{ 'icon-account.svg' | inline_asset_content }}</span>
-  <span>Login</span>
+<a href="{{ routes.account_login_url }}">
+  Login
 </a>
+<a href="{{ routes.account_register_url }}">
+  Create account
+</a>
+<a href="{{ routes.account_recover_url }}">
+  Forgot password?
+</a>
+
 
 
 
