@@ -1,0 +1,168 @@
+<section class="auth-page page-width">
+  <header class="auth-page__header">
+    <h1 class="auth-page__title">{{ 'customer.register.title' | t | default: 'Create account' }}</h1>
+  </header>
+
+  <div class="auth-page__grid">
+    <!-- LEFT: Register -->
+    <div class="auth-card">
+      <h2 class="auth-card__title">{{ 'customer.register.title' | t | default: 'Create account' }}</h2>
+
+      {% form 'create_customer', novalidate: 'novalidate', class: 'auth-form' %}
+        {% if form.errors %}
+          <div class="auth-errors">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="auth-row auth-row--2">
+          <div class="auth-field">
+            <input
+              type="text"
+              name="customer[first_name]"
+              autocomplete="given-name"
+              placeholder="First name"
+              class="auth-input"
+            >
+          </div>
+
+          <div class="auth-field">
+            <input
+              type="text"
+              name="customer[last_name]"
+              autocomplete="family-name"
+              placeholder="Last name"
+              class="auth-input"
+            >
+          </div>
+        </div>
+
+        <div class="auth-field">
+          <input
+            type="email"
+            name="customer[email]"
+            autocomplete="email"
+            placeholder="Email"
+            class="auth-input"
+            required
+          >
+        </div>
+
+        <div class="auth-field">
+          <input
+            type="password"
+            name="customer[password]"
+            autocomplete="new-password"
+            placeholder="Password"
+            class="auth-input"
+            required
+          >
+        </div>
+
+        <button class="auth-btn" type="submit">
+          {{ 'customer.register.submit' | t | default: 'Create' }}
+        </button>
+
+        <p class="auth-note">
+          Returning customer?
+          <a class="auth-link" href="{{ routes.account_login_url }}">Sign in</a>
+        </p>
+      {% endform %}
+    </div>
+
+    <!-- RIGHT: Login -->
+    <div class="auth-card">
+      <h2 class="auth-card__title">{{ 'customer.login.title' | t | default: 'Sign in' }}</h2>
+
+      {% form 'customer_login', novalidate: 'novalidate', class: 'auth-form' %}
+        {% if form.errors %}
+          <div class="auth-errors">
+            {{ form.errors | default_errors }}
+          </div>
+        {% endif %}
+
+        <div class="auth-field">
+          <input
+            type="email"
+            name="customer[email]"
+            autocomplete="email"
+            placeholder="Email"
+            class="auth-input"
+            required
+          >
+        </div>
+
+        <div class="auth-field">
+          <input
+            type="password"
+            name="customer[password]"
+            autocomplete="current-password"
+            placeholder="Password"
+            class="auth-input"
+            required
+          >
+        </div>
+
+        <button class="auth-btn" type="submit">
+          {{ 'customer.login.sign_in' | t | default: 'Sign in' }}
+        </button>
+
+        <p class="auth-note">
+          <a class="auth-link" href="{{ routes.account_recover_url }}">Forgot password?</a>
+        </p>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .auth-page { padding-top: 60px; padding-bottom: 90px; }
+  .auth-page__header { text-align: center; margin-bottom: 36px; }
+  .auth-page__title { font-size: 44px; line-height: 1.1; margin: 0; }
+
+  .auth-page__grid{
+    max-width: 820px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+  @media (min-width: 900px){
+    .auth-page__grid{ grid-template-columns: 1fr 1fr; gap: 26px; }
+  }
+
+  .auth-card{ background:#fff; border: 1px solid #eee; border-radius: 10px; padding: 22px; }
+  .auth-card__title{ font-size: 22px; margin: 0 0 18px; text-align:center; }
+
+  .auth-form{ display: grid; gap: 14px; }
+  .auth-row--2{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  .auth-input{
+    width:100%;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    padding: 12px 14px;
+    background: #fff;
+  }
+  .auth-input:focus{ outline:none; border-color:#111; }
+
+  .auth-btn{
+    width: 120px;
+    justify-self: start;
+    border: 0;
+    border-radius: 6px;
+    padding: 10px 14px;
+    cursor: pointer;
+  }
+
+  .auth-note{ margin: 6px 0 0; color:#666; }
+  .auth-link{ text-decoration: underline; }
+  .auth-errors{ background:#fff6f6; border:1px solid #ffd5d5; padding:10px 12px; border-radius:8px; }
+</style>
+
+{% schema %}
+{
+  "name": "Auth Page",
+  "settings": []
+}
+{% endschema %}
