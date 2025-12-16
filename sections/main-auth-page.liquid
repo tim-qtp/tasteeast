@@ -293,6 +293,17 @@ body.template-page-auth #MainContent::before{
 body.template-page-auth .auth-page{
   padding-top: 24px !important;
 }
+/* ✅ Auth 页：隐藏 Header 组里那个“自定义 Liquid”造成的占位（只影响 page.auth） */
+body.template-page-auth .shopify-section-group-header-group .shopify-section[id*="custom_liquid"],
+body.template-page-auth .shopify-section-group-header-group .shopify-section[id*="custom-liquid"],
+body.template-page-auth .shopify-section-group-header-group .shopify-section[id*="customliquid"],
+body.template-page-auth .shopify-section-group-header-group .custom-liquid,
+body.template-page-auth .shopify-section-group-header-group .custom-liquid__container{
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
 </style>
 
