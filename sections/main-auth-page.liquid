@@ -357,6 +357,54 @@ body.template-page-auth *::before,
 body.template-page-auth *::after{
   background-image: none !important;
 }
+/* ===============================
+   Auth Page：强制消灭 Header 预留占位
+   兼容不同主题 body class（template-suffix-auth / page-auth 等）
+=============================== */
+
+/* 1) 锁定“auth 模板页”的多种可能 body class */
+body[class*="auth"],
+body[class*="template-suffix-auth"],
+body[class*="page-auth"]{
+  background:#fff !important;
+  background-image:none !important;
+}
+
+/* 2) 关键：取消 sticky header 给内容区加的 padding-top */
+body[class*="auth"] .shopify-section-header-sticky ~ .content-for-layout,
+body[class*="template-suffix-auth"] .shopify-section-header-sticky ~ .content-for-layout,
+body[class*="page-auth"] .shopify-section-header-sticky ~ .content-for-layout{
+  padding-top: 0 !important;
+}
+
+/* 3) 有些主题不是用 ~ 选择器，而是直接给 content-for-layout 加 padding-top */
+body[class*="auth"] .content-for-layout,
+body[class*="template-suffix-auth"] .content-for-layout,
+body[class*="page-auth"] .content-for-layout{
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  background:#fff !important;
+}
+
+/* 4) 如果你的主题“仍然留了一个 header-height 占位”，就用负 margin 抵消（你要的 absolute 效果） */
+body[class*="auth"] .auth-page,
+body[class*="template-suffix-auth"] .auth-page,
+body[class*="page-auth"] .auth-page{
+  padding-top: 0 !important;
+  margin-top: calc(var(--header-height, 0px) * -1) !important;
+  background:#fff !important;
+}
+
+/* 5) Header 本身也强制白底，避免导航下露出底图/渐变 */
+body[class*="auth"] .section-header,
+body[class*="auth"] .header-wrapper,
+body[class*="template-suffix-auth"] .section-header,
+body[class*="template-suffix-auth"] .header-wrapper,
+body[class*="page-auth"] .section-header,
+body[class*="page-auth"] .header-wrapper{
+  background:#fff !important;
+  background-image:none !important;
+}
 
 </style>
 
