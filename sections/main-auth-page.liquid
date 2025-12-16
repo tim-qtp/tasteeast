@@ -429,4 +429,74 @@ body[class*="page-auth"] .header-wrapper{
       loginCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
   });
+  <!-- 如果你不确定主题有没有 jQuery，就先加这一行（有的话也不会影响太大） -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+  jQuery(function ($) {
+    var $register = $('.auth-card--register');
+    var $login    = $('.auth-card--login');
+    var $title    = $('.auth-page__title');
+
+    function showRegister() {
+      $login.hide();
+      $register.show();
+      if ($title.length) $title.text('Create account');
+      history.replaceState(null, '', window.location.pathname); // 去掉 hash
+    }
+
+    function showLogin() {
+      $register.hide();
+      $login.show();
+      if ($title.length) $title.text('Sign in');
+      // 确保滚动到表单区域
+      $('html, body').stop(true).animate({
+        scrollTop: ($('.auth-page').offset()?.top || 0)
+      }, 250);
+      history.replaceState(null, '', window.location.pathname + '#login');
+    }
+
+    // 默认：先只显示注册
+    showRegister();
+
+    // 点击 “Sign in” 切换到登录
+    $(document).on('click', '.auth-link[href="#auth-login"]', function (e) {
+      e.preventDefault();
+      showLogin();
+    });
+
+    // （可选）你如果想在登录页提供 “Create account” 返回按钮，
+    // 你可以在登录卡片里加 <a href="#register" class="auth-link auth-back">Create account</a>
+    // 然后启用下面这段：
+    $(document).on('click', 'a[href="#register"], .auth-back', function (e) {
+      e.preventDefault();
+      showRegister();
+    });
+
+    // 支持地址栏 hash：/pages/auth#login 直接打开登录
+    function applyHash() {
+      var h = (window.location.hash || '').toLowerCase();
+      if (h === '#login' || h === '#auth-login') showLogin();
+      else showRegister();
+    }
+    $(window).on('hashchange', applyHash);
+    applyHash();
+
+    // ✅ 防止“重复提交”（你说的点 Create 后又跳一次 / submit 两次）
+    $(document).on('submit', '.auth-form', function () {
+      var $form = $(this);
+      if ($form.data('submitting')) {
+        return false;
+      }
+      $form.data('submitting', true);
+
+      var $btn = $form.find('button[type="submit"]');
+      $btn.prop('disabled', true);
+      $btn.css('opacity', 0.7);
+      $btn.text('Please wait...');
+      return true;
+    });
+  });
+</script>
+
 </script>
