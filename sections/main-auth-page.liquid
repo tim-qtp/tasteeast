@@ -304,6 +304,59 @@ body.template-page-auth .shopify-section-group-header-group .custom-liquid__cont
   margin: 0 !important;
   padding: 0 !important;
 }
+/* ===============================
+   🔥 终极方案：Auth Page 直接 absolute 到 Header 下面
+   只影响 page.auth
+=============================== */
+
+/* 1️⃣ 让 body 成为定位参照 */
+body.template-page-auth{
+  position: relative !important;
+  background: #fff !important;
+}
+
+/* 2️⃣ Header 高度（你 header 实测大概 120～140px）
+   👉 如果你觉得还有 1px 缝，直接调这个数值 */
+body.template-page-auth{
+  --auth-header-offset: 140px;
+}
+
+/* 3️⃣ 直接把整个 auth-page 拉到 header 下面 */
+body.template-page-auth .auth-page{
+  position: absolute !important;
+  top: var(--auth-header-offset) !important;
+  left: 0;
+  right: 0;
+
+  padding-top: 24px !important;   /* 内容内部留一点呼吸 */
+  margin: 0 !important;
+
+  background: #fff !important;
+  z-index: 1;
+}
+
+/* 4️⃣ 禁掉 Shopify 给 MainContent / content-for-layout 的一切占位 */
+body.template-page-auth #MainContent,
+body.template-page-auth .content-for-layout{
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  min-height: 0 !important;
+}
+
+/* 5️⃣ Header 本身保持正常层级 */
+body.template-page-auth .section-header,
+body.template-page-auth .header-wrapper{
+  position: relative !important;
+  z-index: 10;
+  background: #fff !important;
+}
+
+/* 6️⃣ 防止任何残留背景图 */
+body.template-page-auth *,
+body.template-page-auth *::before,
+body.template-page-auth *::after{
+  background-image: none !important;
+}
 
 </style>
 
