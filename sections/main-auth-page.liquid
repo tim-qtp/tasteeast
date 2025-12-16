@@ -187,6 +187,18 @@
 .template-page-auth .auth-page{
   background:#fff !important;
 }
+/* 只在这个模板页生效：page.auth */
+body.template-page-auth,
+body.template-page-auth #MainContent{
+  background:#fff !important;
+}
+
+/* 防止主题用 ::before 之类铺底图（有些主题这么做） */
+body.template-page-auth::before,
+body.template-page-auth #MainContent::before{
+  display:none !important;
+  content:none !important;
+}
 
 </style>
 
