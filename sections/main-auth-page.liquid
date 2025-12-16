@@ -254,6 +254,45 @@ body.template-page-auth .header-wrapper.gradient{
   background: #fff !important;
   background-image: none !important;
 }
+/* ===============================
+  Auth Page: 强制去掉全站背景图 + 白底接住 Header
+  只影响 /pages/auth (template: page.auth)
+=============================== */
+
+body.template-page-auth{
+  background: #fff !important;
+  background-image: none !important;
+}
+
+body.template-page-auth .gradient,
+body.template-page-auth #MainContent,
+body.template-page-auth .content-for-layout{
+  background: #fff !important;
+  background-image: none !important;
+}
+
+/* Header group 也强制白底，避免导航下面露出底图 */
+body.template-page-auth .shopify-section-group-header-group,
+body.template-page-auth .shopify-section-group-header-group .gradient,
+body.template-page-auth .section-header,
+body.template-page-auth .header-wrapper{
+  background: #fff !important;
+  background-image: none !important;
+}
+
+/* 有些主题会用 ::before 铺背景图 */
+body.template-page-auth::before,
+body.template-page-auth .gradient::before,
+body.template-page-auth .header-wrapper::before,
+body.template-page-auth #MainContent::before{
+  content: none !important;
+  display: none !important;
+}
+
+/* 如果你想让注册区域更贴近导航，把这里调小（比如 20/24） */
+body.template-page-auth .auth-page{
+  padding-top: 24px !important;
+}
 
 </style>
 
