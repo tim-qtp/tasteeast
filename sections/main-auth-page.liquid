@@ -7,7 +7,8 @@
     <div class="auth-page__grid">
 
       <!-- LEFT: Register -->
-      <div class="auth-card">
+      <div class="auth-card auth-card--register">
+
         <div class="auth-card__body">
           {% form 'create_customer', novalidate: 'novalidate', class: 'auth-form' %}
             {% if form.errors %}
@@ -203,6 +204,26 @@ body.template-page-auth #MainContent::before{
 /* 默认：只显示注册 */
 .auth-card--login{
   display: none;
+}
+/* 当只显示注册时，让卡片居中 */
+.auth-page__grid {
+  justify-items: center;
+}
+
+.auth-card--register {
+  width: 100%;
+  max-width: 420px;   /* 控制卡片宽度，按你设计图 */
+}
+/* 只有一个 auth-card 显示时，居中 */
+.auth-page__grid:has(.auth-card--register):not(:has(.auth-card--login[style*="block"])) {
+  justify-items: center;
+}
+.auth-page__header {
+  margin-bottom: 48px;
+}
+
+.auth-card {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.04);
 }
 
 </style>
