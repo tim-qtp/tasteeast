@@ -3641,3 +3641,20 @@ details-disclosure > details {
   border: 1px solid #000 !important;
   color: #fff !important;
 }
+/* Auth 页面强制纯白底（去掉主题花纹/渐变背景） */
+body.template-page-auth,
+body.template-page--auth,
+body[class*="template-page"][class*="auth"]{
+  background: #fff !important;
+  background-image: none !important;
+}
+
+body.template-page-auth #MainContent,
+body.template-page--auth #MainContent,
+body[class*="template-page"][class*="auth"] #MainContent,
+body.template-page-auth .gradient,
+body.template-page--auth .gradient,
+body[class*="template-page"][class*="auth"] .gradient{
+  background: #fff !important;
+  background-image: none !important;
+}
