@@ -1,16 +1,18 @@
-<section class="auth-page">
+<section class="auth-page" data-auth-page>
   <div class="page-width auth-page__inner">
     <header class="auth-page__header">
-      <h1 class="auth-page__title">Create account</h1>
+      <h1 class="auth-page__title" data-auth-title>Create account</h1>
     </header>
 
     <div class="auth-page__grid">
-
-      <!-- LEFT: Register -->
-      <div class="auth-card auth-card--register">
-
+      <!-- Register -->
+      <div class="auth-card auth-card--register" data-auth-panel="register">
         <div class="auth-card__body">
-          {% form 'create_customer', novalidate: 'novalidate', class: 'auth-form' %}
+          {% form 'create_customer', novalidate: 'novalidate', class: 'auth-form', id: 'AuthRegisterForm' %}
+
+            <!-- ✅ 最关键：回跳地址（避免注册后乱跳/二次跳） -->
+            <input type="hidden" name="return_to" value="/account" />
+
             {% if form.errors %}
               <div class="auth-errors">
                 {{ form.errors | default_errors }}
@@ -37,21 +39,24 @@
             {% assign reg_submit = 'customer.register.submit' | t %}
             {% if reg_submit contains 'Translation missing' %}{% assign reg_submit = 'Create' %}{% endif %}
 
-            <button class="auth-btn" type="submit">{{ reg_submit }}</button>
+            <button class="auth-btn" type="submit" data-auth-submit>{{ reg_submit }}</button>
 
             <p class="auth-note">
               Returning customer?
-              <a class="auth-link" href="#auth-login">Sign in</a>
+              <a class="auth-link" href="#login" data-auth-switch="login">Sign in</a>
             </p>
           {% endform %}
         </div>
       </div>
 
-      <!-- RIGHT: Login -->
-      <div class="auth-card auth-card--login" id="auth-login">
-
+      <!-- Login -->
+      <div class="auth-card auth-card--login" data-auth-panel="login">
         <div class="auth-card__body">
-          {% form 'customer_login', novalidate: 'novalidate', class: 'auth-form' %}
+          {% form 'customer_login', novalidate: 'novalidate', class: 'auth-form', id: 'AuthLoginForm' %}
+
+            <!-- ✅ 最关键：回跳地址 -->
+            <input type="hidden" name="return_to" value="/account" />
+
             {% if form.errors %}
               <div class="auth-errors">
                 {{ form.errors | default_errors }}
@@ -69,10 +74,12 @@
             {% assign sign_in = 'customer.login.sign_in' | t %}
             {% if sign_in contains 'Translation missing' %}{% assign sign_in = 'Sign in' %}{% endif %}
 
-            <button class="auth-btn" type="submit">{{ sign_in }}</button>
+            <button class="auth-btn" type="submit" data-auth-submit>{{ sign_in }}</button>
 
             <p class="auth-note">
               <a class="auth-link" href="{{ routes.account_recover_url }}">Forgot password?</a>
+              <span style="margin:0 8px;">·</span>
+              <a class="auth-link" href="#register" data-auth-switch="register">Create account</a>
             </p>
           {% endform %}
         </div>
@@ -83,19 +90,15 @@
 </section>
 
 <style>
-  /* 整页白底（关键） */
-  #MainContent,
+  /* 白底：只作用在这个 section 内，不去动 header 结构，避免和主题 sticky 逻辑打架 */
   .auth-page{
-    background:#fff !important;
-  }
-
-  .auth-page{
-    padding: 60px 0 90px;
+    background:#fff;
+    padding: 28px 0 90px;
   }
 
   .auth-page__header{
     text-align:center;
-    margin-bottom: 34px;
+    margin-bottom: 26px;
   }
 
   .auth-page__title{
@@ -106,37 +109,26 @@
     color:#111;
   }
 
+  /* ✅ 永远单列 + 居中（你现在想先跑通逻辑最稳） */
   .auth-page__grid{
-    max-width: 860px;
-    margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 26px;
-  }
-
-  @media (min-width: 900px){
-    .auth-page__grid{
-      grid-template-columns: 1fr 1fr;
-    }
+    justify-items: center;
+    gap: 22px;
   }
 
   .auth-card{
+    width: 100%;
+    max-width: 420px;
     background:#fff;
     border: 1px solid #ececec;
     border-radius: 12px;
     padding: 28px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
   }
 
-  .auth-form{
-    display:grid;
-    gap: 14px;
-  }
-
-  .auth-row--2{
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
+  .auth-form{ display:grid; gap: 14px; }
+  .auth-row--2{ display:grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 
   .auth-input{
     width:100%;
@@ -146,32 +138,21 @@
     background:#fff;
     color:#111;
   }
-
-  .auth-input:focus{
-    outline:none;
-    border-color:#111;
-  }
+  .auth-input:focus{ outline:none; border-color:#111; }
 
   .auth-btn{
-    width: 120px;
+    width: 140px;
     border: 0;
     border-radius: 8px;
     padding: 10px 14px;
     cursor: pointer;
-    background:#e85b4f;  /* 你截图里按钮偏红 */
+    background:#e85b4f;
     color:#fff;
     font-weight: 600;
   }
 
-  .auth-note{
-    margin: 6px 0 0;
-    color:#666;
-  }
-
-  .auth-link{
-    color:#1f7ea0; /* 截图里偏蓝 */
-    text-decoration: underline;
-  }
+  .auth-note{ margin: 6px 0 0; color:#666; }
+  .auth-link{ color:#1f7ea0; text-decoration: underline; }
 
   .auth-errors{
     background:#fff6f6;
@@ -179,234 +160,71 @@
     padding:10px 12px;
     border-radius:10px;
   }
-  /* 只在 page.auth 这个模板强制白底（不影响其它页面） */
-.template-page-auth,
-.template-page-auth body,
-.template-page-auth .gradient,
-.template-page-auth #MainContent,
-.template-page-auth .content-for-layout,
-.template-page-auth .shopify-section,
-.template-page-auth .auth-page{
-  background:#fff !important;
-}
-/* 只在这个模板页生效：page.auth */
-body.template-page-auth,
-body.template-page-auth #MainContent{
-  background:#fff !important;
-}
 
-/* 防止主题用 ::before 之类铺底图（有些主题这么做） */
-body.template-page-auth::before,
-body.template-page-auth #MainContent::before{
-  display:none !important;
-  content:none !important;
-}
-/* 默认：只显示注册 */
-.auth-card--login{
-  display: none;
-}
-/* 当只显示注册时，让卡片居中 */
-
-
-.auth-card--register {
-  width: 100%;
-  max-width: 420px;   /* 控制卡片宽度，按你设计图 */
-}
-
-
-.auth-page__header {
-  margin-bottom: 48px;
-}
-
-.auth-card {
-  box-shadow: 0 8px 30px rgba(0,0,0,0.04);
-}
-/* ⭐ 核心修复：只有注册显示时，强制单列 grid */
-.auth-card--login {
-  display: none;
-}
-
-.auth-page__grid {
-  grid-template-columns: 1fr !important;
-}
-/* ⭐ 真正居中注册卡片 */
-.auth-card--register {
-  max-width: 420px;
-  width: 100%;
-  margin: 0 auto;
-}
-/* ✅ 只在 Auth 模板页：消灭 sticky header 预留的占位空白 + 让导航下方是白色 */
-body.template-page-auth .content-for-layout,
-body.template-page-auth #MainContent{
-  padding-top: 0 !important;
-  margin-top: 0 !important;
-}
-
-/* Dawn 常见：sticky header 会给 content-for-layout 加 padding-top */
-body.template-page-auth .shopify-section-header-sticky ~ .content-for-layout{
-  padding-top: 0 !important;
-}
-
-/* 让 header 自己在 Auth 页也变白（避免看到那块米色纹理） */
-body.template-page-auth .section-header,
-body.template-page-auth .header-wrapper,
-body.template-page-auth .header-wrapper.gradient{
-  background: #fff !important;
-  background-image: none !important;
-}
-/* ===============================
-  Auth Page: 强制去掉全站背景图 + 白底接住 Header
-  只影响 /pages/auth (template: page.auth)
-=============================== */
-
-body.template-page-auth{
-  background: #fff !important;
-  background-image: none !important;
-}
-
-body.template-page-auth .gradient,
-body.template-page-auth #MainContent,
-body.template-page-auth .content-for-layout{
-  background: #fff !important;
-  background-image: none !important;
-}
-
-/* Header group 也强制白底，避免导航下面露出底图 */
-body.template-page-auth .shopify-section-group-header-group,
-body.template-page-auth .shopify-section-group-header-group .gradient,
-body.template-page-auth .section-header,
-body.template-page-auth .header-wrapper{
-  background: #fff !important;
-  background-image: none !important;
-}
-
-/* 有些主题会用 ::before 铺背景图 */
-body.template-page-auth::before,
-body.template-page-auth .gradient::before,
-body.template-page-auth .header-wrapper::before,
-body.template-page-auth #MainContent::before{
-  content: none !important;
-  display: none !important;
-}
-
-/* 如果你想让注册区域更贴近导航，把这里调小（比如 20/24） */
-body.template-page-auth .auth-page{
-  padding-top: 24px !important;
-}
-/* ✅ Auth 页：隐藏 Header 组里那个“自定义 Liquid”造成的占位（只影响 page.auth） */
-body.template-page-auth .shopify-section-group-header-group .shopify-section[id*="custom_liquid"],
-body.template-page-auth .shopify-section-group-header-group .shopify-section[id*="custom-liquid"],
-body.template-page-auth .shopify-section-group-header-group .shopify-section[id*="customliquid"],
-body.template-page-auth .shopify-section-group-header-group .custom-liquid,
-body.template-page-auth .shopify-section-group-header-group .custom-liquid__container{
-  display: none !important;
-  height: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-/* ===============================
-   🔥 终极方案：Auth Page 直接 absolute 到 Header 下面
-   只影响 page.auth
-=============================== */
-
-/* 1️⃣ 让 body 成为定位参照 */
-body.template-page-auth{
-  position: relative !important;
-  background: #fff !important;
-}
-
-/* 2️⃣ Header 高度（你 header 实测大概 120～140px）
-   👉 如果你觉得还有 1px 缝，直接调这个数值 */
-body.template-page-auth{
-  --auth-header-offset: 140px;
-}
-
-/* 3️⃣ 直接把整个 auth-page 拉到 header 下面 */
-body.template-page-auth .auth-page{
-  position: absolute !important;
-  top: var(--auth-header-offset) !important;
-  left: 0;
-  right: 0;
-
-  padding-top: 24px !important;   /* 内容内部留一点呼吸 */
-  margin: 0 !important;
-
-  background: #fff !important;
-  z-index: 1;
-}
-
-/* 4️⃣ 禁掉 Shopify 给 MainContent / content-for-layout 的一切占位 */
-body.template-page-auth #MainContent,
-body.template-page-auth .content-for-layout{
-  padding-top: 0 !important;
-  margin-top: 0 !important;
-  min-height: 0 !important;
-}
-
-/* 5️⃣ Header 本身保持正常层级 */
-body.template-page-auth .section-header,
-body.template-page-auth .header-wrapper{
-  position: relative !important;
-  z-index: 10;
-  background: #fff !important;
-}
-
-/* 6️⃣ 防止任何残留背景图 */
-body.template-page-auth *,
-body.template-page-auth *::before,
-body.template-page-auth *::after{
-  background-image: none !important;
-}
-/* ===============================
-   Auth Page：强制消灭 Header 预留占位
-   兼容不同主题 body class（template-suffix-auth / page-auth 等）
-=============================== */
-
-/* 1) 锁定“auth 模板页”的多种可能 body class */
-body[class*="auth"],
-body[class*="template-suffix-auth"],
-body[class*="page-auth"]{
-  background:#fff !important;
-  background-image:none !important;
-}
-
-/* 2) 关键：取消 sticky header 给内容区加的 padding-top */
-body[class*="auth"] .shopify-section-header-sticky ~ .content-for-layout,
-body[class*="template-suffix-auth"] .shopify-section-header-sticky ~ .content-for-layout,
-body[class*="page-auth"] .shopify-section-header-sticky ~ .content-for-layout{
-  padding-top: 0 !important;
-}
-
-/* 3) 有些主题不是用 ~ 选择器，而是直接给 content-for-layout 加 padding-top */
-body[class*="auth"] .content-for-layout,
-body[class*="template-suffix-auth"] .content-for-layout,
-body[class*="page-auth"] .content-for-layout{
-  padding-top: 0 !important;
-  margin-top: 0 !important;
-  background:#fff !important;
-}
-
-/* 4) 如果你的主题“仍然留了一个 header-height 占位”，就用负 margin 抵消（你要的 absolute 效果） */
-body[class*="auth"] .auth-page,
-body[class*="template-suffix-auth"] .auth-page,
-body[class*="page-auth"] .auth-page{
-  padding-top: 0 !important;
-  margin-top: calc(var(--header-height, 0px) * -1) !important;
-  background:#fff !important;
-}
-
-/* 5) Header 本身也强制白底，避免导航下露出底图/渐变 */
-body[class*="auth"] .section-header,
-body[class*="auth"] .header-wrapper,
-body[class*="template-suffix-auth"] .section-header,
-body[class*="template-suffix-auth"] .header-wrapper,
-body[class*="page-auth"] .section-header,
-body[class*="page-auth"] .header-wrapper{
-  background:#fff !important;
-  background-image:none !important;
-}
-.auth-page{ padding: -200 0 90px !important; }
+  /* 默认隐藏登录面板，由 JS 控制显示 */
+  .auth-card--login{ display:none; }
 </style>
+
+<script>
+  (function () {
+    var root = document.querySelector('[data-auth-page]');
+    if (!root) return;
+
+    var titleEl = root.querySelector('[data-auth-title]');
+    var panelRegister = root.querySelector('[data-auth-panel="register"]');
+    var panelLogin = root.querySelector('[data-auth-panel="login"]');
+
+    function show(panel) {
+      if (!panelRegister || !panelLogin) return;
+
+      var isLogin = (panel === 'login');
+      panelRegister.style.display = isLogin ? 'none' : 'block';
+      panelLogin.style.display = isLogin ? 'block' : 'none';
+
+      if (titleEl) titleEl.textContent = isLogin ? 'Sign in' : 'Create account';
+
+      // 更新 hash（不刷新页面）
+      var newHash = isLogin ? '#login' : '#register';
+      if (window.location.hash !== newHash) history.replaceState(null, '', window.location.pathname + newHash);
+    }
+
+    function applyHash() {
+      var h = (window.location.hash || '').toLowerCase();
+      if (h === '#login' || h === '#auth-login') show('login');
+      else show('register');
+    }
+
+    // 点击切换
+    root.addEventListener('click', function (e) {
+      var a = e.target.closest('[data-auth-switch]');
+      if (!a) return;
+      e.preventDefault();
+      show(a.getAttribute('data-auth-switch'));
+    });
+
+    // 防止重复提交（注册/登录都生效）
+    root.addEventListener('submit', function (e) {
+      var form = e.target.closest('form');
+      if (!form) return;
+
+      if (form.dataset.submitting === '1') {
+        e.preventDefault();
+        return;
+      }
+      form.dataset.submitting = '1';
+
+      var btn = form.querySelector('[data-auth-submit]');
+      if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+        btn.textContent = 'Please wait...';
+      }
+    }, true);
+
+    window.addEventListener('hashchange', applyHash);
+    applyHash();
+  })();
+</script>
 
 {% schema %}
 {
@@ -414,89 +232,3 @@ body[class*="page-auth"] .header-wrapper{
   "settings": []
 }
 {% endschema %}
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const signInLink = document.querySelector('.auth-link[href="#auth-login"]');
-    const loginCard = document.querySelector('.auth-card--login');
-    const registerCard = document.querySelector('.auth-card:not(.auth-card--login)');
-
-    if (!signInLink || !loginCard || !registerCard) return;
-
-    signInLink.addEventListener('click', function (e) {
-      e.preventDefault();
-      registerCard.style.display = 'none';
-      loginCard.style.display = 'block';
-      loginCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    });
-  });
-  <!-- 如果你不确定主题有没有 jQuery，就先加这一行（有的话也不会影响太大） -->
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-<script>
-  jQuery(function ($) {
-    var $register = $('.auth-card--register');
-    var $login    = $('.auth-card--login');
-    var $title    = $('.auth-page__title');
-
-    function showRegister() {
-      $login.hide();
-      $register.show();
-      if ($title.length) $title.text('Create account');
-      history.replaceState(null, '', window.location.pathname); // 去掉 hash
-    }
-
-    function showLogin() {
-      $register.hide();
-      $login.show();
-      if ($title.length) $title.text('Sign in');
-      // 确保滚动到表单区域
-      $('html, body').stop(true).animate({
-        scrollTop: ($('.auth-page').offset()?.top || 0)
-      }, 250);
-      history.replaceState(null, '', window.location.pathname + '#login');
-    }
-
-    // 默认：先只显示注册
-    showRegister();
-
-    // 点击 “Sign in” 切换到登录
-    $(document).on('click', '.auth-link[href="#auth-login"]', function (e) {
-      e.preventDefault();
-      showLogin();
-    });
-
-    // （可选）你如果想在登录页提供 “Create account” 返回按钮，
-    // 你可以在登录卡片里加 <a href="#register" class="auth-link auth-back">Create account</a>
-    // 然后启用下面这段：
-    $(document).on('click', 'a[href="#register"], .auth-back', function (e) {
-      e.preventDefault();
-      showRegister();
-    });
-
-    // 支持地址栏 hash：/pages/auth#login 直接打开登录
-    function applyHash() {
-      var h = (window.location.hash || '').toLowerCase();
-      if (h === '#login' || h === '#auth-login') showLogin();
-      else showRegister();
-    }
-    $(window).on('hashchange', applyHash);
-    applyHash();
-
-    // ✅ 防止“重复提交”（你说的点 Create 后又跳一次 / submit 两次）
-    $(document).on('submit', '.auth-form', function () {
-      var $form = $(this);
-      if ($form.data('submitting')) {
-        return false;
-      }
-      $form.data('submitting', true);
-
-      var $btn = $form.find('button[type="submit"]');
-      $btn.prop('disabled', true);
-      $btn.css('opacity', 0.7);
-      $btn.text('Please wait...');
-      return true;
-    });
-  });
-</script>
-
-</script>
