@@ -3658,3 +3658,10 @@ body[class*="template-page"][class*="auth"] .gradient{
   background: #fff !important;
   background-image: none !important;
 }
+/* page.auth 隐藏 Header group 里的 custom liquid 占位（id 通常含 __custom_liquid） */
+body.template-page-auth [id*="__custom_liquid"]{
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
