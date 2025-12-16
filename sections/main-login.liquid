@@ -62,9 +62,9 @@
       </button>
 
       <div class="login-form__links">
-        New Customer? <a href="{{ routes.account_register_url }}" class="login-form__link">Create account</a>
+        New Customer? <a href="#" onclick="openAccountModal('register'); return false;" class="login-form__link">Create account</a>
         <br>
-        <a href="{{ routes.account_recover_url }}" class="login-form__link">Forgot your password?</a>
+        <a href="#" onclick="openAccountModal('reset'); return false;" class="login-form__link">Forgot your password?</a>
       </div>
     {%- endform -%}
   </div>
@@ -86,7 +86,7 @@
       "step": 4,
       "unit": "px",
       "label": "Padding top",
-      "default": 36
+      "default": 0
     },
     {
       "type": "range",
