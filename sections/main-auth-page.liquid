@@ -50,7 +50,7 @@
 
       <!-- Login -->
       <div class="auth-card auth-card--login" data-auth-panel="login">
-        
+
         <div class="auth-card__body">
           {% form 'customer_login', novalidate: 'novalidate', class: 'auth-form', id: 'AuthLoginForm' %}
 
@@ -61,23 +61,23 @@
             {% endif %}
 
             <div class="email">
-              <label for="customer-email">Email</label>
               <input 
                 type="email" 
                 id="customer-email"
                 name="customer[email]" 
                 autocomplete="email"
+                placeholder="Email"
                 class="auth-input" 
                 required>
             </div>
 
             <div class="password">
-              <label for="customer-password">Password</label>
               <input 
                 type="password"
                 id="customer-password" 
                 name="customer[password]" 
                 autocomplete="current-password"
+                placeholder="Password"
                 class="auth-input" 
                 required>
             </div>
@@ -94,6 +94,7 @@
 
           {% endform %}
         </div>
+
 
 
       </div>
