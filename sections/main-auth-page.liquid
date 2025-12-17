@@ -222,66 +222,6 @@
   .auth-card--login{ display:none; }
 </style>
 
-<script>
-  (function () {
-    var root = document.querySelector('[data-auth-page]');
-    if (!root) return;
-
-    var titleEl = root.querySelector('[data-auth-title]');
-    var panelRegister = root.querySelector('[data-auth-panel="register"]');
-    var panelLogin = root.querySelector('[data-auth-panel="login"]');
-
-    function show(panel) {
-      if (!panelRegister || !panelLogin) return;
-
-      var isLogin = (panel === 'login');
-      panelRegister.style.display = isLogin ? 'none' : 'block';
-      panelLogin.style.display = isLogin ? 'block' : 'none';
-
-      if (titleEl) titleEl.textContent = isLogin ? 'Sign in' : 'Create account';
-
-      // 更新 hash（不刷新页面）
-      var newHash = isLogin ? '#login' : '#register';
-      if (window.location.hash !== newHash) history.replaceState(null, '', window.location.pathname + newHash);
-    }
-
-    function applyHash() {
-      var h = (window.location.hash || '').toLowerCase();
-      if (h === '#login' || h === '#auth-login') show('login');
-      else show('register');
-    }
-
-    // 点击切换
-    root.addEventListener('click', function (e) {
-      var a = e.target.closest('[data-auth-switch]');
-      if (!a) return;
-      e.preventDefault();
-      show(a.getAttribute('data-auth-switch'));
-    });
-
-    // 防止重复提交（注册/登录都生效）
-    root.addEventListener('submit', function (e) {
-      var form = e.target.closest('form');
-      if (!form) return;
-
-      if (form.dataset.submitting === '1') {
-        e.preventDefault();
-        return;
-      }
-      form.dataset.submitting = '1';
-
-      var btn = form.querySelector('[data-auth-submit]');
-      if (btn) {
-        btn.disabled = true;
-        btn.style.opacity = '0.7';
-        btn.textContent = 'Please wait...';
-      }
-    }, true);
-
-    window.addEventListener('hashchange', applyHash);
-    applyHash();
-  })();
-</script>
 
 {% schema %}
 {
