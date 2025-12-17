@@ -53,37 +53,47 @@
         <div class="auth-card__body">
           {% form 'customer_login', novalidate: 'novalidate', class: 'auth-form', id: 'AuthLoginForm' %}
 
-            <input type="hidden" name="return_to" value="/account" />
-
             {% if form.errors %}
               <div class="auth-errors">
                 {{ form.errors | default_errors }}
               </div>
             {% endif %}
 
-            <div class="auth-field">
-              <input type="email" name="customer[email]" autocomplete="email" placeholder="Email" class="auth-input" required>
+            <div class="email">
+              <label for="customer-email">Email</label>
+              <input 
+                type="email" 
+                id="customer-email"
+                name="customer[email]" 
+                autocomplete="email"
+                class="auth-input" 
+                required>
             </div>
 
-            <div class="auth-field">
-              <input type="password" name="customer[password]" autocomplete="current-password" placeholder="Password" class="auth-input" required>
+            <div class="password">
+              <label for="customer-password">Password</label>
+              <input 
+                type="password"
+                id="customer-password" 
+                name="customer[password]" 
+                autocomplete="current-password"
+                class="auth-input" 
+                required>
             </div>
 
-            {% assign sign_in = 'customer.login.sign_in' | t %}
-            
-            {% if sign_in contains 'Translation missing' %}
-              {% assign sign_in = 'Sign in' %}
-            {% endif %}
-
-            <button class="auth-btn" type="submit" data-auth-submit>{{ sign_in }}</button>
+            <div class="submit">
+              <input type="submit" value="Sign in" class="auth-btn">
+            </div>
 
             <p class="auth-note">
               <a class="auth-link" href="{{ routes.account_recover_url }}">Forgot password?</a>
               <span style="margin:0 8px;">·</span>
               <a class="auth-link" href="#register" data-auth-switch="register">Create account</a>
             </p>
+
           {% endform %}
         </div>
+
       </div>
 
     </div>
