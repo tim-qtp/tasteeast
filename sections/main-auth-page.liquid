@@ -70,7 +70,10 @@
             </div>
 
             {% assign sign_in = 'customer.login.sign_in' | t %}
-            {% if sign_in contains 'Translation missing' %}{% assign sign_in = 'Sign in' %}{% endif %}
+            
+            {% if sign_in contains 'Translation missing' %}
+              {% assign sign_in = 'Sign in' %}
+            {% endif %}
 
             <button class="auth-btn" type="submit" data-auth-submit>{{ sign_in }}</button>
 
