@@ -9,8 +9,7 @@
       <div class="auth-card auth-card--register" data-auth-panel="register">
         <div class="auth-card__body">
           {% form 'create_customer', novalidate: 'novalidate', class: 'auth-form', id: 'AuthRegisterForm' %}
-
-            <!-- ✅ 最关键：回跳地址（避免注册后乱跳/二次跳） -->
+            
             <input type="hidden" name="return_to" value="/account" />
 
             {% if form.errors %}
