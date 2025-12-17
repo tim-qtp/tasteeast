@@ -9,7 +9,7 @@
       <div class="auth-card auth-card--register" data-auth-panel="register">
         <div class="auth-card__body">
           {% form 'create_customer', novalidate: 'novalidate', class: 'auth-form', id: 'AuthRegisterForm' %}
-            
+
             <input type="hidden" name="return_to" value="/account" />
 
             {% if form.errors %}
@@ -53,7 +53,6 @@
         <div class="auth-card__body">
           {% form 'customer_login', novalidate: 'novalidate', class: 'auth-form', id: 'AuthLoginForm' %}
 
-            <!-- ✅ 最关键：回跳地址 -->
             <input type="hidden" name="return_to" value="/account" />
 
             {% if form.errors %}
