@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "main-auth-page",
+      "type": "1_add_register",
       "settings": {}
     }
   },
