@@ -16,59 +16,58 @@
               </div>
             {% endif %}
 
-            <div class="first-name">
-              <input 
-                type="text" 
-                id="customer-first-name"
-                name="customer[first_name]" 
-                autocomplete="given-name"
-                placeholder="First name"
-                class="auth-input">
+            <div class="auth-row auth-row--2">
+              <div class="auth-field">
+                <input 
+                  type="text" 
+                  id="customer-first-name"
+                  name="customer[first_name]" 
+                  autocomplete="given-name" 
+                  placeholder="First name" 
+                  class="auth-input">
+              </div>
+              <div class="auth-field">
+                <input 
+                  type="text"
+                  id="customer-last-name" 
+                  name="customer[last_name]" 
+                  autocomplete="family-name" 
+                  placeholder="Last name" 
+                  class="auth-input">
+              </div>
             </div>
 
-            <div class="last-name">
-              <input 
-                type="text"
-                id="customer-last-name" 
-                name="customer[last_name]" 
-                autocomplete="family-name"
-                placeholder="Last name"
-                class="auth-input">
-            </div>
-
-            <div class="email">
+            <div class="auth-field">
               <input 
                 type="email"
                 id="customer-email" 
                 name="customer[email]" 
-                autocomplete="email"
-                placeholder="Email"
+                autocomplete="email" 
+                placeholder="Email" 
                 class="auth-input" 
                 required>
             </div>
 
-            <div class="password">
+            <div class="auth-field">
               <input 
                 type="password"
                 id="customer-password" 
                 name="customer[password]" 
-                autocomplete="new-password"
-                placeholder="Password"
+                autocomplete="new-password" 
+                placeholder="Password" 
                 class="auth-input" 
                 required>
             </div>
 
-            <div class="submit">
-              <input type="submit" value="Create" class="auth-btn">
-            </div>
+            <button class="auth-btn" type="submit" data-auth-submit>Create</button>
 
             <p class="auth-note">
               Returning customer?
               <a class="auth-link" href="#login" data-auth-switch="login">Sign in</a>
             </p>
-
           {% endform %}
         </div>
+
 
       </div>
 
