@@ -264,6 +264,119 @@
   }
 </style>
 
+<script>
+(function() {
+  'use strict';
+
+  // 获取所有面板和标题元素
+  const authPage = document.querySelector('[data-auth-page]');
+  if (!authPage) return;
+
+  const title = authPage.querySelector('[data-auth-title]');
+  const panels = {
+    register: authPage.querySelector('[data-auth-panel="register"]'),
+    login: authPage.querySelector('[data-auth-panel="login"]'),
+    reset: authPage.querySelector('[data-auth-panel="reset"]')
+  };
+
+  // 标题文本配置
+  const titles = {
+    register: 'Create account',
+    login: 'Sign in',
+    reset: 'Reset password'
+  };
+
+  // 切换面板函数
+  function switchPanel(panelName) {
+    // 隐藏所有面板
+    Object.values(panels).forEach(panel => {
+      if (panel) panel.style.display = 'none';
+    });
+
+    // 显示目标面板
+    if (panels[panelName]) {
+      panels[panelName].style.display = 'block';
+    }
+
+    // 更新标题
+    if (title && titles[panelName]) {
+      title.textContent = titles[panelName];
+    }
+
+    // 更新 URL hash（不刷新页面）
+    if (history.pushState) {
+      history.pushState(null, null, '#' + panelName);
+    } else {
+      window.location.hash = panelName;
+    }
+  }
+
+  // 初始化：根据 URL hash 或默认显示注册面板
+  function initPanel() {
+    const hash = window.location.hash.replace('#', '');
+    
+    // 如果 URL 中有 hash 且对应的面板存在，显示该面板
+    if (hash && panels[hash]) {
+      switchPanel(hash);
+    } 
+    // 否则默认显示注册面板
+    else {
+      switchPanel('register');
+    }
+  }
+
+  // 监听所有切换链接的点击事件
+  authPage.addEventListener('click', function(e) {
+    const switchLink = e.target.closest('[data-auth-switch]');
+    if (switchLink) {
+      e.preventDefault();
+      const targetPanel = switchLink.getAttribute('data-auth-switch');
+      if (targetPanel) {
+        switchPanel(targetPanel);
+      }
+    }
+  });
+
+  // 监听浏览器前进/后退按钮
+  window.addEventListener('hashchange', function() {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && panels[hash]) {
+      switchPanel(hash);
+    }
+  });
+
+  // 监听表单提交错误（Shopify 表单验证失败后会刷新页面）
+  // 如果有表单错误，确保显示正确的面板
+  window.addEventListener('DOMContentLoaded', function() {
+    // 检查注册表单错误
+    const registerForm = document.getElementById('AuthRegisterForm');
+    if (registerForm && registerForm.querySelector('.auth-errors')) {
+      switchPanel('register');
+      return;
+    }
+
+    // 检查登录表单错误
+    const loginForm = document.getElementById('AuthLoginForm');
+    if (loginForm && loginForm.querySelector('.auth-errors')) {
+      switchPanel('login');
+      return;
+    }
+
+    // 检查重置密码表单错误
+    const resetForm = document.getElementById('AuthResetForm');
+    if (resetForm && resetForm.querySelector('.auth-errors')) {
+      switchPanel('reset');
+      return;
+    }
+
+    // 如果没有错误，按正常逻辑初始化
+    initPanel();
+  });
+
+})();
+</script>
+
+
 {% schema %}
 {
   "name": "Auth Page",
