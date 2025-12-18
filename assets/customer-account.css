@@ -18,11 +18,6 @@ body.customer-page-active #shopify-section-header {
   z-index: 10;
 }
 
-body.customer-page-active .shopify-section {
-  position: relative;
-  z-index: 1;
-}
-
 /* Customer Pages General Styles */
 .customer-page {
   max-width: 1200px;
