@@ -100,7 +100,7 @@
               <button class="auth-btn" type="submit" data-auth-submit>
               {{ 'customer.login_page.submit' | t }}
               </button>
-              <a class="auth-btn" href="#login" data-auth-switch="login">
+              <a class="auth-btn cancel_btn" href="#login" data-auth-switch="login">
                   {{ 'customer.login_page.cancel' | t }}
               </a>
               
@@ -116,6 +116,9 @@
 </section>
 
 <style>
+  .cancel_btn{
+    background:#fff;
+  }
   .rest_btn_view{
     display: flex;
     gap: 30px;
