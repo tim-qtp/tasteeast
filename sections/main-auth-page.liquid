@@ -75,7 +75,7 @@
                 {{ form.errors | default_errors }}
               </div>
             {% endif %}
-            <h4>Reset your password</h4>
+            <h4 class="reset_title">Reset your password</h4>
             <p class="auth-subtext">
               {{ 'customer.recover_password.subtext' | t }}
             </p>
@@ -116,6 +116,10 @@
 </section>
 
 <style>
+  .reset_title{
+    font-size:18px;
+    
+  }
   .btn_view{
     display: flex;
     gap: 16px;
