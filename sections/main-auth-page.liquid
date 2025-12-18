@@ -40,14 +40,15 @@
                 class="auth-input" 
                 required>
             </div>
-
-            <button class="auth-btn" type="submit" data-auth-submit>Sign in</button>
-
-            <p class="auth-note">
-              <a class="auth-link" href="#recover" data-auth-switch="recover">Forgot password?</a>
-              <span style="margin:0 8px;">·</span>
-              <a class="auth-link" href="{{ routes.account_register_url }}">Create account</a>
-            </p>
+            <div>
+                <button class="auth-btn" type="submit" data-auth-submit>Sign in</button>
+                <p class="auth-note">
+                  <a class="auth-link" href="#recover" data-auth-switch="recover">Forgot password?</a>
+                  <span style="margin:0 8px;">·</span>
+                  <a class="auth-link" href="{{ routes.account_register_url }}">Create account</a>
+                </p>
+            </div>
+            
 
           {% endform %}
         </div>
