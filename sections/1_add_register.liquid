@@ -63,13 +63,15 @@
             </div>
             </div>
             
+            <div class="btn_view">
+              <button class="auth-btn" type="submit" data-auth-submit>Create</button>
 
-            <button class="auth-btn" type="submit" data-auth-submit>Create</button>
-
-            <p class="auth-note">
-              Returning customer?
-              <a class="auth-link" href="{{ routes.account_login_url }}">Sign in</a>
-            </p>
+              <p class="auth-note">
+                Returning customer?
+                <a class="auth-link" href="{{ routes.account_login_url }}">Sign in</a>
+              </p>
+            </div>
+            
           {% endform %}
         </div>
       </div>
