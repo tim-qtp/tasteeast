@@ -1,137 +1,348 @@
-<link rel="stylesheet" href="{{ 'customer-account.css' | asset_url }}">
+{{ 'customer-account.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
-
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .addresses-page{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .addresses-title{
+    text-align: center;
+    font-size: 44px;
+    font-weight: 700;
+    margin: 10px 0 30px;
+  }
+
+  .addresses-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  @media (min-width: 900px){
+    .addresses-grid{
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+  }
+
+  .addresses-left h2,
+  .addresses-right h2{
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 16px;
+  }
+
+  .addr-cards{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  @media (min-width: 700px){
+    .addr-cards{
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .addr-card{
+    border: 1px solid rgba(18,18,18,.12);
+    border-radius: 6px;
+    padding: 18px;
+    background: #fff;
+    min-height: 210px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .addr-card__text{
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(18,18,18,.85);
+    word-break: break-word;
+  }
+
+  .addr-card__default{
+    margin-top: 10px;
+    font-style: italic;
+    color: rgba(18,18,18,.7);
+  }
+
+  .addr-actions{
+    display: flex;
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .btn-outline,
+  .btn-solid{
+    appearance: none;
+    border-radius: 4px;
+    padding: 10px 22px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1px solid rgba(18,18,18,.15);
+    background: #fff;
+  }
+
+  .btn-solid{
+    background: #d9532f; /* 接近你截图的橙红 */
+    border-color: #d9532f;
+    color: #fff;
+  }
+
+  .btn-outline:hover{
+    border-color: rgba(18,18,18,.35);
+  }
+  .btn-solid:hover{
+    filter: brightness(.95);
+  }
+
+  .addr-form{
+    border: 1px solid rgba(18,18,18,.12);
+    border-radius: 6px;
+    padding: 18px;
+    background: #fff;
+  }
+
+  .form-grid{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .form-row-2{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  @media (min-width: 700px){
+    .form-row-2{
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .input{
+    width: 100%;
+    border: 1px solid rgba(18,18,18,.15);
+    border-radius: 4px;
+    padding: 12px 12px;
+    font-size: 14px;
+    outline: none;
+    background: #fff;
+  }
+  .input:focus{
+    border-color: rgba(18,18,18,.35);
+  }
+
+  .checkbox-row{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+    font-size: 14px;
+    color: rgba(18,18,18,.8);
+  }
+
+  .edit-wrap{
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(18,18,18,.10);
+    display: none;
+  }
+  .edit-wrap.is-open{
+    display: block;
+  }
+
+  .muted{
+    color: rgba(18,18,18,.65);
+    font-size: 14px;
+  }
 {%- endstyle -%}
 
-<div class="customer-page section-{{ section.id }}-padding">
-  <h1 class="customer-page__title">My Account</h1>
+<div class="addresses-page section-{{ section.id }}-padding">
+  <h1 class="addresses-title">My Addresses</h1>
 
-  <div class="account-container">
-    {/* Left Side: Order History */}
-    <div class="account-orders">
-      <h2 class="account-orders__title">Order history</h2>
-      
-      {%- if customer.orders.size > 0 -%}
-        <table style="width: 100%; border-collapse: collapse;">
-          <thead>
-            <tr style="border-bottom: 2px solid rgba(18, 18, 18, 0.1);">
-              <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Order</th>
-              <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Date</th>
-              <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Payment Status</th>
-              <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Fulfillment Status</th>
-              <th style="text-align: right; padding: 12px 8px; font-size: 14px; font-weight: 600;">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            {%- for order in customer.orders -%}
-              <tr style="border-bottom: 1px solid rgba(18, 18, 18, 0.08);">
-                <td style="padding: 16px 8px;">
-                  <a href="{{ order.customer_url }}" style="color: #0a7084; text-decoration: none; font-size: 14px; font-weight: 500;">
-                    {{ order.name }}
-                  </a>
-                </td>
-                <td style="padding: 16px 8px; font-size: 14px; color: rgba(18, 18, 18, 0.7);">
-                  {{ order.created_at | date: "%B %d, %Y" }}
-                </td>
-                <td style="padding: 16px 8px; font-size: 14px;">
-                  <span style="padding: 4px 12px; background: rgba(18, 18, 18, 0.05); border-radius: 4px; font-size: 13px;">
-                    {{ order.financial_status_label }}
-                  </span>
-                </td>
-                <td style="padding: 16px 8px; font-size: 14px;">
-                  <span style="padding: 4px 12px; background: rgba(18, 18, 18, 0.05); border-radius: 4px; font-size: 13px;">
-                    {{ order.fulfillment_status_label }}
-                  </span>
-                </td>
-                <td style="padding: 16px 8px; text-align: right; font-size: 14px; font-weight: 600;">
-                  {{ order.total_price | money }}
-                </td>
-              </tr>
-            {%- endfor -%}
-          </tbody>
-        </table>
-      {%- else -%}
-        <div class="account-orders__empty">
-          You have no orders
+  <div class="addresses-grid">
+    {%- comment -%} LEFT: Addresses list {%- endcomment -%}
+    <div class="addresses-left">
+      <h2>Addresses</h2>
+
+      {%- if customer.addresses_count > 0 -%}
+        <div class="addr-cards">
+          {%- for address in customer.addresses -%}
+            <div class="addr-card" data-addr-card>
+              <div>
+                <div class="addr-card__text">
+                  {{ address.name }}<br>
+                  {%- if address.company != blank -%}{{ address.company }}<br>{%- endif -%}
+                  {{ address.address1 }}<br>
+                  {%- if address.address2 != blank -%}{{ address.address2 }}<br>{%- endif -%}
+                  {{ address.city }}{%- if address.province_code != blank -%}, {{ address.province_code }}{%- endif -%}<br>
+                  {{ address.country }} {{ address.zip }}<br>
+                  {%- if address.phone != blank -%}{{ address.phone }}{%- endif -%}
+                </div>
+
+                {%- if address.id == customer.default_address.id -%}
+                  <div class="addr-card__default">Default address</div>
+                {%- endif -%}
+
+                <div class="addr-actions">
+                  <button type="button" class="btn-solid" data-edit-toggle aria-expanded="false">
+                    Edit
+                  </button>
+
+                  <form method="post" action="/account/addresses/{{ address.id }}" onsubmit="return confirm('Delete this address?');">
+                    <input type="hidden" name="_method" value="delete">
+                    <button type="submit" class="btn-outline">Delete</button>
+                  </form>
+                </div>
+              </div>
+
+              {%- comment -%} Edit form (toggle) {%- endcomment -%}
+              <div class="edit-wrap" data-edit-wrap>
+                {%- form 'customer_address', address -%}
+                  <div class="form-grid">
+                    <div class="form-row-2">
+                      <input class="input" name="address[first_name]" value="{{ form.first_name }}" placeholder="First name">
+                      <input class="input" name="address[last_name]" value="{{ form.last_name }}" placeholder="Last name">
+                    </div>
+
+                    <input class="input" name="address[company]" value="{{ form.company }}" placeholder="Company">
+                    <input class="input" name="address[address1]" value="{{ form.address1 }}" placeholder="Address 1">
+                    <input class="input" name="address[address2]" value="{{ form.address2 }}" placeholder="Address 2">
+
+                    <div class="form-row-2">
+                      <input class="input" name="address[city]" value="{{ form.city }}" placeholder="City">
+                      <select class="input" name="address[country]" data-country-select data-default="{{ form.country }}">
+                        {{ all_country_option_tags }}
+                      </select>
+                    </div>
+
+                    <div class="form-row-2">
+                      <input class="input" name="address[zip]" value="{{ form.zip }}" placeholder="Zip/Postal Code">
+                      <input class="input" name="address[phone]" value="{{ form.phone }}" placeholder="Phone">
+                    </div>
+
+                    <div class="checkbox-row">
+                      <input type="checkbox" id="addr_default_{{ address.id }}" name="address[default]" value="1" {% if address.id == customer.default_address.id %}checked{% endif %}>
+                      <label for="addr_default_{{ address.id }}">Set as default address</label>
+                    </div>
+
+                    <div class="addr-actions" style="margin-top: 12px;">
+                      <button type="submit" class="btn-solid">Save</button>
+                      <button type="button" class="btn-outline" data-edit-cancel>Cancel</button>
+                    </div>
+                  </div>
+                {%- endform -%}
+              </div>
+            </div>
+          {%- endfor -%}
         </div>
+      {%- else -%}
+        <p class="muted">You have no saved addresses yet.</p>
       {%- endif -%}
     </div>
 
-    {/* Right Side: Customer Info */}
-    <div class="account-info">
-      <div class="account-info__name">{{ customer.first_name }} {{ customer.last_name }}</div>
-      <div class="account-info__email">{{ customer.email }}</div>
+    {%- comment -%} RIGHT: Add new address {%- endcomment -%}
+    <div class="addresses-right">
+      <h2>Add a new Address</h2>
 
-      <h3 class="account-info__section-title">Default address</h3>
-      
-      {%- if customer.default_address -%}
-        <div class="account-info__address">
-          {%- if customer.default_address.company != blank -%}
-            {{ customer.default_address.company }}<br>
-          {%- endif -%}
-          {{ customer.default_address.address1 }}<br>
-          {%- if customer.default_address.address2 != blank -%}
-            {{ customer.default_address.address2 }}<br>
-          {%- endif -%}
-          {{ customer.default_address.city }}, {{ customer.default_address.province_code }}<br>
-          {{ customer.default_address.country }} {{ customer.default_address.zip }}<br>
-          {{ customer.default_address.phone }}
-        </div>
-        <a href="{{ routes.account_addresses_url }}" class="account-info__link">
-          View addresses ({{ customer.addresses_count }})
-        </a>
-      {%- else -%}
-        <a href="{{ routes.account_addresses_url }}" class="account-info__link">
-          Edit Address
-        </a>
-      {%- endif -%}
+      <div class="addr-form">
+        {%- form 'customer_address', customer.new_address -%}
+          <div class="form-grid">
+            <div class="form-row-2">
+              <input class="input" name="address[first_name]" value="{{ form.first_name }}" placeholder="First name">
+              <input class="input" name="address[last_name]" value="{{ form.last_name }}" placeholder="Last name">
+            </div>
 
-      <a href="{{ routes.account_logout_url }}" class="account-info__logout">
-        Log out
-      </a>
+            <input class="input" name="address[company]" value="{{ form.company }}" placeholder="Company">
+            <input class="input" name="address[address1]" value="{{ form.address1 }}" placeholder="Address 1">
+            <input class="input" name="address[address2]" value="{{ form.address2 }}" placeholder="Address 2">
+
+            <div class="form-row-2">
+              <input class="input" name="address[city]" value="{{ form.city }}" placeholder="City">
+              <select class="input" name="address[country]" data-country-select data-default="{{ form.country }}">
+                {{ all_country_option_tags }}
+              </select>
+            </div>
+
+            <div class="form-row-2">
+              <input class="input" name="address[zip]" value="{{ form.zip }}" placeholder="Zip/Postal Code">
+              <input class="input" name="address[phone]" value="{{ form.phone }}" placeholder="Phone">
+            </div>
+
+            <div class="checkbox-row">
+              <input type="checkbox" id="addr_default_new" name="address[default]" value="1">
+              <label for="addr_default_new">Set as default address</label>
+            </div>
+
+            <button type="submit" class="btn-solid" style="width: 180px; margin-top: 6px;">
+              Add address
+            </button>
+          </div>
+        {%- endform -%}
+      </div>
     </div>
   </div>
 </div>
 
+<script>
+  // Toggle edit forms
+  document.addEventListener('click', function(e){
+    const toggle = e.target.closest('[data-edit-toggle]');
+    const cancel = e.target.closest('[data-edit-cancel]');
+
+    if (toggle) {
+      const card = toggle.closest('[data-addr-card]');
+      const wrap = card.querySelector('[data-edit-wrap]');
+      const isOpen = wrap.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    }
+
+    if (cancel) {
+      const card = cancel.closest('[data-addr-card]');
+      const wrap = card.querySelector('[data-edit-wrap]');
+      const btn = card.querySelector('[data-edit-toggle]');
+      wrap.classList.remove('is-open');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Preselect country dropdown by data-default
+  document.querySelectorAll('[data-country-select]').forEach(function(select){
+    const def = select.getAttribute('data-default');
+    if (!def) return;
+    for (const opt of select.options) {
+      if (opt.text.trim() === def.trim()) {
+        opt.selected = true;
+        break;
+      }
+    }
+  });
+</script>
+
 {% schema %}
 {
-  "name": "Account",
+  "name": "Main addresses",
   "settings": [
-    {
-      "type": "header",
-      "content": "Section padding"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding top",
-      "default": 36
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding bottom",
-      "default": 36
-    }
+    { "type": "header", "content": "Section padding" },
+    { "type": "range", "id": "padding_top", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding top", "default": 36 },
+    { "type": "range", "id": "padding_bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Padding bottom", "default": 36 }
   ]
 }
 {% endschema %}
