@@ -15,6 +15,10 @@
   .customer *{
     color:#000;
   }
+  .customer .account_addresses_url {
+    color:#146ef5;
+  }
+  
   .div_v{
     display: flex;
     align-items: center;
@@ -146,7 +150,7 @@
 
                 {%- if paginate.next -%}
                   <li>
-                    <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}">
+                    <a  href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}">
                       <span class="svg-wrapper">
                         {{- 'icon-caret.svg' | inline_asset_content -}}
                       </span>
@@ -165,7 +169,7 @@
 
       {{ customer.default_address | format_address }}
 
-      <a href="{{ routes.account_addresses_url }}">
+      <a href="{{ routes.account_addresses_url }}" class="account_addresses_url">
         {{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})
       </a>
     </div>
