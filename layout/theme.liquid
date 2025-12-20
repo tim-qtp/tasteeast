@@ -16,7 +16,9 @@
       .auth-field {
         position: relative;
       }
-
+      .top-bar{
+        background-color: #f5f3ed;
+      }
       .auth-field .auth-input[type="password"],
       .auth-field .auth-input[type="text"] {
         padding-right: 40px;
@@ -355,7 +357,7 @@
     </script>
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}{% if template.directory == 'customers' %} customer-page-active{% endif %}">
+  <body class="{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}{% if template.directory == 'customers' %} customer-page-active{% endif %}">
     {%- unless template.name == 'product' -%}
       <a class="skip-to-content-link button visually-hidden" href="#MainContent">
         {{ 'accessibility.skip_to_text' | t }}
