@@ -39,12 +39,7 @@
       "type": "custom-liquid",
       "custom_css": [],
       "name": "t:sections.custom-liquid.presets.name",
-      "settings": {
-        "custom_liquid": "<style>\n.section-{{ section.id }}-padding,\n  .section-{{ section.id }}-padding * {\n    font-family: 'Carlito', sans-serif !important;\n  }\n\n  /* 链接：去掉下划线，只用颜色区分 */\n  .section-{{ section.id }}-padding a {\n    text-decoration: none !important;\n    color: inherit;\n  }\n\n  .section-{{ section.id }}-padding a:hover,\n  .section-{{ section.id }}-padding a:focus {\n    text-decoration: none;\n    color: #d2232a; /* 这里换成你想要的高亮颜色 */\n  }\n\n  .section-{{ section.id }}-padding a:active {\n    text-decoration: none;\n    color: #a1191f; /* 点击按住时的颜色（可选） */\n  }\n\n  .section-{{ section.id }}-padding {\n    padding-top: calc({{ section.settings.padding_top }}px * 0.75);\n    padding-bottom: calc({{ section.settings.padding_bottom }}px * 0.75);\n  }\n</style>",
-        "color_scheme": "scheme-2",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
+      "settings": {}
     },
     "header": {
       "type": "header",
