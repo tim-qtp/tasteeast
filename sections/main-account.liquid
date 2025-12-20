@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="{{ 'customer-account.css' | asset_url }}">
-
 {%- style -%}
 .account-page{
   max-width: 1200px;
@@ -117,20 +115,29 @@
 
     {% comment %} RIGHT: Customer info + Default address {% endcomment %}
     <aside>
-      <div class="side-name">{{ customer.first_name }} {{ customer.last_name }}</div>
+      <div class="side-name">
+        {%- if customer.first_name != blank or customer.last_name != blank -%}
+          {{ customer.first_name }} {{ customer.last_name }}
+        {%- else -%}
+          {{ customer.name }}
+        {%- endif -%}
+      </div>
+
       <div class="side-email">{{ customer.email }}</div>
 
       <div class="side-section-title">Default address</div>
 
-      {%- if customer.addresses_count > 0 and customer.default_address -%}
+      {%- if customer.addresses_count > 0 -%}
+        {%- assign show_address = customer.default_address | default: customer.addresses.first -%}
+
         <div class="side-address">
-          {%- if customer.default_address.name != blank -%}{{ customer.default_address.name }}<br>{%- endif -%}
-          {%- if customer.default_address.company != blank -%}{{ customer.default_address.company }}<br>{%- endif -%}
-          {%- if customer.default_address.address1 != blank -%}{{ customer.default_address.address1 }}<br>{%- endif -%}
-          {%- if customer.default_address.address2 != blank -%}{{ customer.default_address.address2 }}<br>{%- endif -%}
-          {%- if customer.default_address.city != blank -%}{{ customer.default_address.city }}{% if customer.default_address.province_code != blank %}, {{ customer.default_address.province_code }}{% endif %}<br>{%- endif -%}
-          {%- if customer.default_address.country != blank -%}{{ customer.default_address.country }} {% if customer.default_address.zip != blank %}{{ customer.default_address.zip }}{% endif %}<br>{%- endif -%}
-          {%- if customer.default_address.phone != blank -%}{{ customer.default_address.phone }}{%- endif -%}
+          {%- if show_address.name != blank -%}{{ show_address.name }}<br>{%- endif -%}
+          {%- if show_address.company != blank -%}{{ show_address.company }}<br>{%- endif -%}
+          {%- if show_address.address1 != blank -%}{{ show_address.address1 }}<br>{%- endif -%}
+          {%- if show_address.address2 != blank -%}{{ show_address.address2 }}<br>{%- endif -%}
+          {%- if show_address.city != blank -%}{{ show_address.city }}{% if show_address.province_code != blank %}, {{ show_address.province_code }}{% endif %}<br>{%- endif -%}
+          {%- if show_address.country != blank -%}{{ show_address.country }}{% if show_address.zip != blank %} {{ show_address.zip }}{% endif %}<br>{%- endif -%}
+          {%- if show_address.phone != blank -%}{{ show_address.phone }}{%- endif -%}
         </div>
 
         <a class="side-link" href="{{ routes.account_addresses_url }}">
@@ -149,7 +156,7 @@
 
 {% schema %}
 {
-  "name": "Account",
+  "name": "Main account",
   "settings": []
 }
 {% endschema %}
