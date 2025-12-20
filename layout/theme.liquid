@@ -483,17 +483,38 @@ document.querySelectorAll('.auth-field input[type="password"]').forEach(input =>
   // 添加到父容器
   parent.appendChild(toggleIcon);
   
-  // 点击切换
-  toggleIcon.addEventListener('click', function() {
-    if (input.type === 'password') {
-      input.type = 'text';
-      toggleIcon.innerHTML = eyeOpenSVG;
-    } else {
-      input.type = 'password';
-      toggleIcon.innerHTML = eyeClosedSVG;
-    }
+  // 鼠标按下 - 显示密码
+  toggleIcon.addEventListener('mousedown', function(e) {
+    e.preventDefault(); // 防止输入框失去焦点
+    input.type = 'text';
+    toggleIcon.innerHTML = eyeOpenSVG;
+  });
+  
+  // 鼠标松开 - 隐藏密码
+  toggleIcon.addEventListener('mouseup', function() {
+    input.type = 'password';
+    toggleIcon.innerHTML = eyeClosedSVG;
+  });
+  
+  // 鼠标移出 - 隐藏密码（防止按住后移出区域）
+  toggleIcon.addEventListener('mouseleave', function() {
+    input.type = 'password';
+    toggleIcon.innerHTML = eyeClosedSVG;
+  });
+  
+  // 触摸设备支持
+  toggleIcon.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    input.type = 'text';
+    toggleIcon.innerHTML = eyeOpenSVG;
+  });
+  
+  toggleIcon.addEventListener('touchend', function() {
+    input.type = 'password';
+    toggleIcon.innerHTML = eyeClosedSVG;
   });
 });
+
 
 </script>
 
