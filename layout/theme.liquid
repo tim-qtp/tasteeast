@@ -13,6 +13,40 @@
         outline-offset:unset !important;
         box-shadow:none !important;
       }
+      .auth-field {
+        position: relative;
+      }
+
+      .auth-field .auth-input[type="password"],
+      .auth-field .auth-input[type="text"] {
+        padding-right: 40px;
+      }
+
+      .password-toggle-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #666;
+        transition: color 0.2s;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .password-toggle-icon:hover {
+        color: #333;
+      }
+
+      .password-toggle-icon svg {
+        width: 20px;
+        height: 20px;
+        display: block;
+      }
+
 
     </style>
 
