@@ -12,6 +12,12 @@
     line-height: 1.4;
     color:#000;
   }
+  .div_v{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
 </style>
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -28,7 +34,7 @@
 {%- endstyle -%}
 
 <div class="customer account section-{{ section.id }}-padding">
-  <div>
+  <div class="div_v">
     <h1 class="customer__title">{{ 'customer.account.title' | t }}</h1>
     <a href="{{ routes.account_logout_url }}">
       <span class="svg-wrapper">
