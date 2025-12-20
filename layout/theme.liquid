@@ -13,12 +13,14 @@
         outline-offset:unset !important;
         box-shadow:none !important;
       }
-      .auth-field {
-        position: relative;
-      }
       .top-bar{
         background-color: #f5f3ed;
       }
+
+      .auth-field {
+        position: relative;
+      }
+
       .auth-field .auth-input[type="password"],
       .auth-field .auth-input[type="text"] {
         padding-right: 40px;
@@ -30,22 +32,25 @@
         top: 50%;
         transform: translateY(-50%);
         cursor: pointer;
-        color: #666;
+        color: #999; 
         transition: color 0.2s;
-        width: 20px;
-        height: 20px;
+        width: 16px; 
+        height: 16px; 
         display: flex;
         align-items: center;
         justify-content: center;
+        user-select: none;
+        opacity: 0.7; 
       }
 
       .password-toggle-icon:hover {
-        color: #333;
+        color: #666; 
+        opacity: 1;
       }
 
       .password-toggle-icon svg {
-        width: 20px;
-        height: 20px;
+        width: 16px; 
+        height: 16px;
         display: block;
       }
 
