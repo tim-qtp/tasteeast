@@ -1,60 +1,109 @@
 <link rel="stylesheet" href="{{ 'customer-account.css' | asset_url }}">
 
 {%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
+.account-page{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+.account-title{
+  text-align: center;
+  font-size: 44px;
+  font-weight: 700;
+  margin: 10px 0 40px;
+}
+.account-grid{
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 48px;
+  align-items: start;
+}
+@media (max-width: 900px){
+  .account-grid{ grid-template-columns: 1fr; }
+}
 
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
+.orders-title{
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+.orders-empty{
+  padding: 18px 0;
+  font-size: 16px;
+}
+
+.side-name{
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.side-email{
+  color: rgba(18,18,18,.65);
+  margin-bottom: 22px;
+}
+.side-section-title{
+  font-size: 22px;
+  font-weight: 800;
+  margin: 18px 0 10px;
+}
+.side-address{
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+.side-link{
+  display: inline-block;
+  margin-top: 6px;
+  color: #2b6cb0;
+  text-decoration: none;
+}
+.side-link:hover{ text-decoration: underline; }
+
+.logout{
+  display: inline-block;
+  margin-top: 26px;
+  color: rgba(18,18,18,.75);
+  text-decoration: none;
+}
+.logout:hover{ text-decoration: underline; }
 {%- endstyle -%}
 
-<div class="customer-page section-{{ section.id }}-padding">
-  <h1 class="customer-page__title">My Account</h1>
+<div class="account-page">
+  <h1 class="account-title">My Account</h1>
 
-  <div class="account-container">
-    {/* Left Side: Order History */}
-    <div class="account-orders">
-      <h2 class="account-orders__title">Order history</h2>
-      
+  <div class="account-grid">
+    {% comment %} LEFT: Order history {% endcomment %}
+    <div>
+      <h2 class="orders-title">Order history</h2>
+
       {%- if customer.orders.size > 0 -%}
-        <table style="width: 100%; border-collapse: collapse;">
+        <table style="width:100%; border-collapse:collapse;">
           <thead>
-            <tr style="border-bottom: 2px solid rgba(18, 18, 18, 0.1);">
-              <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Order</th>
-              <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Date</th>
-              <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Payment Status</th>
-              <th style="text-align: left; padding: 12px 8px; font-size: 14px; font-weight: 600;">Fulfillment Status</th>
-              <th style="text-align: right; padding: 12px 8px; font-size: 14px; font-weight: 600;">Total</th>
+            <tr style="border-bottom: 2px solid rgba(18,18,18,.12);">
+              <th style="text-align:left; padding:12px 8px;">Order</th>
+              <th style="text-align:left; padding:12px 8px;">Date</th>
+              <th style="text-align:left; padding:12px 8px;">Payment Status</th>
+              <th style="text-align:left; padding:12px 8px;">Fulfillment Status</th>
+              <th style="text-align:right; padding:12px 8px;">Total</th>
             </tr>
           </thead>
           <tbody>
             {%- for order in customer.orders -%}
-              <tr style="border-bottom: 1px solid rgba(18, 18, 18, 0.08);">
-                <td style="padding: 16px 8px;">
-                  <a href="{{ order.customer_url }}" style="color: #0a7084; text-decoration: none; font-size: 14px; font-weight: 500;">
+              <tr style="border-bottom: 1px solid rgba(18,18,18,.08);">
+                <td style="padding:16px 8px;">
+                  <a href="{{ order.customer_url }}" style="color:#0a7084; text-decoration:none; font-weight:600;">
                     {{ order.name }}
                   </a>
                 </td>
-                <td style="padding: 16px 8px; font-size: 14px; color: rgba(18, 18, 18, 0.7);">
+                <td style="padding:16px 8px; color: rgba(18,18,18,.7);">
                   {{ order.created_at | date: "%B %d, %Y" }}
                 </td>
-                <td style="padding: 16px 8px; font-size: 14px;">
-                  <span style="padding: 4px 12px; background: rgba(18, 18, 18, 0.05); border-radius: 4px; font-size: 13px;">
-                    {{ order.financial_status_label }}
-                  </span>
+                <td style="padding:16px 8px;">
+                  {{ order.financial_status_label }}
                 </td>
-                <td style="padding: 16px 8px; font-size: 14px;">
-                  <span style="padding: 4px 12px; background: rgba(18, 18, 18, 0.05); border-radius: 4px; font-size: 13px;">
-                    {{ order.fulfillment_status_label }}
-                  </span>
+                <td style="padding:16px 8px;">
+                  {{ order.fulfillment_status_label }}
                 </td>
-                <td style="padding: 16px 8px; text-align: right; font-size: 14px; font-weight: 600;">
+                <td style="padding:16px 8px; text-align:right; font-weight:700;">
                   {{ order.total_price | money }}
                 </td>
               </tr>
@@ -62,76 +111,45 @@
           </tbody>
         </table>
       {%- else -%}
-        <div class="account-orders__empty">
-          You have no orders
-        </div>
+        <div class="orders-empty">You have no orders</div>
       {%- endif -%}
     </div>
 
-    {/* Right Side: Customer Info */}
-    <div class="account-info">
-      <div class="account-info__name">{{ customer.first_name }} {{ customer.last_name }}</div>
-      <div class="account-info__email">{{ customer.email }}</div>
+    {% comment %} RIGHT: Customer info + Default address {% endcomment %}
+    <aside>
+      <div class="side-name">{{ customer.first_name }} {{ customer.last_name }}</div>
+      <div class="side-email">{{ customer.email }}</div>
 
-      <h3 class="account-info__section-title">Default address</h3>
-      
-      {%- if customer.default_address -%}
-        <div class="account-info__address">
-          {%- if customer.default_address.company != blank -%}
-            {{ customer.default_address.company }}<br>
-          {%- endif -%}
-          {{ customer.default_address.address1 }}<br>
-          {%- if customer.default_address.address2 != blank -%}
-            {{ customer.default_address.address2 }}<br>
-          {%- endif -%}
-          {{ customer.default_address.city }}, {{ customer.default_address.province_code }}<br>
-          {{ customer.default_address.country }} {{ customer.default_address.zip }}<br>
-          {{ customer.default_address.phone }}
+      <div class="side-section-title">Default address</div>
+
+      {%- if customer.addresses_count > 0 and customer.default_address -%}
+        <div class="side-address">
+          {%- if customer.default_address.name != blank -%}{{ customer.default_address.name }}<br>{%- endif -%}
+          {%- if customer.default_address.company != blank -%}{{ customer.default_address.company }}<br>{%- endif -%}
+          {%- if customer.default_address.address1 != blank -%}{{ customer.default_address.address1 }}<br>{%- endif -%}
+          {%- if customer.default_address.address2 != blank -%}{{ customer.default_address.address2 }}<br>{%- endif -%}
+          {%- if customer.default_address.city != blank -%}{{ customer.default_address.city }}{% if customer.default_address.province_code != blank %}, {{ customer.default_address.province_code }}{% endif %}<br>{%- endif -%}
+          {%- if customer.default_address.country != blank -%}{{ customer.default_address.country }} {% if customer.default_address.zip != blank %}{{ customer.default_address.zip }}{% endif %}<br>{%- endif -%}
+          {%- if customer.default_address.phone != blank -%}{{ customer.default_address.phone }}{%- endif -%}
         </div>
-        <a href="{{ routes.account_addresses_url }}" class="account-info__link">
+
+        <a class="side-link" href="{{ routes.account_addresses_url }}">
           View addresses ({{ customer.addresses_count }})
         </a>
       {%- else -%}
-        <a href="{{ routes.account_addresses_url }}" class="account-info__link">
+        <a class="side-link" href="{{ routes.account_addresses_url }}">
           Edit Address
         </a>
       {%- endif -%}
 
-      <a href="{{ routes.account_logout_url }}" class="account-info__logout">
-        Log out
-      </a>
-    </div>
+      <a class="logout" href="{{ routes.account_logout_url }}">Log out</a>
+    </aside>
   </div>
 </div>
 
 {% schema %}
 {
   "name": "Account",
-  "settings": [
-    {
-      "type": "header",
-      "content": "Section padding"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding top",
-      "default": 36
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding bottom",
-      "default": 36
-    }
-  ]
+  "settings": []
 }
 {% endschema %}
