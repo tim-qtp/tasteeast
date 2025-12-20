@@ -1,191 +1,201 @@
-{{ 'customer-account.css' | asset_url | stylesheet_tag }}
-
-<div class="customer-page">
-  <h1 class="customer-page__title">My Addresses</h1>
-
-  <div class="addresses-layout">
-    <!-- LEFT: Address list -->
-    <div class="addresses-left">
-      <h2 class="addresses-heading">Addresses</h2>
-
-      {% if customer.addresses_count > 0 %}
-        <div class="addresses-grid">
-          {% for address in customer.addresses %}
-            <div class="address-card">
-              <div class="address-card__content">
-                <div class="address-lines">
-                  {{ address.name }}<br>
-                  {% if address.company != blank %}{{ address.company }}<br>{% endif %}
-                  {{ address.address1 }}<br>
-                  {% if address.address2 != blank %}{{ address.address2 }}<br>{% endif %}
-                  {{ address.city }}, {{ address.province_code }}<br>
-                  {{ address.country }} {{ address.zip }}<br>
-                  {% if address.phone != blank %}{{ address.phone }}{% endif %}
-                </div>
-
-                {% if address.id == customer.default_address.id %}
-                  <div class="address-default">Default address</div>
-                {% endif %}
-              </div>
-
-              <div class="address-card__actions">
-                <a class="btn btn--primary" href="{{ routes.account_addresses_url }}?edit={{ address.id }}">Edit</a>
-
-                {% form 'customer_address', address %}
-                  <input type="hidden" name="_method" value="delete">
-                  <button class="btn btn--outline" type="submit">Delete</button>
-                {% endform %}
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      {% else %}
-        <p>You have no saved addresses.</p>
-      {% endif %}
-    </div>
-
-    <!-- RIGHT: Add new address -->
-    <div class="addresses-right">
-      <h2 class="addresses-heading">Add a new Address</h2>
-
-      {% form 'customer_address', customer.new_address %}
-        <div class="form-grid form-grid--2">
-          <input class="field" name="address[first_name]" placeholder="First name" value="{{ form.first_name }}">
-          <input class="field" name="address[last_name]" placeholder="Last name" value="{{ form.last_name }}">
-        </div>
-
-        <input class="field" name="address[company]" placeholder="Company" value="{{ form.company }}">
-
-        <input class="field" name="address[address1]" placeholder="Address 1" value="{{ form.address1 }}">
-        <input class="field" name="address[address2]" placeholder="Address 2" value="{{ form.address2 }}">
-
-        <div class="form-grid form-grid--2">
-          <input class="field" name="address[city]" placeholder="City" value="{{ form.city }}">
-
-          <select class="field" name="address[country]" data-address-country-select>
-            {{ all_country_option_tags }}
-          </select>
-        </div>
-
-        <div class="form-grid form-grid--2">
-          <input class="field" name="address[zip]" placeholder="Zip/Postal Code" value="{{ form.zip }}">
-          <input class="field" name="address[phone]" placeholder="Phone" value="{{ form.phone }}">
-        </div>
-
-        <label class="checkbox-row">
-          {{ form.set_as_default_checkbox }}
-          <span>Set as default address</span>
-        </label>
-
-        <button class="btn btn--primary btn--full" type="submit">Add address</button>
-      {% endform %}
-
-      <a class="text-link" href="{{ routes.account_url }}">Back to account</a>
-    </div>
-  </div>
-</div>
-<style>>
-  .customer-page{
+{%- style -%}
+.addr-page{
   max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
 }
-.customer-page__title{
+.addr-title{
   text-align:center;
-  font-size: 40px;
-  margin: 0 0 30px;
+  font-size:44px;
+  font-weight:800;
+  margin: 10px 0 40px;
 }
-
-.addresses-layout{
+.addr-grid{
   display:grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 40px;
-  align-items: start;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items:start;
+}
+@media (max-width: 900px){
+  .addr-grid{ grid-template-columns: 1fr; }
 }
 
-.addresses-heading{
-  font-size: 24px;
+.addr-col-title{
+  font-size: 26px;
+  font-weight: 800;
   margin: 0 0 18px;
 }
 
-.addresses-grid{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 22px;
+.addr-card{
+  border: 1px solid rgba(18,18,18,.10);
+  border-radius: 6px;
+  padding: 18px 18px 16px;
+  margin-bottom: 18px;
+  background: #fff;
 }
-
-.address-card{
-  border: 1px solid rgba(0,0,0,.08);
-  border-radius: 8px;
-  padding: 18px;
-  background:#fff;
-}
-.address-default{
-  margin-top: 14px;
+.addr-card .default-badge{
+  margin-top: 10px;
   font-style: italic;
-  opacity:.7;
+  color: rgba(18,18,18,.65);
 }
-.address-card__actions{
+.addr-actions{
+  margin-top: 14px;
   display:flex;
   gap: 12px;
-  margin-top: 16px;
 }
-
-.form-grid{
-  display:grid;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-.form-grid--2{
-  grid-template-columns: 1fr 1fr;
-}
-.field{
-  width:100%;
-  padding: 14px 12px;
-  border: 1px solid rgba(0,0,0,.15);
-  border-radius: 6px;
-  background:#fff;
-}
-
-.checkbox-row{
-  display:flex;
-  gap: 10px;
-  align-items:center;
-  margin: 10px 0 16px;
-}
-
-.btn{
-  display:inline-flex;
-  justify-content:center;
-  align-items:center;
-  padding: 10px 16px;
-  border-radius: 6px;
+.addr-btn{
+  display:inline-block;
+  padding: 10px 18px;
+  border-radius: 4px;
+  border: 1px solid rgba(18,18,18,.18);
   text-decoration:none;
-  cursor:pointer;
-  border: 1px solid transparent;
-  font-weight:600;
+  font-weight: 700;
+  font-size: 14px;
 }
-.btn--primary{
-  background:#d94a2b;
+.addr-btn--primary{
+  background: #e05a3b;
+  border-color: #e05a3b;
   color:#fff;
 }
-.btn--outline{
+.addr-btn--ghost{
   background:#fff;
-  border-color: rgba(0,0,0,.15);
-  color:#d94a2b;
+  color:#e05a3b;
 }
-.btn--full{
-  width:100%;
-}
-.text-link{
-  display:inline-block;
-  margin-top: 14px;
-  text-decoration: underline;
+.addr-empty{
+  color: rgba(18,18,18,.7);
+  line-height:1.6;
 }
 
-@media (max-width: 900px){
-  .addresses-layout{ grid-template-columns: 1fr; }
-  .addresses-grid{ grid-template-columns: 1fr; }
+.form-wrap{
+  max-width: 520px;
 }
+.form-grid-2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.form-field{
+  margin-bottom: 14px;
+}
+.form-input, .form-select{
+  width: 100%;
+  height: 44px;
+  border: 1px solid rgba(18,18,18,.18);
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+.form-check{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  margin: 14px 0 18px;
+  color: rgba(18,18,18,.8);
+}
+{%- endstyle -%}
 
-</style>
+<div class="addr-page">
+  <h1 class="addr-title">My Addresses</h1>
+
+  <div class="addr-grid">
+    {% comment %} LEFT: Existing addresses {% endcomment %}
+    <div>
+      <h2 class="addr-col-title">Addresses</h2>
+
+      {%- if customer.addresses_count > 0 -%}
+        {%- for address in customer.addresses -%}
+          <div class="addr-card">
+            {{ address | format_address }}
+
+            {%- if address == customer.default_address -%}
+              <div class="default-badge">Default address</div>
+            {%- endif -%}
+
+            <div class="addr-actions">
+              <a class="addr-btn addr-btn--primary" href="{{ routes.account_addresses_url }}#EditAddress_{{ address.id }}">
+                Edit
+              </a>
+
+              <form method="post" action="{{ routes.account_addresses_url }}/{{ address.id }}">
+                <input type="hidden" name="_method" value="delete">
+                <button class="addr-btn addr-btn--ghost" type="submit">
+                  Delete
+                </button>
+              </form>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        <div class="addr-empty">
+          You have no saved addresses yet.<br>
+          Please add a new address on the right.
+        </div>
+      {%- endif -%}
+    </div>
+
+    {% comment %} RIGHT: Add new address form {% endcomment %}
+    <div>
+      <h2 class="addr-col-title">Add a new Address</h2>
+
+      <div class="form-wrap">
+        {% form 'customer_address', customer.new_address %}
+          <div class="form-grid-2">
+            <div class="form-field">
+              <input class="form-input" name="address[first_name]" placeholder="First name" value="{{ form.first_name }}">
+            </div>
+            <div class="form-field">
+              <input class="form-input" name="address[last_name]" placeholder="Last name" value="{{ form.last_name }}">
+            </div>
+          </div>
+
+          <div class="form-field">
+            <input class="form-input" name="address[company]" placeholder="Company" value="{{ form.company }}">
+          </div>
+
+          <div class="form-field">
+            <input class="form-input" name="address[address1]" placeholder="Address 1" value="{{ form.address1 }}">
+          </div>
+
+          <div class="form-field">
+            <input class="form-input" name="address[address2]" placeholder="Address 2" value="{{ form.address2 }}">
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-field">
+              <input class="form-input" name="address[city]" placeholder="City" value="{{ form.city }}">
+            </div>
+
+            <div class="form-field">
+              <select class="form-select" name="address[country]" data-default="{{ form.country }}">
+                {{ all_country_option_tags }}
+              </select>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-field">
+              <input class="form-input" name="address[zip]" placeholder="Zip/Postal Code" value="{{ form.zip }}">
+            </div>
+            <div class="form-field">
+              <input class="form-input" name="address[phone]" placeholder="Phone" value="{{ form.phone }}">
+            </div>
+          </div>
+
+          <label class="form-check">
+            <input type="checkbox" name="address[default]" value="1">
+            <span>Set as default address</span>
+          </label>
+
+          <button class="addr-btn addr-btn--primary" type="submit">Add address</button>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Main addresses",
+  "settings": []
+}
+{% endschema %}
