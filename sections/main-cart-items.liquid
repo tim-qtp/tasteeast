@@ -67,15 +67,15 @@
         <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
           <div class="js-contents">
             {%- if cart != empty -%}
-              <table class="cart-items">
-                <caption class="visually-hidden">
+              <div class="cart-items">
+                <div class="visually-hidden">
                   {{ 'sections.cart.title' | t }}
-                </caption>
+                </div>
                
 
-                <tbody>
+                <div>
                   {%- for item in cart.items -%}
-                    <tr
+                    <div
                       class="cart-item {% if item.parent_relationship.parent != null %}cart-item__nested-line{% endif %}"
                       id="CartItem-{{ item.index | plus: 1 }}"
                       {% if item.parent_relationship.parent != null %}
@@ -431,10 +431,10 @@
                           {%- endif -%}
                         </div>
                       </div>
-                    </tr>
+                    </div>
                   {%- endfor -%}
-                </tbody>
-              </table>
+                </div>
+              </div>
             {%- endif -%}
           </div>
         </div>
