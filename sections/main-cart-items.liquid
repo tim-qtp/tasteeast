@@ -72,6 +72,9 @@
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
+    .cart-item__price-wrapper>*:only-child:not(.cart-item__discounted-prices){
+      margin-top:0px;
+    }
   }
   @media (max-width:789px){
     .cart_items_view{
