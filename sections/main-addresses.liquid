@@ -114,6 +114,9 @@
   margin: 14px 0 18px;
   color: rgba(18,18,18,.8);
 }
+.addr_gird{
+  
+}
 {%- endstyle -%}
 
 {%- assign has_addresses = customer.addresses_count | plus: 0 -%}
@@ -126,7 +129,7 @@
     {% if has_addresses > 0 %}
       <div class="addr-left">
         <h2 class="addr-col-title">Addresses</h2>
-
+        <div class="addr_gird"> 
         {%- for address in customer.addresses -%}
           <div class="addr-card">
             {{ address | format_address }}
@@ -149,6 +152,7 @@
             </div>
           </div>
         {%- endfor -%}
+        </div>
       </div>
     {% endif %}
 
