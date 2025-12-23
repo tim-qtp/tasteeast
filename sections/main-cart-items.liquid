@@ -92,22 +92,22 @@
         <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
           <div class="js-contents">
             {%- if cart != empty -%}
-              <table class="cart-items">
+              <div class="cart-items">
                 <div class="visually-hidden">
                   {{ 'sections.cart.title' | t }}
                 </div>
                
 
-                <tbody class="car_wrap">
+                <div class="car_wrap">
                   {%- for item in cart.items -%}
-                    <tr
+                    <div
                       class="cart-item {% if item.parent_relationship.parent != null %}cart-item__nested-line{% endif %}"
                       id="CartItem-{{ item.index | plus: 1 }}"
                       {% if item.parent_relationship.parent != null %}
                         aria-label="{{- 'products.product.nested_label' | t: title: item.product.title, parent_title: item.parent_relationship.parent.title | escape -}}"
                       {% endif %}
                     >
-                      <td class="cart-item__media">
+                      <div class="cart-item__media">
                         {% if item.image %}
                           {% comment %} Leave empty space due to a:empty CSS display: none rule {% endcomment %}
                           <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
@@ -122,9 +122,9 @@
                             >
                           </div>
                         {% endif %}
-                      </td>
+                      </div>
 
-                      <td class="cart-item__details">
+                      <div class="cart-item__details">
                         {%- if settings.show_vendor -%}
                           <p class="caption-with-letter-spacing">{{ item.product.vendor }}</p>
                         {%- endif -%}
@@ -196,9 +196,9 @@
                             </li>
                           {%- endfor -%}
                         </ul>
-                      </td>
+                      </div>
 
-                      <td class="cart-item__totals right medium-hide large-up-hide">
+                      <div class="cart-item__totals right medium-hide large-up-hide">
                         {%- render 'loading-spinner' -%}
                         <div class="cart-item__price-wrapper">
                           {%- if item.original_line_price != item.final_line_price -%}
@@ -228,7 +228,7 @@
                             {% render 'unit-price', price: item.unit_price, measurement: item.unit_price_measurement %}
                           {%- endif -%}
                         </div>
-                      </td>
+                      </div>
                       {%- liquid
                         assign has_qty_rules = false
                         if item.variant.quantity_rule.increment > 1 or item.variant.quantity_rule.min > 1 or item.variant.quantity_rule.max != null
@@ -240,7 +240,7 @@
                           assign has_vol_pricing = true
                         endif
                       -%}
-                      <td class="cart-item__quantity{% if has_qty_rules or has_vol_pricing %} cart-item__quantity--info{% endif %}">
+                      <div class="cart-item__quantity{% if has_qty_rules or has_vol_pricing %} cart-item__quantity--info{% endif %}">
                         <quantity-popover>
                           <div class="cart-item__quantity-wrapper quantity-popover-wrapper">
                             <label class="visually-hidden" for="Quantity-{{ item.index | plus: 1 }}">
@@ -423,9 +423,9 @@
                             </span>
                           </div>
                         </quantity-popover>
-                      </td>
+                      </div>
 
-                      <td class="cart-item__totals right small-hide">
+                      <div class="cart-item__totals right small-hide">
                         {%- render 'loading-spinner' -%}
                         <div class="cart-item__price-wrapper">
                           {%- if item.original_line_price != item.final_line_price -%}
@@ -455,11 +455,11 @@
                             {% render 'unit-price', price: item.unit_price, measurement: item.unit_price_measurement %}
                           {%- endif -%}
                         </div>
-                      </td>
-                    </tr>
+                      </div>
+                    </div>
                   {%- endfor -%}
-                </tbody>
-              </table>
+                </div>
+              </div>
             {%- endif -%}
           </div>
         </div>
