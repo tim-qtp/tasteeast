@@ -62,7 +62,15 @@
           </p>
         {%- endif -%}
       </div>
-
+      <style>
+        .car_wrap{
+          display: flex;
+          flex-direction: column;
+          gap: 24px;
+          width: 100%;
+        }
+        
+      </style>
       <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
         <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
           <div class="js-contents">
@@ -73,7 +81,7 @@
                 </div>
                
 
-                <div>
+                <div class="car_wrap">
                   {%- for item in cart.items -%}
                     <div
                       class="cart-item {% if item.parent_relationship.parent != null %}cart-item__nested-line{% endif %}"
