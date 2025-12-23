@@ -55,6 +55,12 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  @media (max-width:789px){
+    .cart_items_view{
+      grid-template-columns: 1fr;
+      
+    }
+  }
 {%- endstyle -%}
 
 {%- unless settings.cart_type == 'drawer' -%}
