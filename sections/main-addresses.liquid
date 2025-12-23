@@ -125,6 +125,11 @@
   margin: 0 auto;
   padding: 120px 50px;
 }
+@media (max-width:789px){
+  .addr_gird{
+    grid-template-columns: 1fr;
+  }
+}
 {%- endstyle -%}
 
 {%- assign has_addresses = customer.addresses_count | plus: 0 -%}
