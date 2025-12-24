@@ -27,6 +27,13 @@
       ],
       "settings": {
         "color_scheme": "",
+        "show_footer_note": true,
+        "footer_note_text": "<p>Save up to 50% on our clearance items</p>",
+        "footer_note_link_text": "Shop clearance sale →",
+        "footer_note_link_url": "shopify://collections/new-arrivals",
+        "footer_note_bg_color": "#f4f4f4",
+        "footer_note_text_color": "#000000",
+        "footer_note_link_color": "#21919f",
         "padding_top": 36,
         "padding_bottom": 36
       }
