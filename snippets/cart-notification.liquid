@@ -37,6 +37,11 @@
           {{- 'icon-checkmark.svg' | inline_asset_content -}}
           {{ 'general.cart.item_added' | t }}
         </h2>
+        
+      </div>
+      <div id="cart-notification-product" class="cart-notification-product"></div>
+      </div>
+      <div class="cart-notification__links">
         <button
           type="button"
           class="cart-notification__close modal__close-button link link--text focus-inset"
@@ -46,10 +51,6 @@
             {{- 'icon-close.svg' | inline_asset_content -}}
           </span>
         </button>
-      </div>
-      <div id="cart-notification-product" class="cart-notification-product"></div>
-      </div>
-      <div class="cart-notification__links">
         <a
           href="{{ routes.cart_url }}"
           id="cart-notification-button"
