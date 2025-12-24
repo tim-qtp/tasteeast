@@ -97,12 +97,13 @@
   .cart__footer_note {
     width: 90%;
     margin: 0 auto;
-    background-color: #f4f4f4;
+    background-color: {{ section.settings.footer_note_bg_color }};
     padding: 10px 20px;
     font-size: 16px;
+    color: {{ section.settings.footer_note_text_color }};
   }
   a.cart__footer_note_link {
-      color: #21919f;
+      color: {{ section.settings.footer_note_link_color }};
       font-size: 16px;
       font-weight: 600;
       margin: 0 8px;
@@ -711,9 +712,17 @@
           <div id="cart-errors"></div>
         </div>
       </div>
-      <div class="cart__footer_note">
-        Save up to 50% on our clearance items<a class="cart__footer_note_link" href="#">Shop clearance sale →</a>
-      </div>
+      {%- if section.settings.show_footer_note -%}
+        <div class="cart__footer_note">
+          {{ section.settings.footer_note_text }}
+          {%- if section.settings.footer_note_link_text != blank and section.settings.footer_note_link_url != blank -%}
+            <a class="cart__footer_note_link" href="{{ section.settings.footer_note_link_url }}">
+              {{ section.settings.footer_note_link_text }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
     </div>
   </div>
 </div>
@@ -728,6 +737,51 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Cart Footer Note"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_footer_note",
+      "label": "Show footer note",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "footer_note_text",
+      "label": "Footer note text",
+      "default": "<p>Save up to 50% on our clearance items</p>"
+    },
+    {
+      "type": "text",
+      "id": "footer_note_link_text",
+      "label": "Link text",
+      "default": "Shop clearance sale →"
+    },
+    {
+      "type": "url",
+      "id": "footer_note_link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "color",
+      "id": "footer_note_bg_color",
+      "label": "Background color",
+      "default": "#f4f4f4"
+    },
+    {
+      "type": "color",
+      "id": "footer_note_text_color",
+      "label": "Text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "footer_note_link_color",
+      "label": "Link color",
+      "default": "#21919f"
     },
     {
       "type": "header",
