@@ -8,6 +8,11 @@
   Usage:
   {% render 'cart-notification' %}
 {% endcomment %}
+ <style>
+  .cart-notification_view{
+    
+  }
+ </style>
 
 <cart-notification>
   <div class="cart-notification-wrapper{% if desktop_menu_type != 'drawer' %} page-width{% endif %}">
@@ -19,6 +24,7 @@
       role="dialog"
       tabindex="-1"
     >
+      <div class="cart-notification_view">
       <div class="cart-notification__header">
         <h2 class="cart-notification__heading caption-large text-body">
           {{- 'icon-checkmark.svg' | inline_asset_content -}}
@@ -35,6 +41,7 @@
         </button>
       </div>
       <div id="cart-notification-product" class="cart-notification-product"></div>
+      </div>
       <div class="cart-notification__links">
         <a
           href="{{ routes.cart_url }}"
