@@ -25,6 +25,10 @@
     display: flex;
     flex-direction: column;
   }
+  .cart-notification_close_btn{
+    display: flex;
+    flex-direction: column;
+  }
  </style>
 
 <cart-notification>
@@ -48,7 +52,8 @@
       <div id="cart-notification-product" class="cart-notification-product"></div>
       </div>
       <div class="cart-notification__links">
-        <button
+        <div class="cart-notification_close_btn">
+          <button
           type="button"
           class="cart-notification__close modal__close-button link link--text focus-inset"
           aria-label="{{ 'accessibility.close' | t }}"
@@ -57,6 +62,8 @@
             {{- 'icon-close.svg' | inline_asset_content -}}
           </span>
         </button>
+        </div>
+        
         <a
           href="{{ routes.cart_url }}"
           id="cart-notification-button"
