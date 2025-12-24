@@ -29,6 +29,9 @@
     display: flex;
     justify-content: flex-end;
   }
+  .pc_hidden{
+    display: none;
+  }
   @media (max-width:789px){
     #cart-notification{
       display: flex;
@@ -38,6 +41,9 @@
     .cart-notification__links,
     .cart-notification_view{
       width: 100%;
+    }
+    .pc_hidden{
+      display: block;
     }
   }
  </style>
@@ -58,7 +64,15 @@
           {{- 'icon-checkmark.svg' | inline_asset_content -}}
           {{ 'general.cart.item_added' | t }}
         </h2>
-        
+        <button
+          type="button"
+          class="cart-notification__close modal__close-button link link--text focus-inset pc_hidden"
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          <span class="svg-wrapper">
+            {{- 'icon-close.svg' | inline_asset_content -}}
+          </span>
+        </button>
       </div>
       <div id="cart-notification-product" class="cart-notification-product"></div>
       </div>
