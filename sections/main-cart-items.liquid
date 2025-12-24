@@ -96,6 +96,9 @@
   }
   .cart__footer_note {
     width: 90%;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
     margin: 0 auto;
     background-color: {{ section.settings.footer_note_bg_color }};
     padding: 10px 20px;
@@ -106,7 +109,6 @@
       color: {{ section.settings.footer_note_link_color }};
       font-size: 16px;
       font-weight: 600;
-      margin: 0 8px;
       text-decoration: auto;
   }
   @media screen and (min-width: 750px) {
