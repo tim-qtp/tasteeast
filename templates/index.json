@@ -29,7 +29,7 @@
             "subheadline": "Boutique and Eastern flavors from China",
             "headline": "TASTE THE BEST FROM EAST",
             "button_label": "Shop Now",
-            "button_link": ""
+            "button_link": "shopify://collections/all"
           }
         }
       },
