@@ -77,7 +77,7 @@
     }
   }
 
-  /* 新增：让 HOME / Shop / About / Contact 之间有间距 */
+  /* 新增：让 HOME / Category / About / Contact 之间有间距 */
   .header__inline-menu {
     margin-left: 3rem;
     display: flex;
@@ -213,7 +213,7 @@
   }
 
   /* =========================
-     Shop Mega Menu 样式
+     Category Mega Menu 样式
      ========================= */
  .header__inline-menu {
     margin-left: 3rem;
@@ -578,11 +578,11 @@
     {%- endif -%}
 
     {%- if section.settings.menu != blank -%}
-      <!-- 自定义桌面导航 + Shop Mega Menu -->
+      <!-- 自定义桌面导航 + Category Mega Menu -->
       <nav class="header__inline-menu">
         <ul class="list-menu list-menu--inline" role="list">
           {% for link in section.settings.menu.links %}
-{% if link.title == 'Shop' %}
+{% if link.title == 'Category' %}
   <li class="list-menu__item header__inline-menu-item header__inline-menu-item--mega">
     <button class="list-menu__item list-menu__item--link mega-menu__toggle" type="button">
       {{ link.title }}
