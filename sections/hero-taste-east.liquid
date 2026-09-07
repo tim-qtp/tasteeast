@@ -11,6 +11,26 @@
       "step": 1,
       "default": 5,
       "unit": "s"
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "label": "Desktop banner height",
+      "min": 520,
+      "max": 1000,
+      "step": 20,
+      "default": 720,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile banner height",
+      "min": 400,
+      "max": 760,
+      "step": 20,
+      "default": 520,
+      "unit": "px"
     }
   ],
   "blocks": [
@@ -156,8 +176,8 @@
 .hero-taste-east-carousel {
   position: relative;
   width: 100%;
-  aspect-ratio: 16/6.5;
-  min-height: 520px;
+  height: {{ section.settings.desktop_height | default: 720 }}px;
+  min-height: {{ section.settings.desktop_height | default: 720 }}px;
   overflow: hidden;
 }
 
@@ -327,8 +347,8 @@
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
   .hero-taste-east-carousel {
-    aspect-ratio: auto;
-    min-height: 400px;
+    height: {{ section.settings.mobile_height | default: 520 }}px;
+    min-height: {{ section.settings.mobile_height | default: 520 }}px;
   }
 
   .hero-slide-content {
@@ -440,3 +460,4 @@
 })();
 </script>
 {% endif %}
+
