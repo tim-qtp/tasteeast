@@ -70,45 +70,6 @@
         "custom_liquid": "{% assign news_link_1 = '/blogs/news' %}\n{% assign news_link_2 = '/blogs/news' %}\n{% assign news_link_3 = '/blogs/news' %}\n\n<style>\n  #recent-news-{{ section.id }} {\n    --rn-dark: #161616;\n    --rn-paper: #f2f0ea;\n    --rn-line: rgba(242, 240, 234, .28);\n    --rn-ink: #171717;\n    overflow: hidden;\n    background: var(--rn-dark);\n    color: var(--rn-paper);\n  }\n\n  #recent-news-{{ section.id }} * {\n    box-sizing: border-box;\n  }\n\n  #recent-news-{{ section.id }} .rn-shell {\n    width: min(100%, 1680px);\n    margin: 0 auto;\n    padding: clamp(84px, 10vw, 170px) clamp(24px, 4vw, 72px) clamp(90px, 11vw, 180px);\n  }\n\n  #recent-news-{{ section.id }} .rn-header {\n    display: grid;\n    grid-template-columns: minmax(0, 1fr) auto;\n    gap: 40px;\n    margin-bottom: clamp(58px, 8vw, 120px);\n    align-items: end;\n  }\n\n  #recent-news-{{ section.id }} .rn-title {\n    max-width: 8ch;\n    margin: 0;\n    font-family: var(--font-heading-family, Arial, sans-serif);\n    font-size: clamp(68px, 11vw, 180px);\n    font-style: var(--font-heading-style, normal);\n    font-weight: var(--font-heading-weight, 400);\n    line-height: .82;\n    letter-spacing: -.07em;\n    text-transform: uppercase;\n    color: var(--rn-paper) !important;\n    -webkit-text-fill-color: var(--rn-paper);\n  }\n\n  #recent-news-{{ section.id }} .rn-all {\n    display: inline-flex;\n    padding-bottom: 7px;\n    align-items: center;\n    gap: 14px;\n    border-bottom: 1px solid currentColor;\n    color: inherit;\n    font: 500 12px/1.2 var(--font-body-family, Arial, sans-serif);\n    letter-spacing: .11em;\n    text-decoration: none;\n    text-transform: uppercase;\n  }\n\n  #recent-news-{{ section.id }} .rn-grid {\n    display: grid;\n    grid-template-columns: repeat(3, minmax(0, 1fr));\n    border-top: 1px solid var(--rn-line);\n    border-bottom: 1px solid var(--rn-line);\n  }\n\n  #recent-news-{{ section.id }} .rn-card {\n    display: flex;\n    min-width: 0;\n    padding: 18px;\n    flex-direction: column;\n    color: inherit;\n    text-decoration: none;\n  }\n\n  #recent-news-{{ section.id }} .rn-card + .rn-card {\n    border-left: 1px solid var(--rn-line);\n  }\n\n  #recent-news-{{ section.id }} .rn-media {\n    position: relative;\n    aspect-ratio: 4 / 3;\n    overflow: hidden;\n    background: #292929;\n  }\n\n  #recent-news-{{ section.id }} .rn-image {\n    display: block;\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n    transition: transform 700ms cubic-bezier(.22, 1, .36, 1), filter 400ms ease;\n  }\n\n  #recent-news-{{ section.id }} .rn-index {\n    position: absolute;\n    z-index: 1;\n    top: 18px;\n    left: 18px;\n    display: grid;\n    width: 38px;\n    height: 38px;\n    place-items: center;\n    border-radius: 50%;\n    background: var(--rn-paper);\n    color: var(--rn-ink);\n    font: 500 11px/1 var(--font-body-family, Arial, sans-serif);\n  }\n\n  #recent-news-{{ section.id }} .rn-content {\n    display: grid;\n    grid-template-columns: 1fr auto;\n    gap: 26px;\n    min-height: 210px;\n    padding: 28px 2px 18px;\n  }\n\n  #recent-news-{{ section.id }} .rn-card-title {\n    max-width: 14ch;\n    margin: 0;\n    font-family: var(--font-heading-family, Arial, sans-serif);\n    font-size: clamp(29px, 2.7vw, 48px);\n    font-style: var(--font-heading-style, normal);\n    font-weight: var(--font-heading-weight, 400);\n    line-height: 1;\n    letter-spacing: -.04em;\n    text-wrap: balance;\n    color: var(--rn-paper) !important;\n    -webkit-text-fill-color: var(--rn-paper);\n  }\n\n  #recent-news-{{ section.id }} .rn-summary {\n    max-width: 34ch;\n    margin: 22px 0 0;\n    color: rgba(242, 240, 234, .72);\n    font: 400 14px/1.5 var(--font-body-family, Arial, sans-serif);\n    -webkit-text-fill-color: rgba(242, 240, 234, .72);\n  }\n\n  #recent-news-{{ section.id }} .rn-date {\n    writing-mode: vertical-rl;\n    color: rgba(242, 240, 234, .7);\n    font: 500 11px/1 var(--font-body-family, Arial, sans-serif);\n    letter-spacing: .1em;\n    text-transform: uppercase;\n  }\n\n  #recent-news-{{ section.id }} .rn-arrow {\n    display: inline-block;\n    margin-top: 26px;\n    font-size: 26px;\n    line-height: 1;\n    transition: transform 300ms ease;\n  }\n\n  @media (hover: hover) {\n    #recent-news-{{ section.id }} .rn-card:hover .rn-image {\n      filter: brightness(1.06);\n      transform: scale(1.045);\n    }\n\n    #recent-news-{{ section.id }} .rn-card:hover .rn-arrow,\n    #recent-news-{{ section.id }} .rn-all:hover span {\n      transform: translateX(7px);\n    }\n  }\n\n  @media screen and (max-width: 989px) {\n    #recent-news-{{ section.id }} .rn-title {\n      font-size: clamp(64px, 13vw, 116px);\n    }\n\n    #recent-news-{{ section.id }} .rn-content {\n      min-height: 190px;\n    }\n  }\n\n  @media screen and (max-width: 749px) {\n    #recent-news-{{ section.id }} .rn-shell {\n      padding: 72px 0 88px;\n    }\n\n    #recent-news-{{ section.id }} .rn-header {\n      grid-template-columns: 1fr;\n      padding: 0 20px;\n      margin-bottom: 52px;\n    }\n\n    #recent-news-{{ section.id }} .rn-title {\n      max-width: none;\n      font-size: clamp(60px, 21vw, 96px);\n    }\n\n    #recent-news-{{ section.id }} .rn-all {\n      width: fit-content;\n    }\n\n    #recent-news-{{ section.id }} .rn-grid {\n      display: flex;\n      padding: 0 20px;\n      overflow-x: auto;\n      border: 0;\n      scroll-padding-left: 20px;\n      scroll-snap-type: x mandatory;\n      scrollbar-width: none;\n    }\n\n    #recent-news-{{ section.id }} .rn-grid::-webkit-scrollbar {\n      display: none;\n    }\n\n    #recent-news-{{ section.id }} .rn-card {\n      width: min(82vw, 360px);\n      padding: 14px;\n      flex: 0 0 auto;\n      border: 1px solid var(--rn-line);\n      scroll-snap-align: start;\n    }\n\n    #recent-news-{{ section.id }} .rn-card + .rn-card {\n      margin-left: 12px;\n      border-left: 1px solid var(--rn-line);\n    }\n\n    #recent-news-{{ section.id }} .rn-content {\n      min-height: 180px;\n    }\n\n    #recent-news-{{ section.id }} .rn-card-title {\n      font-size: 34px;\n    }\n  }\n\n  @media (prefers-reduced-motion: reduce) {\n    #recent-news-{{ section.id }} .rn-image,\n    #recent-news-{{ section.id }} .rn-arrow {\n      transition: none;\n    }\n  }\n</style>\n\n<section id=\"recent-news-{{ section.id }}\" aria-labelledby=\"rn-heading-{{ section.id }}\">\n  <div class=\"rn-shell\">\n    <header class=\"rn-header\">\n      <h2 id=\"rn-heading-{{ section.id }}\" class=\"rn-title\">Recent News</h2>\n      <a class=\"rn-all\" href=\"/blogs/news\">View all news <span aria-hidden=\"true\">→</span></a>\n    </header>\n\n    <div class=\"rn-grid\">\n      <a class=\"rn-card\" href=\"{{ news_link_1 }}\">\n        <div class=\"rn-media\">\n          <img class=\"rn-image\" src=\"https://cdn.shopify.com/s/files/1/0751/1883/7988/files/newa.jpg?v=1753866234\" alt=\"After-wine support\" width=\"1000\" height=\"750\" loading=\"lazy\">\n          <span class=\"rn-index\">01</span>\n        </div>\n        <div class=\"rn-content\">\n          <div>\n            <h3 class=\"rn-card-title\">After-Wine Support</h3>\n            <p class=\"rn-summary\">Thoughtful, end-to-end solutions designed for every moment after the bottle is opened.</p>\n            <span class=\"rn-arrow\" aria-hidden=\"true\">→</span>\n          </div>\n          <time class=\"rn-date\" datetime=\"2025-07-14\">14 Jul 2025</time>\n        </div>\n      </a>\n\n      <a class=\"rn-card\" href=\"{{ news_link_2 }}\">\n        <div class=\"rn-media\">\n          <img class=\"rn-image\" src=\"https://cdn.shopify.com/s/files/1/0751/1883/7988/files/newb.jpg?v=1753866249\" alt=\"The art of meaningful gifts\" width=\"1000\" height=\"750\" loading=\"lazy\">\n          <span class=\"rn-index\">02</span>\n        </div>\n        <div class=\"rn-content\">\n          <div>\n            <h3 class=\"rn-card-title\">The Art of Meaningful Gifts</h3>\n            <p class=\"rn-summary\">Why the most memorable gifts are chosen with story, place, and ritual in mind.</p>\n            <span class=\"rn-arrow\" aria-hidden=\"true\">→</span>\n          </div>\n          <time class=\"rn-date\" datetime=\"2025-07-14\">14 Jul 2025</time>\n        </div>\n      </a>\n\n      <a class=\"rn-card\" href=\"{{ news_link_3 }}\">\n        <div class=\"rn-media\">\n          <img class=\"rn-image\" src=\"https://cdn.shopify.com/s/files/1/0751/1883/7988/files/newc.jpg?v=1753866265\" alt=\"Tea traditions and functions\" width=\"1000\" height=\"750\" loading=\"lazy\">\n          <span class=\"rn-index\">03</span>\n        </div>\n        <div class=\"rn-content\">\n          <div>\n            <h3 class=\"rn-card-title\">Tea, Tradition &amp; Function</h3>\n            <p class=\"rn-summary\">A closer look at the quiet rituals that shape the way tea is shared and enjoyed.</p>\n            <span class=\"rn-arrow\" aria-hidden=\"true\">→</span>\n          </div>\n          <time class=\"rn-date\" datetime=\"2025-07-14\">14 Jul 2025</time>\n        </div>\n      </a>\n    </div>\n  </div>\n</section>"
       }
     },
-    "section_recent_news_a4ULdT": {
-      "type": "section-recent-news",
-      "blocks": {
-        "news_card_g6dnFt": {
-          "type": "news_card",
-          "settings": {
-            "date": "14/07/2025",
-            "image": "shopify://shop_images/newa.jpg",
-            "title": "After-Wine Support",
-            "excerpt": "end-to- end solutions..."
-          }
-        },
-        "news_card_VpMwzw": {
-          "type": "news_card",
-          "settings": {
-            "date": "14/07/2025",
-            "image": "shopify://shop_images/newc.jpg",
-            "title": "Gifts more important",
-            "excerpt": "Ariana try to solve the prob..."
-          }
-        },
-        "news_card_We8EMk": {
-          "type": "news_card",
-          "settings": {
-            "date": "14/07/2025",
-            "image": "shopify://shop_images/newb.jpg",
-            "title": "Tea functions",
-            "excerpt": "WHen drink tea after two ..."
-          }
-        }
-      },
-      "block_order": [
-        "news_card_g6dnFt",
-        "news_card_VpMwzw",
-        "news_card_We8EMk"
-      ],
-      "name": "Recent News Overlay",
-      "settings": {}
-    },
     "main_list_collections_PwjnMk": {
       "type": "main-list-collections",
       "name": "Customer Reviews",
@@ -208,6 +169,13 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "custom_liquid_pWGgH8": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": ""
+      }
     }
   },
   "order": [
@@ -216,10 +184,10 @@
     "custom_liquid_nehqjL",
     "custom_liquid_Beckch",
     "custom_liquid_bTLTAN",
-    "section_recent_news_a4ULdT",
     "main_list_collections_PwjnMk",
     "email_signup_map_yEEXbg",
     "footer_dbEyRi",
-    "multicolumn"
+    "multicolumn",
+    "custom_liquid_pWGgH8"
   ]
 }
