@@ -39,7 +39,9 @@
       "type": "custom-liquid",
       "custom_css": [],
       "name": "t:sections.custom-liquid.presets.name",
-      "settings": {}
+      "settings": {
+        "custom_liquid": ""
+      }
     },
     "header": {
       "type": "header",
