@@ -583,76 +583,14 @@
         <ul class="list-menu list-menu--inline" role="list">
           {% for link in section.settings.menu.links %}
 {% if link.title == 'Shop' %}
-  <li class="list-menu__item header__inline-menu-item header__inline-menu-item--mega">
-    <button class="list-menu__item list-menu__item--link mega-menu__toggle" type="button">
+  <li class="list-menu__item header__inline-menu-item">
+    <a
+      href="{{ routes.all_products_collection_url }}"
+      class="list-menu__item list-menu__item--link link"
+      aria-label="Shop all products"
+    >
       {{ link.title }}
-      <span class="mega-menu__caret">▾</span>
-    </button>
-
-    <div class="mega-menu" data-mega-menu>
-      <div class="mega-menu__inner">
-        <div class="mega-menu__layout">
-
-          <div class="mega-menu__nav">
-            <div class="mega-menu__column">
-              <h3 class="mega-menu__heading">Kitchen</h3>
-              <ul class="mega-menu__list" role="list">
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Kitchen Tools</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Organization</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Pots &amp; Pans</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Cookbooks</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Food &amp; Drink</a></li>
-              </ul>
-            </div>
-
-            <div class="mega-menu__column">
-              <h3 class="mega-menu__heading">Bar</h3>
-              <ul class="mega-menu__list" role="list">
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Glassware</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Bar Tools</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Wine Gifts</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Storage Racks</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Serveware</a></li>
-              </ul>
-            </div>
-
-            <div class="mega-menu__column">
-              <h3 class="mega-menu__heading">Home Goods</h3>
-              <ul class="mega-menu__list" role="list">
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Bed &amp; Bath</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Home Decor</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Art &amp; Posters</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Office</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Textiles</a></li>
-              </ul>
-            </div>
-
-            <div class="mega-menu__column">
-              <h3 class="mega-menu__heading">Kids</h3>
-              <ul class="mega-menu__list" role="list">
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Books</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Apparel</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Arts &amp; Crafts</a></li>
-                <li class="mega-menu__item"><a href="#" class="mega-menu__link">Toys &amp; Games</a></li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="mega-menu__promo">
-            <a href="#" class="mega-menu__promo-card">
-              <img src="{{ 'mega-kitchen.jpg' | file_url }}" alt="" class="mega-menu__promo-image">
-              <p class="mega-menu__promo-text">Get 15% with code "COOK15"</p>
-            </a>
-
-            <a href="#" class="mega-menu__promo-card">
-              <img src="{{ 'mega-bed-bath.jpg' | file_url }}" alt="" class="mega-menu__promo-image">
-              <p class="mega-menu__promo-text">Browse our new bed &amp; bath arrivals</p>
-            </a>
-          </div>
-
-        </div>
-      </div>
-    </div>
+    </a>
   </li>
 {% else %}
   <li class="list-menu__item header__inline-menu-item">
